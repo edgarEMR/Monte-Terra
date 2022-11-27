@@ -1,0 +1,38 @@
+h2 {
+    padding-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+#tabla-desglose-presupuesto {
+    margin: 0 auto 5% auto;
+    max-width: 90%;
+}
+
+#tabla-presupuesto {
+    text-align: center;
+}
+
+#tabla-presupuesto tbody tr>td a {
+    text-decoration: none;
+    color: #2563EB; 
+    cursor: pointer;
+}
+
+thead {
+    text-align: center;
+}
+
+.presupuesto-form {
+    background-color: #EFF6FF;
+    color: #2563EB;
+    width: 50%;
+    margin: 2% auto;
+    padding: 2%;
+    border-radius: 3%;
+}
+
+#nuevoPresupuesto > div {
+    margin-top: 2%;
+}

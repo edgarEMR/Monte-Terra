@@ -1,0 +1,24 @@
+nav.navbar {
+    background-color: #EFF6FF;
+    color: #2563EB;
+    padding: 2% 1%;
+}
+
+.navbar-brand {
+    width: 10%; 
+}
+
+.navbar-brand a{
+    text-decoration: none;
+    color: #2563EB; 
+}
+
+.navbar-brand > img {
+    width: 70%;
+}
+
+.derecha {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
