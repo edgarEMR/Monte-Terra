@@ -19,7 +19,6 @@ $(document).ready(function () {
             $("#inputEtapa").empty().html(result);
         });
     });
-
 });
 
 (() => {

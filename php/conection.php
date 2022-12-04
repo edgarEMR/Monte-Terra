@@ -71,6 +71,14 @@
             return $this->connect()->query("CALL spObtenerPagoBanco($tipoPago)");
         }
 
+        function obtenerAreas() {
+            return $this->connect()->query("CALL spObtenerAreas()");
+        }
+        
+        function obtenerProveedores() {
+            return $this->connect()->query("CALL spObtenerProveedores()");
+        }
+
         function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $presupuesto, $opcion)
         {
             

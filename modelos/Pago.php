@@ -12,6 +12,7 @@ class Pago extends DB
     private $fechaPago;
     private $esIngreso;
     private $area;
+    private $proveedor;
     private $extra;
     private $activo;
     private $idTipoPago;
@@ -235,6 +236,26 @@ class Pago extends DB
     public function setIdProyecto($idProyecto)
     {
         $this->idProyecto = $idProyecto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of proveedor
+     */ 
+    public function getProveedor()
+    {
+        return $this->proveedor;
+    }
+
+    /**
+     * Set the value of proveedor
+     *
+     * @return  self
+     */ 
+    public function setProveedor($proveedor)
+    {
+        $this->proveedor = $proveedor;
 
         return $this;
     }

@@ -6,7 +6,12 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarPago').toggle();
 
     $('#atras').on("click", function () {
-      location.href = 'Proyectos.php';
+      if(getParameterByName('id') == null){
+        location.href = 'Proyectos.php';
+      } else {
+        location.href = 'Portafolio.php?id=' + getParameterByName('id');
+      }
+      
   });
 });
 

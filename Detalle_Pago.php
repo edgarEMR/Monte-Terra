@@ -31,14 +31,6 @@
         $pago = new Pago(require 'php/config.php');
         $conection = new DB(require 'php/config.php');
 
-        if (isset($_GET['id']) && !is_null($_GET['id'])) {
-            $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
-            $rows = $proc->fetch(PDO::FETCH_ASSOC);
-
-            $nombreProyecto = $rows['nombre'];
-        }
-
         if (isset($_GET['idPago'])) {
             $proc = $conection->gestionPago($_GET['idPago'], "", 0, "", 0, "", 0, 0, 0, 'S');
 
@@ -92,12 +84,64 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputArea">Área</label>
-                <input type="text" name="area" class="form-control" id="inputArea"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" maxlength="3" required value="<?php echo $pago->getArea();?>">
+            <div class="form-group">
+                <label for="inputProveedor">Proveedor</label>
+                <select class="form-select" name="proveedor" id="inputProveedor" required>
+                    <option selected disabled value="">Elige...</option>
+                    <?php
+                        $procedure = $conection->obtenerProveedores();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idProveedor'] == $pago->getProveedor()) {
+                                echo "<option value=".$rows['idProveedor']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idProveedor'].">".$rows['nombre']."</option>";
+                            }
+                            
+                        }
+                    ?>
+                    </select>
                 <div class="invalid-feedback">
-                    Ingrese un nombre válido.
+                    Elija una opción.
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputTipoPago">Tipo de Pago</label>
+                <select class="form-select" name="tipoPago" id="inputTipoPago" required>
+                    <option selected disabled value="">Elige...</option>
+                    <?php
+                        $procedure = $conection->obtenerTipoPago();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idTipoPago'] == $pago->getIdTipoPago()) {
+                                echo "<option value=".$rows['idTipoPago']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
+                            }
+                            
+                        }
+                    ?>
+                    </select>
+                <div class="invalid-feedback">
+                    Elija una opción.
+                </div>
+            </div>
+            <div class="form-group col-md-8">
+                <label for="inputArea">Área</label>
+                <select class="form-select" name="area" id="inputArea" required>
+                    <option selected disabled value="">Elige...</option>
+                    <?php
+                        $procedure = $conection->obtenerAreas();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idArea'] == $pago->getArea()) {
+                                echo "<option value=".$rows['idArea']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
+                            }
+                            
+                        }
+                    ?>
+                    </select>
+                <div class="invalid-feedback">
+                    Elija una opción.
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -132,26 +176,6 @@
                                 echo "<option value=".$rows['idEtapa']." selected>".$rows['numeroEtapa']."</option>";
                             } else {
                                 echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
-                            }
-                            
-                        }
-                    ?>
-                    </select>
-                <div class="invalid-feedback">
-                    Elija una opción.
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputTipoPago">Tipo de Pago</label>
-                <select class="form-select" name="tipoPago" id="inputTipoPago" required>
-                    <option selected disabled value="">Elige...</option>
-                    <?php
-                        $procedure = $conection->obtenerTipoPago();
-                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['idTipoPago'] == $pago->getIdTipoPago()) {
-                                echo "<option value=".$rows['idTipoPago']." selected>".$rows['nombre']."</option>";
-                            } else {
-                                echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
                             }
                             
                         }
