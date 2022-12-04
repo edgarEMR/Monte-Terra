@@ -60,13 +60,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr>
-                    <td><a href="#">BANCOS</a></td>
-                    <td>$214,505.05</td>
-                    <td>$356,540.00</td>
-                    <td>$266,824.80</td>
-                    <td>$304,349.29</td>
-                </tr>-->
                 <?php 
                     $suma = 0;
                     $procedure = $conection->obtenerResumen($date);
@@ -76,6 +69,41 @@
                         echo "<td>$" . number_format($rows['totalPasado'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['ingreso'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['egreso'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['totalHoy'], 2) . "</td>";
+                        echo "</tr>";
+
+                        $suma += $rows['totalHoy'];
+                    }
+                ?>
+                <tr class="table-success">
+                    <td class="text-end" colspan="5"><?php echo "$" . number_format($suma, 2);?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="bancos" class="table-responsive">
+        
+        <div id="titulo">
+            <h2 class="text-primary">Bancos</h2>
+        </div>
+        
+        <table id="tabla-resumen" class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>BANCOS</th>
+                    <th>ANTERIOR</th>
+                    <th>HOY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $suma = 0;
+                    $procedure = $conection->obtenerBancos($date);
+                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td><a onclick=\"sendVariables('Bancos.php', " . $rows['idTipoPago'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td>$" . number_format($rows['totalPasado'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['totalHoy'], 2) . "</td>";
                         echo "</tr>";
 

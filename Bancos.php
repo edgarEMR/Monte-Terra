@@ -23,28 +23,27 @@
         ob_start();
         include_once('php/conection.php');
 
-        $idProyecto = 0;
-        $nombreProyecto = '';
+        $idTipoPago = 0;
+        $nombre = '';
         $conection = new DB(require 'php/config.php');
 
         if (isset($_GET['id'])) {
-            $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
-            $rows = $proc->fetch(PDO::FETCH_ASSOC);
+            $idTipoPago = $_GET['id'];
+            $proc = $conection->obtenerTipoPago();
+            while($rows = $proc->fetch(PDO::FETCH_ASSOC)) {
+                if ($rows['idTipoPago'] == $idTipoPago) {
+                    $nombre = $rows['nombre'];
+                }
+            }
+            ;
 
-            $nombreProyecto = $rows['nombre'];
         }
 
-        $procedure = $conection->obtenerPortafolio(0, $idProyecto);
+        $procedure = $conection->obtenerPagoBanco($idTipoPago);
         
     ?>
 
-    <div id="titulo">
-        <h2 class="text-primary">PORTAFOLIO <?php echo strtoupper($nombreProyecto);?>
-        <button type="button" onclick="sendVariables('Nuevo_Proyecto.php', <?php echo $idProyecto?>, 'id')" class="btn btn-outline-primary"><i class="bi bi-pencil-fill"></i></button>
-        </h2>
-        
-    </div>
+    <h2 class="text-primary"><?php echo strtoupper($nombre);?></h2>
     
     <div id="tabla-desglose-portafolio" class="table-responsive">    
 
@@ -55,7 +54,6 @@
                     <th>INGRESO</th>
                     <th>EGRESO</th>
                     <th>CONCEPTO</th>
-                    <th>TIPO DE PAGO</th>
                     <th>ÁREA</th>
                     <th>ETAPA</th>
                     <th>TOTAL</th>
@@ -77,7 +75,6 @@
                             $total += $rows['importe'];
                         }
                         echo "<td><a onclick=\"sendVariables('Detalle_Pago.php', " . $rows['idPago'] . ", 'idPago');\">" . $rows['concepto'] . "</a></td>";
-                        echo "<td>" . $rows['nombrePago'] . "</td>";
                         echo "<td>" . $rows['area'] . "</td>";
                         echo "<td>" . $rows['numeroEtapa'] . "</td>";
                         echo "<td>$" . number_format($total, 2) . "</td>";
@@ -88,6 +85,6 @@
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/Portafolio.js"></script>
+    <script src="js/Bancos.js"></script>
 </body>
 </html>

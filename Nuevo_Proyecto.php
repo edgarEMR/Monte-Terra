@@ -18,6 +18,32 @@
     <div id="navigation" class="top">
 
     </div>
+    <?php
+    ob_start();
+    include_once('modelos/Proyecto.php');
+    include_once('php/conection.php');
+
+        $idProyecto = 0;
+        $nombreProyecto = '';
+        $accion = 'registrar';
+        $proyecto = new Proyecto(require 'php/config.php');
+        $conection = new DB(require 'php/config.php');
+
+        if (isset($_GET['id']) && !is_null($_GET['id'])) {
+            $idProyecto = $_GET['id'];
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $row = $proc->fetch(PDO::FETCH_ASSOC);
+
+            $proyecto->setIdProyecto($idProyecto);
+            $proyecto->setNombre($row['nombre']);
+            $proyecto->setTotalCasas($row['totalCasas']);
+            $proyecto->setTotalEtapas($row['totalEtapas']);
+            $proyecto->setPresupuesto($row['presupuestoProyecto']);
+
+            $accion = 'editar';
+        }
+
+    ?>
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -38,7 +64,7 @@
             <div class="form-group">
                 <label for="nombreProyecto">Nombre de Proyecto</label>
                 <input type="text" name="nombreProyecto" class="form-control" id="inputNombreProyecto"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required>
+                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
                     Ingrese un nombre válido.
@@ -48,7 +74,7 @@
                 <label for="inputPresupuesto">Presupuesto</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" name="presupuesto" class="form-control" id="inputPresupuesto" min="0" required>
+                    <input type="number" name="presupuesto" class="form-control" id="inputPresupuesto" min="0" value="<?php echo $proyecto->getPresupuesto();?>" required>
                     <div class="invalid-feedback">
                         Ingrese un número válido.
                     </div>
@@ -56,23 +82,37 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="inputTotalCasas">Total de Casas</label>
-                <input type="number" name="totalCasas" class="form-control" id="inputTotalCasas" min="1" value="1" required>
+                <input type="number" name="totalCasas" class="form-control" id="inputTotalCasas" min="1" value="1" value="<?php echo $proyecto->getTotalCasas();?>" required>
                 <div class="invalid-feedback">
                     Ingrese un número válido.
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="inputTotalEtapas">Total de Etapas</label>
-                <input type="number" name="totalEtapas" class="form-control" id="inputTotalEtapas" min="1" required>
+                <input type="number" name="totalEtapas" class="form-control" id="inputTotalEtapas" min="1" value="<?php echo $proyecto->getTotalEtapas();?>" required>
                 <div class="invalid-feedback">
                     Ingrese un número válido.
                 </div>
             </div>
             <div id="casasEtapa" class="row">
+                <?php
+                    $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
+                    $i = 0;
+                    while ($row = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<div class="form-group col-md-4">';
+                        echo '<label for="inputCasasEtapa' . $row['numeroEtapa'] . '">Casas en Etapa ' . $row['numeroEtapa'] .'</label>';
+                        echo '<input type="number" name="casasEtapa' . $row['numeroEtapa'] . '" class="form-control casasEnEtapa" id="inputCasasEtapa' . $row['numeroEtapa'] . '" min="1" value="'. $row['cantidadCasas'] .'" required>';
+                        echo '<div class="invalid-feedback">';
+                        echo 'Ingrese un número válido.';
+                        echo '</div>';
+                        echo '</div>';
 
+                        $i += 1;
+                    }
+                ?>
             </div>
             <div class="form-group d-grid">
-                <input type="hidden" name="accion" value="registrar">
+                <input type="hidden" name="accion" value="<?php echo $accion;?>">
                 <button class="btn btn-block btn-primary btn-lg" type="submit">Agregar</button>
             </div>
         </form>

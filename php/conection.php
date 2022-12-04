@@ -63,6 +63,14 @@
             return $this->connect()->query("CALL spObtenerProyectos()");
         }
 
+        function obtenerBancos($date) {
+            return $this->connect()->query("CALL spObtenerBancos('$date')");
+        }
+
+        function obtenerPagoBanco($tipoPago) {
+            return $this->connect()->query("CALL spObtenerPagoBanco($tipoPago)");
+        }
+
         function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $presupuesto, $opcion)
         {
             
