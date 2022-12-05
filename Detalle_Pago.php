@@ -32,18 +32,18 @@
         $conection = new DB(require 'php/config.php');
 
         if (isset($_GET['idPago'])) {
-            $proc = $conection->gestionPago($_GET['idPago'], "", 0, "", 0, "", 0, 0, 0, 'S');
+            $proc = $conection->gestionPago($_GET['idPago'], "", 0, "", 0, 0, 0, 0, 0, 0, 'S');
 
             while ($row = $proc->fetch(PDO::FETCH_ASSOC)) {
                 $pago->setConcepto($row['concepto']);
                 $pago->setImporte($row['importe']);
                 $pago->setFechaPago($row['fechaPago']);
                 $pago->setEsIngreso($row['esIngreso']);
-                $pago->setArea($row['area']);
-                $pago->setExtra($row['extra']);
                 $pago->setIdTipoPago($row['idTipoPago']);
                 $pago->setIdEtapa($row['idEtapa']);
                 $pago->setIdProyecto($row['idProyecto']);
+                $pago->setIdArea($row['idArea']);
+                $pago->setIdProveedor($row['idProveedor']);
                 $idPago = $_GET['idPago'];
                 $idProyecto = $row['idProyecto'];   
             }
@@ -91,7 +91,7 @@
                     <?php
                         $procedure = $conection->obtenerProveedores();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['idProveedor'] == $pago->getProveedor()) {
+                            if ($rows['idProveedor'] == $pago->getIdProveedor()) {
                                 echo "<option value=".$rows['idProveedor']." selected>".$rows['nombre']."</option>";
                             } else {
                                 echo "<option value=".$rows['idProveedor'].">".$rows['nombre']."</option>";
@@ -131,7 +131,7 @@
                     <?php
                         $procedure = $conection->obtenerAreas();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['idArea'] == $pago->getArea()) {
+                            if ($rows['idArea'] == $pago->getIdArea()) {
                                 echo "<option value=".$rows['idArea']." selected>".$rows['nombre']."</option>";
                             } else {
                                 echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";

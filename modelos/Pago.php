@@ -11,9 +11,8 @@ class Pago extends DB
     private $importe;
     private $fechaPago;
     private $esIngreso;
-    private $area;
-    private $proveedor;
-    private $extra;
+    private $idArea;
+    private $idProveedor;
     private $activo;
     private $idTipoPago;
     private $idEtapa;
@@ -121,46 +120,6 @@ class Pago extends DB
     }
 
     /**
-     * Get the value of area
-     */ 
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
-     * Set the value of area
-     *
-     * @return  self
-     */ 
-    public function setArea($area)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of extra
-     */ 
-    public function getExtra()
-    {
-        return $this->extra;
-    }
-
-    /**
-     * Set the value of extra
-     *
-     * @return  self
-     */ 
-    public function setExtra($extra)
-    {
-        $this->extra = $extra;
-
-        return $this;
-    }
-
-    /**
      * Get the value of activo
      */ 
     public function getActivo()
@@ -240,22 +199,43 @@ class Pago extends DB
         return $this;
     }
 
+
     /**
-     * Get the value of proveedor
+     * Get the value of idArea
      */ 
-    public function getProveedor()
+    public function getIdArea()
     {
-        return $this->proveedor;
+        return $this->idArea;
     }
 
     /**
-     * Set the value of proveedor
+     * Set the value of idArea
      *
      * @return  self
      */ 
-    public function setProveedor($proveedor)
+    public function setIdArea($idArea)
     {
-        $this->proveedor = $proveedor;
+        $this->idArea = $idArea;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idProveedor
+     */ 
+    public function getIdProveedor()
+    {
+        return $this->idProveedor;
+    }
+
+    /**
+     * Set the value of idProveedor
+     *
+     * @return  self
+     */ 
+    public function setIdProveedor($idProveedor)
+    {
+        $this->idProveedor = $idProveedor;
 
         return $this;
     }

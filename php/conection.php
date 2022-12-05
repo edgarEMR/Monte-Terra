@@ -93,11 +93,12 @@
                                                                 $idProyecto, '$opcion')");
         }
 
-        function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, $area, $idTipoPago, $idEtapa, $idProyecto, $opcion)
+        function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, 
+                            $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso, '$area',
-                                                                $idTipoPago, $idEtapa, $idProyecto, '$opcion')");
+            return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso,
+                                                                $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, '$opcion')");
         }
 
         function gestionPresupuesto($idPresupuesto, $concepto, $importe, $fecha, $idEtapa, $idProyecto, $opcion)

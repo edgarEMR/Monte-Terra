@@ -55,6 +55,7 @@
                     <th>INGRESO</th>
                     <th>EGRESO</th>
                     <th>CONCEPTO</th>
+                    <th>PROVEEDOR</th>
                     <th>TIPO DE PAGO</th>
                     <th>ÁREA</th>
                     <th>ETAPA</th>
@@ -77,8 +78,9 @@
                             $total += $rows['importe'];
                         }
                         echo "<td><a onclick=\"sendVariables('Detalle_Pago.php', " . $rows['idPago'] . ", 'idPago');\">" . $rows['concepto'] . "</a></td>";
+                        echo "<td>" . $rows['nombre'] . "</td>";
                         echo "<td>" . $rows['nombrePago'] . "</td>";
-                        echo "<td>" . $rows['area'] . "</td>";
+                        echo "<td>" . $rows['clave'] . "</td>";
                         echo "<td>" . $rows['numeroEtapa'] . "</td>";
                         echo "<td>$" . number_format($total, 2) . "</td>";
                         echo "</tr>";

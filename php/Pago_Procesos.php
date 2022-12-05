@@ -25,12 +25,12 @@ if (isset($_POST['accion'])) {
         $pago->setConcepto($_POST["concepto"]);
         $pago->setImporte($_POST["importe"]);
         $pago->setFechaPago("");
-        $pago->setArea($_POST["area"]);
-        $pago->setExtra(0);
         $pago->setEsIngreso($_POST["esIngreso"]);
         $pago->setIdTipoPago($_POST["tipoPago"]);
         $pago->setIdEtapa($_POST["etapa"]);
         $pago->setIdProyecto($_POST["proyecto"]);
+        $pago->setIdArea($_POST["area"]);
+        $pago->setIdProveedor($_POST["proveedor"]);
         
         try {
             echo 'Try';
@@ -40,10 +40,11 @@ if (isset($_POST['accion'])) {
                 $pago->getImporte(),
                 "",
                 $pago->getEsIngreso(),
-                $pago->getArea(),
                 $pago->getIdTipoPago(),
                 $pago->getIdEtapa(),
                 $pago->getIdProyecto(),
+                $pago->getIdArea(),
+                $pago->getIdProveedor(),
                 'I'
             );
             
@@ -76,12 +77,12 @@ if (isset($_POST['accion'])) {
         $pago->setConcepto($_POST["concepto"]);
         $pago->setImporte($_POST["importe"]);
         $pago->setFechaPago("NULL");
-        $pago->setArea($_POST["area"]);
-        $pago->setExtra(0);
         $pago->setEsIngreso($_POST["esIngreso"]);
         $pago->setIdTipoPago($_POST["tipoPago"]);
         $pago->setIdEtapa($_POST["etapa"]);
         $pago->setIdProyecto($_POST["proyectoID"]);
+        $pago->setIdArea($_POST["area"]);
+        $pago->setIdProveedor($_POST["proveedor"]);
         
         try {
 
@@ -92,10 +93,11 @@ if (isset($_POST['accion'])) {
                 $pago->getImporte(),
                 "",
                 $pago->getEsIngreso(),
-                $pago->getArea(),
                 $pago->getIdTipoPago(),
                 $pago->getIdEtapa(),
                 $pago->getIdProyecto(),
+                $pago->getIdArea(),
+                $pago->getIdProveedor(),
                 'U'
             );
             
@@ -108,7 +110,7 @@ if (isset($_POST['accion'])) {
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            //header("Location: ../Detalle_Pago.php?error=1");
+            header("Location: ../Detalle_Pago.php?error=1");
         } catch (Exception $error) {
             echo $error;
         }
