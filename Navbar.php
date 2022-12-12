@@ -32,6 +32,9 @@
                 <button id="crearProyecto" type="button" class="btn btn-outline-primary ms-1" onclick="location.href='Nuevo_Proyecto.php'">Nuevo Proyecto</button>
                 <button id="agregarPago" type="button" class="btn btn-outline-primary ms-1" onclick="sendVariables('Detalle_Pago.php', $('#inputProyectoID').val(), 'id')">Agregar Pago</button>
                 <button id="crearPresupuesto" type="button" class="btn btn-outline-primary ms-1" onclick="sendVariables('Presupuestos.php', $('#inputProyectoID').val(), 'id')">Crear Presupuesto</button>
+                <button id="crearCliente" type="button" class="btn btn-outline-primary ms-1" onclick="location.href='Nuevo_Cliente.php'">Agregar Cliente</button>
+                <button id="agregarAbono" type="button" class="btn btn-outline-primary ms-1" onclick="location.href='Detalle_Abono.php'">Agregar Abono</button>
+                
                 <button id="atras" type="button" class="btn btn-outline-primary ms-1" onclick="location.href='Proyectos.php'"><i class="bi bi-arrow-return-left"></i> Atrás</button>
             </div>
 

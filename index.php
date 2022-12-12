@@ -26,9 +26,11 @@
               <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
             </div>
             <div class="d-grid">
-                <button type="button" onclick="location.href='Proyectos.php'" class="btn btn-primary btn-block btn-lg">Entrar</button>
+                <button id="entrar" type="button" class="btn btn-primary btn-block btn-lg">Entrar</button>
             </div>
           </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

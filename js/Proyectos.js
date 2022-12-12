@@ -6,6 +6,10 @@ $('#navigation').load("Navbar.php", function() {
         location.href = 'Detalle_Pago.php';
     });
     $('#atras').toggle();
+    $('#crearCliente').toggle();
+
+    $('#agregarAbono').toggle();
+
 });
 
 function sendVariables(pagina, id, name){
