@@ -1,12 +1,13 @@
 $('#navigation').load("Navbar.php", function() {
-    $('#titulo').text('Portafolio');
+    $('#titulo').text('Agregar Cotización');
 
     $('#crearProyecto').toggle();
+    $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
     $('#agregarPago').toggle();
-    $('#crearCotizacion').toggle()
     $('#crearCliente').toggle();
     $('#agregarAbono').toggle();
-    
+    $('#dividerTop').toggle();
     $('#agregarAportador').toggle();
     $('#agregarCredito').toggle();
     $('#agregarProveedor').toggle();
@@ -14,11 +15,42 @@ $('#navigation').load("Navbar.php", function() {
     $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
-        location.href = 'Proyectos.php';
+        history.back();
     });
-
-    $('#inputProyectoID').val(getParameterByName('id'));
 });
+
+$(document).ready(function () {
+    $("#inputProyecto").change(function () {
+        var idProyecto = $('#inputProyecto').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapa").empty().html(result);
+        });
+    });
+});
+
+(() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+        }, false)
+    })
+})()
 
 function sendVariables(pagina, id, name){
     var body = document.getElementsByTagName('body')[0];

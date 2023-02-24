@@ -4,34 +4,16 @@ chdir(('..'));
 
 include_once('php/conection.php');
 
-class Presupuesto extends DB
+class Cotizacion extends DB
 {
-    private $idPresupuesto;
+    private $idCotizacion;
     private $concepto;
     private $importe;
     private $fecha;
     private $idArea;
+    private $idEtapa;
     private $idProyecto;
 
-    /**
-     * Get the value of idPresupuesto
-     */ 
-    public function getIdPresupuesto()
-    {
-        return $this->idPresupuesto;
-    }
-
-    /**
-     * Set the value of idPresupuesto
-     *
-     * @return  self
-     */ 
-    public function setIdPresupuesto($idPresupuesto)
-    {
-        $this->idPresupuesto = $idPresupuesto;
-
-        return $this;
-    }
 
     /**
      * Get the value of concepto
@@ -129,6 +111,46 @@ class Presupuesto extends DB
     public function setIdArea($idArea)
     {
         $this->idArea = $idArea;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idCotizacion
+     */ 
+    public function getIdCotizacion()
+    {
+        return $this->idCotizacion;
+    }
+
+    /**
+     * Set the value of idCotizacion
+     *
+     * @return  self
+     */ 
+    public function setIdCotizacion($idCotizacion)
+    {
+        $this->idCotizacion = $idCotizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idEtapa
+     */ 
+    public function getIdEtapa()
+    {
+        return $this->idEtapa;
+    }
+
+    /**
+     * Set the value of idEtapa
+     *
+     * @return  self
+     */ 
+    public function setIdEtapa($idEtapa)
+    {
+        $this->idEtapa = $idEtapa;
 
         return $this;
     }

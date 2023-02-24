@@ -11,7 +11,7 @@ if (isset($_POST['accion'])) {
     ECHO $_POST["importe"] . '<br>';
     date_default_timezone_set('America/Monterrey');
     ECHO date('Y-m-d') . '<br>';
-    ECHO $_POST["etapa"] . '<br>';
+    ECHO $_POST["area"] . '<br>';
     ECHO $_POST["proyectoID"] . '<br>';
     ECHO $_POST["accion"] . '<br>';
 
@@ -24,7 +24,7 @@ if (isset($_POST['accion'])) {
         $presupuesto->setConcepto($_POST["concepto"]);
         $presupuesto->setImporte($_POST["importe"]);
         $presupuesto->setFecha(date('Y-m-d'));
-        $presupuesto->setIdEtapa($_POST["etapa"]);
+        $presupuesto->setIdArea($_POST["area"]);
         $presupuesto->setIdProyecto($_POST["proyectoID"]);
         
         try {
@@ -34,7 +34,7 @@ if (isset($_POST['accion'])) {
                 $presupuesto->getConcepto(),
                 $presupuesto->getImporte(),
                 $presupuesto->getFecha(),
-                $presupuesto->getIdEtapa(),
+                $presupuesto->getIdArea(),
                 $presupuesto->getIdProyecto(),
                 'I'
             );
@@ -67,7 +67,7 @@ if (isset($_POST['accion'])) {
         $presupuesto->setConcepto($_POST["concepto"]);
         $presupuesto->setImporte($_POST["importe"]);
         $presupuesto->setFecha(date('Y-m-d'));
-        $presupuesto->setIdEtapa($_POST["etapa"]);
+        $presupuesto->setIdArea($_POST["area"]);
         $presupuesto->setIdProyecto($_POST["proyectoID"]);
         
         try {
@@ -78,7 +78,7 @@ if (isset($_POST['accion'])) {
                 $presupuesto->getConcepto(),
                 $presupuesto->getImporte(),
                 $presupuesto->getFecha(),
-                $presupuesto->getIdEtapa(),
+                $presupuesto->getIdArea(),
                 $presupuesto->getIdProyecto(),
                 'U'
             );

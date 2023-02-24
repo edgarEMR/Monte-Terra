@@ -93,19 +93,68 @@
                                                                 $idProyecto, '$opcion')");
         }
 
-        function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, 
-                            $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, $opcion)
+        function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, $idTipoPago, $idEtapa, $idProyecto,
+                             $idArea, $idProveedor, $idCliente, $idAportador, $idBanco, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso,
-                                                                $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, '$opcion')");
+                                                                $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, 
+                                                                $idCliente, $idAportador, $idBanco, '$opcion')");
         }
 
-        function gestionPresupuesto($idPresupuesto, $concepto, $importe, $fecha, $idEtapa, $idProyecto, $opcion)
+        function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $fechaNacimiento,
+                             $numeroSS, $puntaje, $contraseña, $tipoVivienda, $ingresos, $credito, $medio, $esProspecto, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionCliente($idCliente, '$nombre', '$segundoNombre', '$apellidoPaterno', '$apellidoMaterno', 
+                            '$email', '$telefono', '$fechaNacimiento', '$numeroSS', $puntaje, '$contraseña', '$tipoVivienda', 
+                            $ingresos, $credito, '$medio', $esProspecto, '$opcion')");
+        }
+
+        function obtenerProspectos() {
+            return $this->connect()->query("CALL spObtenerProspectos()");
+        }
+
+        function resumenVentas() {
+            return $this->connect()->query("CALL spResumenVentas()");
+        }
+
+        function gestionPresupuesto($idPresupuesto, $concepto, $importe, $fecha, $idArea, $idProyecto, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionPresupuesto($idPresupuesto, '$concepto', $importe, '$fecha', 
-                                                                $idEtapa, $idProyecto, '$opcion')");
+                                                                $idArea, $idProyecto, '$opcion')");
+        }
+
+        function gestionCotizacion($idCotizacion, $concepto, $importe, $fecha, $idArea, $idProyecto, $idEtapa, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionCotizacion($idCotizacion, '$concepto', $importe, '$fecha', 
+                                                                $idArea, $idProyecto, $idEtapa, '$opcion')");
+        }
+
+        function gestionAportador($idAportador, $RFC, $nombre, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionAportador($idAportador, '$RFC', '$nombre', '$opcion')");
+        }
+
+        function gestionBanco($idTipoPago, $nombre, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionBanco($idTipoPago, '$nombre', '$opcion')");
+        }
+
+        function porPagarAportador() {
+            return $this->connect()->query("CALL spPorPagarAportador()");
+        }
+
+        function porPagarBanco() {
+            return $this->connect()->query("CALL spPorPagarBanco()");
+        }
+
+        function presupuestoArea($idProyecto) {
+            return $this->connect()->query("CALL spPresupuesto_Area($idProyecto)");
         }
 
         /**

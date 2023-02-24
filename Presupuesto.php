@@ -62,9 +62,9 @@
 
     <h2 class="text-primary">Presupuesto</h2>
     
-    <div id="tabla-desglose-semana" class="table-responsive">    
+    <div id="tabla-desglose-presupuesto" class="table-responsive">    
 
-        <table id="tabla-semana" class="table table-hover table-bordered">
+        <table id="tabla-presupuesto" class="table table-hover table-bordered">
             <thead>
                 <tr class="table-primary">
                     <th>CONCEPTO</th>

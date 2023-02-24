@@ -5,11 +5,15 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarPago').on("click", function () {
         location.href = 'Detalle_Pago.php';
     });
-    $('#atras').toggle();
     $('#crearCliente').toggle();
-
     $('#agregarAbono').toggle();
-
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
+    $('#dividerBottom').toggle();
+    $('#atras').toggle();
 });
 
 function sendVariables(pagina, id, name){

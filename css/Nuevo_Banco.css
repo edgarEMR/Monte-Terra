@@ -1,0 +1,29 @@
+.register-form {
+    background-color: #EFF6FF;
+    color: #2563EB;
+    width: 50%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    border-radius: 3%;
+}
+
+#tabla-desglose-aportador {
+    margin: 5% auto;
+    max-width: 50%;
+}
+
+#tabla-aportador {
+    text-align: center;
+}
+
+#tabla-aportador tbody tr>td a {
+    text-decoration: none;
+    color: #2563EB; 
+    cursor: pointer;
+}
+
+thead {
+    text-align: center;
+}

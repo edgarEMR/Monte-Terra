@@ -16,6 +16,6 @@ h2 {
     border-radius: 3%;
 }
 
-#nuevoPago > div {
+#nuevoPagoIng > div, #nuevoPagoEgr > div, #nuevoPagoGen > div {
     margin-top: 2%;
 }

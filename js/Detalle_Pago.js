@@ -1,9 +1,13 @@
 $('#navigation').load("Navbar.php", function() {
-    $('#titulo').text('Pagos');
+    $('#titulo').text('Movimientos');
 
     $('#crearProyecto').toggle();
-    $('#crearPresupuesto').toggle();
     $('#agregarPago').toggle();
+    $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
+    $('#crearCliente').toggle();
+    $('#agregarAbono').toggle();
+    $('#dividerTop').toggle();
 
 });
 
@@ -19,6 +23,52 @@ $(document).ready(function () {
             $("#inputEtapa").empty().html(result);
         });
     });
+
+    $("#divAportador").hide();
+    $("#divCliente").hide();
+
+    $("#divProveedor").hide();
+    $("#divAportadorEg").hide();
+    $("#divClienteEg").hide();
+    
+    switch ($("#idTipoArea").text()) {
+        case '0':
+            $("#ingreso-tab").addClass('active');
+            $("#ingreso-tab-pane").addClass('show active');
+            break;
+
+        case '1':
+            if ($("#idEsIngreso").text() === '1') {
+                $("#ingreso-tab").addClass('active');
+                $("#ingreso-tab-pane").addClass('show active');
+
+                $("#egreso-tab").prop('disabled', true);
+                $("#general-tab").prop('disabled', true);
+                
+                checkIngreso();
+            } else {
+                $("#egreso-tab").addClass('active');
+                $("#egreso-tab-pane").addClass('show active');
+
+                $("#ingreso-tab").prop('disabled', true);
+                $("#general-tab").prop('disabled', true);
+                
+                checkEgreso();
+            }
+            break;
+            
+        case '2':
+            $("#general-tab").addClass('active');
+            $("#general-tab-pane").addClass('show active');
+
+            $("#ingreso-tab").prop('disabled', true);
+            $("#egreso-tab").prop('disabled', true);
+            break;
+            
+        default:
+            break;
+    }
+
 });
 
 (() => {
@@ -47,6 +97,56 @@ function getParameterByName(name, url = window.location.search) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function checkIngreso() {
+    if(document.getElementById('esBanco').checked) {
+        console.log('Banco checked');
+        $("#divAportador").hide();
+        $("#divCliente").hide();
+    }
+
+    if(document.getElementById('esAportacion').checked) {
+        console.log('Aportacion checked');
+        $("#divAportador").show();
+        $("#divCliente").hide();
+    }
+
+    if(document.getElementById('esVenta').checked) {
+        console.log('Venta checked');
+        $("#divAportador").hide();
+        $("#divCliente").show();
+    }
+}
+
+function checkEgreso() {
+    if(document.getElementById('esBancoEg').checked) {
+        console.log('Banco checked');
+        $("#divProveedor").hide();
+        $("#divAportadorEg").hide();
+        $("#divClienteEg").hide();
+    }
+
+    if(document.getElementById('esAportacionEg').checked) {
+        console.log('Aportacion checked');
+        $("#divProveedor").hide();
+        $("#divAportadorEg").show();
+        $("#divClienteEg").hide();
+    }
+
+    if(document.getElementById('esPagoEg').checked) {
+        console.log('Pago checked');
+        $("#divProveedor").show();
+        $("#divAportadorEg").hide();
+        $("#divClienteEg").hide();
+    }
+
+    if(document.getElementById('esDevolucionEg').checked) {
+        console.log('Devolucion checked');
+        $("#divProveedor").hide();
+        $("#divAportadorEg").hide();
+        $("#divClienteEg").show();
+    }
 }
 
 // var today = new Date();

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presupuesto</title>
-    <link rel="stylesheet" href="css/Presupuesto.css">
+    <title>Cotización</title>
+    <link rel="stylesheet" href="css/Nueva_Cotizacion.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -27,40 +27,11 @@
         $accion = 'registrar';
         $presupuesto = new Presupuesto(require 'php/config.php');
         $conection = new DB(require 'php/config.php');
-
-        if (isset($_GET['id'])) {
-            $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
-            $rows = $proc->fetch(PDO::FETCH_ASSOC);
-
-            $nombreProyecto = $rows['nombre'];
-            $presupuestoProyecto = $rows['presupuestoProyecto'];
-        }
-
-        if (isset($_GET['idPresupuesto'])) {
-            $idPresupuesto = $_GET['idPresupuesto'];
-            $proc = $conection->gestionPresupuesto($idPresupuesto, '', 0, '', 0, 0, 'O');
-
-            while($row = $proc->fetch(PDO::FETCH_ASSOC)) {
-                $presupuesto->setIdPresupuesto($idPresupuesto);
-                $presupuesto->setConcepto($row['concepto']);
-                $presupuesto->setImporte($row['importe']);
-                $presupuesto->setFecha($row['fecha']);
-                $presupuesto->setIdArea($row['idArea']);
-                $presupuesto->setIdProyecto($row['idProyecto']);
-
-                $idProyecto = $row['idProyecto'];
-            }
-
-            $accion = 'editar';
-        }
         
     ?>
     
-    <h2 class="text-primary">Presupuesto <?php echo strtoupper($nombreProyecto);?> - $<?php echo number_format($presupuestoProyecto, 2);?></h2>
-    
     <div class="presupuesto-form">
-        <form id="nuevoPresupuesto" action="php/Presupuesto_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+        <form id="nuevoPresupuesto" action="php/Cotizacion_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
             <div class="form-group col-md-4">
                 <label for="inputConcepto">Concepto</label>
                 <input type="text" name="concepto" class="form-control" id="inputConcepto"
@@ -87,9 +58,50 @@
                     <?php
                         $procedure = $conection->obtenerAreas();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['tipoArea'] == 1) {
+                            if ($rows['tipoArea'] == 1 && ($rows['idArea'] == 5 || $rows['idArea'] == 11)) {
                                 echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
                                 
+                            }
+                            
+                        }
+                    ?>
+                    </select>
+                <div class="invalid-feedback">
+                    Elija una opción.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputEtapa">Proyecto</label>
+                <select class="form-select" name="proyecto" id="inputProyecto" required>
+                    <option selected disabled value="">Elige...</option>
+                    <?php
+                        $procedure = $conection->obtenerProyectos();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idProyecto'] == $idProyecto) {
+                                echo "<option value=".$rows['idProyecto']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idProyecto'].">".$rows['nombre']."</option>";
+                            }
+                            
+                        }
+                    ?>
+                    </select>
+                <div class="invalid-feedback">
+                    Elija una opción.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputEtapa">Etapa</label>
+                <select class="form-select" name="etapa" id="inputEtapa" required>
+                    <option selected disabled value="">Elige...</option>
+                    <option value="0">Todas</option>
+                    <?php
+                        $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idEtapa'] == $pago->getIdEtapa()) {
+                                echo "<option value=".$rows['idEtapa']." selected>".$rows['numeroEtapa']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
                             }
                             
                         }
@@ -107,44 +119,7 @@
             </div>
         </form>
     </div>
-
-    <div id="tabla-desglose-presupuesto" class="table-responsive">    
-        
-        <table id="tabla-presupuesto" class="table table-hover table-bordered">
-            <thead>
-                <tr class="table-primary">
-                    <th>AREA</th>
-                    <th>IMPORTE</th>
-                    <th>PORCENTAJE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    $sumaImporte = 0;
-                    $sumaPorcentaje = 0;
-
-                    $procedure = $conection->presupuestoArea($idProyecto);
-                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
-                        echo "<td>" . $rows['nombre'] . "</td>";
-                        echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
-                        echo "<td>" . number_format($rows['porcentaje']) . "%</td>";
-                        echo "</tr>";
-
-                        $sumaImporte += $rows['importe'];
-                        $sumaPorcentaje += $rows['porcentaje'];
-                    }
-
-                ?>
-                <tr class="table-success">
-                    <td>TOTAL</td>
-                    <td><?php echo "$" . number_format($sumaImporte, 2);?></td>
-                    <td><?php echo number_format($sumaPorcentaje) . "%";?></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/Presupuesto.js"></script>
+    <script src="js/Nueva_Cotizacion.js"></script>
 </body>
 </html>

@@ -9,10 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="navigation" class="top">
@@ -39,7 +35,7 @@
     
 
     <div id="resumen" class="table-responsive">
-        
+        <!--diferencia hoy vs pasadp-->
         <div id="titulo">
             <h2 class="text-primary">Resumen</h2>
             <div id="selector-semana" class="input-group mb-3">
@@ -56,12 +52,16 @@
                     <th>PORTAFOLIO PASADO <br> <?php echo date_format(date_create($rows['pasado']), 'd-m-Y');?></th>
                     <th>INGRESOS</th>
                     <th>EGRESOS</th>
-                    <th>PORTAFOLIO HOY <br> <?php echo date_format(date_create($rows['hoy']), 'd-m-Y');?></th>
+                    <th>PORTAFOLIO ACTUAL <br> <?php echo date_format(date_create($rows['hoy']), 'd-m-Y');?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    $suma = 0;
+                    $sumaPasado = 0;
+                    $sumaIng = 0;
+                    $sumaEgr = 0;
+                    $sumaHoy = 0;
+
                     $procedure = $conection->obtenerResumen($date);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
@@ -72,11 +72,18 @@
                         echo "<td>$" . number_format($rows['totalHoy'], 2) . "</td>";
                         echo "</tr>";
 
-                        $suma += $rows['totalHoy'];
+                        $sumaPasado += $rows['totalPasado'];
+                        $sumaIng += $rows['ingreso'];
+                        $sumaEgr += $rows['egreso'];
+                        $sumaHoy += $rows['totalHoy'];
                     }
                 ?>
                 <tr class="table-success">
-                    <td class="text-end" colspan="5"><?php echo "$" . number_format($suma, 2);?></td>
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaPasado, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaIng, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaEgr, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaHoy, 2);?></td>
                 </tr>
             </tbody>
         </table>
@@ -93,12 +100,14 @@
                 <tr class="table-primary">
                     <th>BANCOS</th>
                     <th>ANTERIOR</th>
-                    <th>HOY</th>
+                    <th>ACTUAL</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    $suma = 0;
+                    $sumaPasadoB = 0;
+                    $sumaHoyB = 0;
+
                     $procedure = $conection->obtenerBancos($date);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
@@ -107,11 +116,110 @@
                         echo "<td>$" . number_format($rows['totalHoy'], 2) . "</td>";
                         echo "</tr>";
 
-                        $suma += $rows['totalHoy'];
+                        $sumaPasadoB += $rows['totalPasado'];
+                    }
+
+                    $sumaHoyB = $sumaPasadoB + $sumaIng - $sumaEgr;
+
+                ?>
+                <tr class="table-success">
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaPasadoB, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaHoyB, 2);?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--UNIR LAS SIGUIENTES DOS-->
+    <div id="resumen" class="table-responsive">
+        
+        <div id="titulo">
+            <h2 class="text-primary">Aportaciones Por Pagar</h2>
+        </div>
+        
+        <table id="tabla-resumen" class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>PROYECTO</th>
+                    <th>MONTO</th>
+                    <th>PAGADO</th>
+                    <th>PENDIENTE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $pendiente = 0;
+                    $sumaMonto = 0;
+                    $sumaPagado = 0;
+                    $sumaPendiente = 0;
+
+                    $procedure = $conection->porPagarAportador();
+                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
+                        $pendiente = $rows['monto'] - number_format($rows['pagado']);
+                        echo "<td>$" . number_format($pendiente, 2) . "</td>";
+                        echo "</tr>";
+
+                        $sumaMonto += $rows['monto'];
+                        $sumaPagado += $rows['pagado'];
+                        $sumaPendiente += $pendiente;
                     }
                 ?>
                 <tr class="table-success">
-                    <td class="text-end" colspan="5"><?php echo "$" . number_format($suma, 2);?></td>
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPagado, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPendiente, 2);?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="resumen" class="table-responsive">
+        
+        <div id="titulo">
+            <h2 class="text-primary">Créditos Por Pagar</h2>
+        </div>
+        
+        <table id="tabla-resumen" class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>PROYECTO</th>
+                    <th>MONTO</th>
+                    <th>PAGADO</th>
+                    <th>PENDIENTE S/ INTERESES</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php 
+                    $pendiente = 0;
+                    $sumaMonto = 0;
+                    $sumaPagado = 0;
+                    $sumaPendiente = 0;
+
+                    $procedure = $conection->porPagarBanco();
+                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
+                        $pendiente = $rows['monto'] - number_format($rows['pagado']);
+                        echo "<td>$" . number_format($pendiente, 2) . "</td>";
+                        echo "</tr>";
+
+                        $sumaMonto += $rows['monto'];
+                        $sumaPagado += $rows['pagado'];
+                        $sumaPendiente += $pendiente;
+                    }
+                ?>
+                <tr class="table-success">
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPagado, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPendiente, 2);?></td>
                 </tr>
             </tbody>
         </table>

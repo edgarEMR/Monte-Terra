@@ -17,6 +17,9 @@ class Pago extends DB
     private $idTipoPago;
     private $idEtapa;
     private $idProyecto;
+    private $idCliente;
+    private $idAportador;
+    private $idBanco;
     
 
     /**
@@ -236,6 +239,66 @@ class Pago extends DB
     public function setIdProveedor($idProveedor)
     {
         $this->idProveedor = $idProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idCliente
+     */ 
+    public function getIdCliente()
+    {
+        return $this->idCliente;
+    }
+
+    /**
+     * Set the value of idCliente
+     *
+     * @return  self
+     */ 
+    public function setIdCliente($idCliente)
+    {
+        $this->idCliente = $idCliente;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idAportador
+     */ 
+    public function getIdAportador()
+    {
+        return $this->idAportador;
+    }
+
+    /**
+     * Set the value of idAportador
+     *
+     * @return  self
+     */ 
+    public function setIdAportador($idAportador)
+    {
+        $this->idAportador = $idAportador;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idBanco
+     */ 
+    public function getIdBanco()
+    {
+        return $this->idBanco;
+    }
+
+    /**
+     * Set the value of idBanco
+     *
+     * @return  self
+     */ 
+    public function setIdBanco($idBanco)
+    {
+        $this->idBanco = $idBanco;
 
         return $this;
     }

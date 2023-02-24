@@ -3,12 +3,19 @@ $('#navigation').load("Navbar.php", function() {
 
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
     $('#agregarPago').toggle();
     $('#crearCliente').toggle();
     $('#agregarAbono').toggle();
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
+    $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
-        location.href = 'Ventas.php';
+      history.back();
     });
 });
 

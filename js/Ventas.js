@@ -4,7 +4,12 @@ $('#navigation').load("Navbar.php", function() {
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
     $('#agregarPago').toggle();
-    $('#atras').toggle();
+    $('#crearCotizacion').toggle();
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
 
     /*$('#crearCliente').on("click", function () {
         location.href = 'Detalle_Abono.php';

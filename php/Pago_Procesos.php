@@ -19,18 +19,91 @@ if (isset($_POST['accion'])) {
     $pago = new Pago(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
 
+    $pago->setEsIngreso($_POST["esIngreso"]);
+    $pago->setConcepto($_POST["concepto"]);
+    $pago->setImporte($_POST["importe"]);
+    $pago->setFechaPago("");
+    $pago->setIdTipoPago($_POST["tipoPago"]);
+    
+    if($_POST["tipo"] == 'General') {
+        $pago->setIdProyecto('NULL');
+        $pago->setIdEtapa('NULL');
+    }
+    else {
+        $pago->setIdProyecto($_POST["proyecto"]);
+        $pago->setIdEtapa($_POST["etapa"]);
+    }
+
+    if($_POST["tipo"] != 'Ingreso') {
+        $pago->setIdArea($_POST["area"]);
+    }
+    else {
+        $pago->setIdArea('NULL');
+    }
+
+    if(isset($_POST["origenIngreso"])){
+        switch ($_POST["origenIngreso"]) {
+            case 'Banco':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador('NULL');
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco($_POST["tipoPago"]);
+                break;
+
+            case 'Aportacion':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador($_POST["aportador"]);
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco('NULL');
+                break;
+
+            case 'Venta':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador('NULL');
+                $pago->setIdCliente($_POST["cliente"]);
+                $pago->setIdBanco('NULL');
+                break;
+        }
+    } else if(isset($_POST["origenEgreso"])){
+        switch ($_POST["origenEgreso"]) {
+            case 'Banco':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador('NULL');
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco($_POST["tipoPago"]);
+                break;
+
+            case 'Aportacion':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador($_POST["aportador"]);
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco('NULL');
+                break;
+
+            case 'Pago':
+                $pago->setIdProveedor($_POST["proveedor"]);
+                $pago->setIdAportador('NULL');
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco('NULL');
+                break;
+
+            case 'Devolucion':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador('NULL');
+                $pago->setIdCliente($_POST["cliente"]);
+                $pago->setIdBanco('NULL');
+                break;
+        }
+    } else {
+        $pago->setIdProveedor('NULL');
+        $pago->setIdAportador('NULL');
+        $pago->setIdCliente('NULL');
+        $pago->setIdBanco('NULL');
+    }
+
     if ($_POST['accion'] == 'registrar') {
         
         echo 'registrar';
-        $pago->setConcepto($_POST["concepto"]);
-        $pago->setImporte($_POST["importe"]);
-        $pago->setFechaPago("");
-        $pago->setEsIngreso($_POST["esIngreso"]);
-        $pago->setIdTipoPago($_POST["tipoPago"]);
-        $pago->setIdEtapa($_POST["etapa"]);
-        $pago->setIdProyecto($_POST["proyecto"]);
-        $pago->setIdArea($_POST["area"]);
-        $pago->setIdProveedor($_POST["proveedor"]);
         
         try {
             echo 'Try';
@@ -45,6 +118,9 @@ if (isset($_POST['accion'])) {
                 $pago->getIdProyecto(),
                 $pago->getIdArea(),
                 $pago->getIdProveedor(),
+                $pago->getIdCliente(),
+                $pago->getIdAportador(),
+                $pago->getIdBanco(),
                 'I'
             );
             
@@ -74,15 +150,6 @@ if (isset($_POST['accion'])) {
         echo 'editar';
 
         $pago->setIdPago($_POST["pagoID"]);
-        $pago->setConcepto($_POST["concepto"]);
-        $pago->setImporte($_POST["importe"]);
-        $pago->setFechaPago("NULL");
-        $pago->setEsIngreso($_POST["esIngreso"]);
-        $pago->setIdTipoPago($_POST["tipoPago"]);
-        $pago->setIdEtapa($_POST["etapa"]);
-        $pago->setIdProyecto($_POST["proyectoID"]);
-        $pago->setIdArea($_POST["area"]);
-        $pago->setIdProveedor($_POST["proveedor"]);
         
         try {
 
@@ -98,6 +165,9 @@ if (isset($_POST['accion'])) {
                 $pago->getIdProyecto(),
                 $pago->getIdArea(),
                 $pago->getIdProveedor(),
+                $pago->getIdCliente(),
+                $pago->getIdAportador(),
+                $pago->getIdBanco(),
                 'U'
             );
             

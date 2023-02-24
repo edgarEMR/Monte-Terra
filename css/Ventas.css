@@ -1,13 +1,19 @@
-#resumen, #bancos {
+#resumen, #prospectos, #cancelacion {
     margin: 5% 0;
     padding: 0 10%;
 }
 
-#tabla-resumen {
+#tabla-resumen, #tabla-prospectos, #tabla-cancel {
     text-align: center;
 }
 
 #tabla-resumen tbody tr>td a {
+    text-decoration: none;
+    color: #2563EB; 
+    cursor: pointer;
+}
+
+#tabla-prospectos tbody tr>td a {
     text-decoration: none;
     color: #2563EB; 
     cursor: pointer;
@@ -22,19 +28,15 @@
     text-align: center;
 }
 
-#titulo {
+#titulo, #titulo-prospectos , #titulo-cancel{
     display: flex;
 }
 
 h2 {
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
     width: 80%;
 }
-
-#bancos h2 {
-    width: 100%;
-}  
 
 #tabla-desglose-semana {
     margin: 0 auto 5% auto;
