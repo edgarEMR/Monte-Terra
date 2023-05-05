@@ -34,11 +34,25 @@ if (isset($_POST['accion'])) {
         $pago->setIdEtapa($_POST["etapa"]);
     }
 
-    if($_POST["tipo"] != 'Ingreso') {
+    if($_POST["tipo"] != 'Ingreso' && $_POST["tipo"] != 'Maquinaria') {
         $pago->setIdArea($_POST["area"]);
     }
     else {
         $pago->setIdArea('NULL');
+    }
+
+    if($_POST["tipo"] == 'Maquinaria') {
+        $pago->setIdMaquinaria($_POST['maquina']);
+    }
+
+    switch ($_POST["tipo"]) {
+        case 'value':
+            # code...
+            break;
+        
+        default:
+            # code...
+            break;
     }
 
     if(isset($_POST["origenIngreso"])){
@@ -121,6 +135,7 @@ if (isset($_POST['accion'])) {
                 $pago->getIdCliente(),
                 $pago->getIdAportador(),
                 $pago->getIdBanco(),
+                $pago->getIdMaquinaria(),
                 'I'
             );
             
@@ -168,6 +183,7 @@ if (isset($_POST['accion'])) {
                 $pago->getIdCliente(),
                 $pago->getIdAportador(),
                 $pago->getIdBanco(),
+                $pago->getIdMaquinaria(),
                 'U'
             );
             

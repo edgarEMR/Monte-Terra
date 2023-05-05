@@ -83,17 +83,17 @@
             <div class="form-group input-group-sm col-md-3">
                 <label for="inputSegundoNombre">Segundo Nombre</label>
                 <input type="text" name="segundoNombre" class="form-control" id="inputSegundoNombre"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
+                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>">
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
-                <div class="invalid-feedback">
-                    Ingrese un nombre válido.
-                </div>
             </div>
             <div class="form-group input-group-sm col-md-3">
                 <label for="inputApPaterno">Apellido Paterno *</label>
                 <input type="text" name="apPaterno" class="form-control" id="inputApPaterno"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>">
+                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                <div class="invalid-feedback">
+                    Ingrese un texto válido.
+                </div>
             </div>
             <div class="form-group input-group-sm col-md-3">
                 <label for="inputApMaterno">Apellido Materno *</label>
@@ -101,7 +101,7 @@
                     pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
-                    Ingrese un nombre válido.
+                    Ingrese un texto válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -123,28 +123,25 @@
             <div class="form-group col-md-4">
                 <label for="inputTelefono">Teléfono *</label>
                 <input type="tel" name="telefono" class="form-control" id="inputTelefono"
-                    aria-describedby="emailHelp"
-                    placeholder="123-4567-890" required>
+                    aria-describedby="emailHelp" pattern="[0-9]{10}"
+                    placeholder="8114567123" required>
                 <div class="invalid-feedback">
-                    Ingrese un correo válido.
+                    Ingrese un telefono válido.
                 </div>
             </div>
-            <!--<div class="form-group col-md-4">
+            <div class="form-group col-md-4">
                 <label for="inputNSS">No. Seguro Social</label>
-                <input type="text" name="NSS" class="form-control" id="inputNSS"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
-                <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                <input type="number" name="NSS" class="form-control" id="inputNSS"
+                    pattern="[0-9]{11}" value="<?php echo $proyecto->getNombre();?>" required>
                 <div class="invalid-feedback">
-                    Ingrese un nombre válido.
+                    Ingrese un numero válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
                 <label for="inputPuntaje">Puntaje INFONAVIT</label>
-                <input type="text" name="puntaje" class="form-control" id="inputPuntaje"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
-                <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                <input type="number" name="puntaje" class="form-control" id="inputPuntaje" value="<?php echo $proyecto->getNombre();?>" required>
                 <div class="invalid-feedback">
-                    Ingrese un nombre válido.
+                    Ingrese un numero válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -153,18 +150,19 @@
                     pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
-                    Ingrese un nombre válido.
+                    Ingrese un dato válido.
                 </div>
-            </div>-->
+            </div>
             <div class="form-group col-md-3">
                 <label for="inputTipoVivienda">Vivienda de interés*</label>
                 <select class="form-select" name="tipoVivienda" id="inputTipoVivienda" required>
                     <option selected disabled value="">Elige...</option>
-                    <option value="ECONOMICA">ECONOMICA</option>
                     <option value="SOCIAL">SOCIAL</option>
                     <option value="MEDIO RESIDENCIAL">MEDIO RESIDENCIAL</option>
                     <option value="RESIDENCIAL">RESIDENCIAL</option>
                     <option value="RESIDENCIAL PLUS">RESIDENCIAL PLUS</option>
+                    <option value="CAMPESTRE">CAMPESTRE</option>
+                    <option value="TERRENO">TERRENO</option>
                     </select>
                 <div class="invalid-feedback">
                     Elija una opción.
@@ -185,7 +183,7 @@
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label for="inputMedio">Medio</label>
+                <label for="inputMedio">Medio*</label>
                 <select class="form-select" name="medio" id="inputMedio" required>
                     <option selected disabled value="">Elige...</option>
                     <option value="Redes sociales">Redes sociales</option>

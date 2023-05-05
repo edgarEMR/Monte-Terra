@@ -24,6 +24,30 @@ $(document).ready(function () {
         });
     });
 
+    $("#inputProyectoEg").change(function () {
+        var idProyecto = $('#inputProyectoEg').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapaEg").empty().html(result);
+        });
+    });
+
+    $("#inputProyectoMaq").change(function () {
+        var idProyecto = $('#inputProyectoMaq').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapaMaq").empty().html(result);
+        });
+    });
+
     $("#divAportador").hide();
     $("#divCliente").hide();
 
@@ -125,6 +149,16 @@ function checkEgreso() {
         $("#divProveedor").hide();
         $("#divAportadorEg").hide();
         $("#divClienteEg").hide();
+        $("#inputAreaEg").prop('disabled', true);
+        $("#inputAreaEg").prop('required', false);
+        $("#inputAreaEg").addClass('is-valid');
+
+        $("#inputProveedorEg").prop('required', false);
+        $("#inputAportadorEg").prop('required', false);
+        $("#inputClienteEg").prop('required', false);
+        $("#inputProveedorEg").addClass('is-valid');
+        $("#inputAportadorEg").addClass('is-valid');
+        $("#inputClienteEg").addClass('is-valid');
     }
 
     if(document.getElementById('esAportacionEg').checked) {
@@ -132,6 +166,16 @@ function checkEgreso() {
         $("#divProveedor").hide();
         $("#divAportadorEg").show();
         $("#divClienteEg").hide();
+        $("#inputAreaEg").prop('disabled', true);
+        $("#inputAreaEg").prop('required', false);
+        $("#inputAreaEg").addClass('is-valid');
+
+        $("#inputProveedorEg").prop('required', false);
+        $("#inputAportadorEg").prop('required', true);
+        $("#inputClienteEg").prop('required', false);
+        $("#inputProveedorEg").addClass('is-valid');
+        $("#inputAportadorEg").removeClass('is-valid');
+        $("#inputClienteEg").addClass('is-valid');
     }
 
     if(document.getElementById('esPagoEg').checked) {
@@ -139,6 +183,16 @@ function checkEgreso() {
         $("#divProveedor").show();
         $("#divAportadorEg").hide();
         $("#divClienteEg").hide();
+        $("#inputAreaEg").prop('disabled', false);
+        $("#inputAreaEg").prop('required', true);
+        $("#inputAreaEg").removeClass('is-valid');
+
+        $("#inputProveedorEg").prop('required', true);
+        $("#inputAportadorEg").prop('required', false);
+        $("#inputClienteEg").prop('required', false);
+        $("#inputProveedorEg").removeClass('is-valid');
+        $("#inputAportadorEg").addClass('is-valid');
+        $("#inputClienteEg").addClass('is-valid');
     }
 
     if(document.getElementById('esDevolucionEg').checked) {
@@ -146,6 +200,16 @@ function checkEgreso() {
         $("#divProveedor").hide();
         $("#divAportadorEg").hide();
         $("#divClienteEg").show();
+        $("#inputAreaEg").prop('disabled', true);
+        $("#inputAreaEg").prop('required', false);
+        $("#inputAreaEg").addClass('is-valid');
+
+        $("#inputProveedorEg").prop('required', false);
+        $("#inputAportadorEg").prop('required', false);
+        $("#inputClienteEg").prop('required', true);
+        $("#inputProveedorEg").addClass('is-valid');
+        $("#inputAportadorEg").addClass('is-valid');
+        $("#inputClienteEg").removeClass('is-valid');
     }
 }
 

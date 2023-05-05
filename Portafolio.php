@@ -30,7 +30,7 @@
 
             $nombreProyecto = $rows['nombre'];
         }
-
+        
         $procedure = $conection->obtenerPortafolio(0, $idProyecto);
         
     ?>
@@ -45,15 +45,34 @@
     <div id="tabla-desglose-portafolio" class="table-responsive">    
 
         <table id="tabla-portafolio" class="table table-hover table-bordered">
+            <?php
+                if($idProyecto != 13) {
+            ?>
             <thead>
                 <tr class="table-primary">
-                    <th>FECHA</th>
+                    <th>FECHA <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
                     <th>INGRESO</th>
                     <th>EGRESO</th>
                     <th>CONCEPTO</th>
-                    <th>PROVEEDOR</th>
-                    <th>TIPO DE PAGO</th>
-                    <th>ÁREA</th>
+                    <th>PROVEEDOR <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>TIPO DE PAGO <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>ÁREA <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
                     <th>ETAPA</th>
                     <th>TOTAL</th>
                 </tr>
@@ -83,6 +102,66 @@
                     }
                 ?>
             </tbody>
+            <?php
+                } else {
+            ?>
+            <thead>
+                <tr class="table-primary">
+                    <th>FECHA <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>INGRESO</th>
+                    <th>EGRESO</th>
+                    <th>CONCEPTO</th>
+                    <th>MAQUINARIA <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>TIPO DE PAGO <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>PROYECTO <br>
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select>
+                    </th>
+                    <th>ETAPA</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $total = 0;
+                    while($rows = $procedure->fetch(PDO::FETCH_ASSOC)){
+                        echo "<tr>";
+                        echo "<td>" . $rows['fechaPago'] . "</td>";
+                        if($rows['esIngreso']){
+                            echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
+                            echo "<td>-</td>";
+                            $total -= $rows['importe'];
+                        } else {
+                            echo "<td>-</td>";
+                            echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
+                            $total += $rows['importe'];
+                        }
+                        echo "<td><a onclick=\"sendVariables('Detalle_Pago.php', " . $rows['idPago'] . ", 'idPago');\">" . $rows['concepto'] . "</a></td>";
+                        echo "<td>" . $rows['nombreMaquina'] . "</td>";
+                        echo "<td>" . $rows['nombrePago'] . "</td>";
+                        echo "<td>" . $rows['nombreProyecto'] . "</td>";
+                        echo "<td>" . (is_null($rows['numeroEtapa'])? "Todas" : $rows['numeroEtapa']) . "</td>";
+                        echo "<td>$" . number_format($total, 2) . "</td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+            <?php
+                }
+            ?>
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

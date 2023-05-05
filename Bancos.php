@@ -55,7 +55,6 @@
                     <th>EGRESO</th>
                     <th>CONCEPTO</th>
                     <th>ÁREA</th>
-                    <th>ETAPA</th>
                     <th>TOTAL</th>
                 </tr>
             </thead>
@@ -68,15 +67,14 @@
                         if($rows['esIngreso']){
                             echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
                             echo "<td>-</td>";
-                            $total -= $rows['importe'];
+                            $total += $rows['importe'];
                         } else {
                             echo "<td>-</td>";
                             echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
-                            $total += $rows['importe'];
+                            $total -= $rows['importe'];
                         }
                         echo "<td><a onclick=\"sendVariables('Detalle_Pago.php', " . $rows['idPago'] . ", 'idPago');\">" . $rows['concepto'] . "</a></td>";
                         echo "<td>" . $rows['area'] . "</td>";
-                        echo "<td>" . $rows['numeroEtapa'] . "</td>";
                         echo "<td>$" . number_format($total, 2) . "</td>";
                         echo "</tr>";
                     }

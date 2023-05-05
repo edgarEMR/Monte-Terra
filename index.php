@@ -18,15 +18,15 @@
     <div class="contenedor d-flex justify-content-center flex-column">
         <img src="assets/mountain.png" alt="img" class="rounded-circle">    
         <h5>Bienvenido</h5>
-        <form id="login" class="gy-3">    
+        <form id="login" action="php/Inicio_Sesion.php" method="POST" class="gy-3">    
             <div class="mb-3">
-              <input type="text" class="form-control" id="inputUser" aria-describedby="userHelp" placeholder="Usuario">
+              <input type="text" name="usuario" class="form-control" id="inputUser" aria-describedby="userHelp" placeholder="Usuario" required>
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+              <input type="password" name="contraseña" class="form-control" id="inputPassword" placeholder="Contraseña" required>
             </div>
             <div class="d-grid">
-                <button id="entrar" type="button" class="btn btn-primary btn-block btn-lg">Entrar</button>
+                <button id="entrar" type="submit" class="btn btn-primary btn-block btn-lg">Entrar</button>
             </div>
           </form>
     </div>

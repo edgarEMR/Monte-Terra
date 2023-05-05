@@ -44,10 +44,11 @@
             <thead>
                 <tr class="table-primary">
                     <th>NOMBRE</th>
-                    <th>FECHA DE NACIMIENTO</th>
                     <th>EMAIL</th>
                     <th>TELEFONO</th>
                     <th>PUNTAJE</th>
+                    <th>VIVIENDA <br> DE INTERES</th>
+                    <th>CREDITO</th>
                     <th>MEDIO</th>
                     <th></th>
                 </tr>
@@ -58,9 +59,11 @@
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td><a onclick=\"sendVariables('Nuevo_Cliente.php', " . $rows['idCliente'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
-                        echo "<td>" . $rows['fechaNacimiento'] . "</td>";
                         echo "<td>" . $rows['email'] . "</td>";
                         echo "<td>" . $rows['telefono'] . "</td>";
+                        echo "<td>" . $rows['puntaje'] . "</td>";
+                        echo "<td>" . $rows['tipoVivienda'] . "</td>";
+                        echo "<td>" . $rows['credito'] . "</td>";
                         echo "<td>" . $rows['medio'] . "</td>";
                         echo '<th><button  onclick="sendVariables(\'Nuevo_Cliente.php\', ' . $rows['idCliente'] . ', \'id\');" class="btn btn-outline-primary ms-1">Generar contrato</button></th>';
                         echo "</tr>";
@@ -75,7 +78,7 @@
         
         <div id="titulo">
             <!--TOTAL DE CLIENTES POR PROYECTO-->
-            <h2 class="text-primary">Reumen</h2>
+            <h2 class="text-primary">Resumen</h2>
         </div>
         
         <table id="tabla-resumen" class="table table-hover">
@@ -92,7 +95,7 @@
                     $procedure = $conection->resumenVentas();
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td><a onclick=\"sendVariables('Nuevo_Cliente.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td><a onclick=\"sendVariables('Ventas_Proyecto.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>" . $rows['numeroClientes'] . "</td>";
                         echo "<td>" . $rows['promedioVenta'] . "</td>";
                         echo "<td>" . $rows['pendiente'] . "</td>";

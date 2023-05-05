@@ -90,7 +90,7 @@
     </div>
 
     <div id="bancos" class="table-responsive">
-        
+        <!-- Anterior + ingreso - egreso = actual -->
         <div id="titulo">
             <h2 class="text-primary">Bancos</h2>
         </div>
@@ -117,9 +117,8 @@
                         echo "</tr>";
 
                         $sumaPasadoB += $rows['totalPasado'];
+                        $sumaHoyB += $rows['totalHoy'];
                     }
-
-                    $sumaHoyB = $sumaPasadoB + $sumaIng - $sumaEgr;
 
                 ?>
                 <tr class="table-success">
@@ -220,6 +219,45 @@
                     <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
                     <td><?php echo "$" . number_format($sumaPagado, 2);?></td>
                     <td><?php echo "$" . number_format($sumaPendiente, 2);?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- POR COBRAR -->
+    <div id="resumen" class="table-responsive">
+        
+        <div id="titulo">
+            <h2 class="text-primary">Por Cobrar</h2>
+        </div>
+        
+        <table id="tabla-resumen" class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>CONCEPTO</th>
+                    <th>MONTO</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php 
+                    $pendiente = 0;
+                    $sumaMonto = 0;
+                    $sumaPagado = 0;
+                    $sumaPendiente = 0;
+
+                    $procedure = $conection->porCobrar();
+                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idPago'] . ", 'id');\">" . $rows['concepto'] . "</a></td>";
+                        echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
+                        echo "</tr>";
+
+                        $sumaMonto += $rows['importe'];
+                    }
+                ?>
+                <tr class="table-success">
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
                 </tr>
             </tbody>
         </table>

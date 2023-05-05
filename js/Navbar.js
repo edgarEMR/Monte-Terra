@@ -1,3 +1,8 @@
+$('#cerrarSesion').on("click", function () {
+    history.deleteAll();
+    location.href = 'index.php';
+});
+
 function sendVariables(pagina, id){
     var body = document.getElementsByTagName('body')[0];
     var sendID = id;

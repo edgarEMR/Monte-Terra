@@ -10,9 +10,11 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarCredito').toggle();
     $('#agregarProveedor').toggle();
     $('#agregarPrestamo').toggle();
-    $('#atras').toggle();
 
     $('#logo').attr("href", "Ventas.php");
+    $('#atras').on("click", function () {
+        history.back();
+    });
     /*$('#agregarAbono').on("click", function () {
         location.href = 'Detalle_Abono.php';
     });*/

@@ -47,6 +47,10 @@
             }
         }
 
+        function inicioSesion($correo, $contraseña) {
+            return $this->connect()->query("CALL spInicioSesion('$correo', '$contraseña')");
+        }
+
         function obtenerResumen($date) {
             return $this->connect()->query("CALL spObtenerResumen('$date')");
         }
@@ -94,12 +98,12 @@
         }
 
         function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, $idTipoPago, $idEtapa, $idProyecto,
-                             $idArea, $idProveedor, $idCliente, $idAportador, $idBanco, $opcion)
+                             $idArea, $idProveedor, $idCliente, $idAportador, $idBanco, $idMaquinaria, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso,
                                                                 $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, 
-                                                                $idCliente, $idAportador, $idBanco, '$opcion')");
+                                                                $idCliente, $idAportador, $idBanco, $idMaquinaria, '$opcion')");
         }
 
         function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $fechaNacimiento,
@@ -117,6 +121,14 @@
 
         function resumenVentas() {
             return $this->connect()->query("CALL spResumenVentas()");
+        }
+
+        function resumenVentasProyecto($idProyecto) {
+            return $this->connect()->query("CALL spResumenVentasProyecto($idProyecto)");
+        }
+
+        function resumenVentasEtapa($idEtapa) {
+            return $this->connect()->query("CALL spResumenVentasEtapa($idEtapa)");
         }
 
         function gestionPresupuesto($idPresupuesto, $concepto, $importe, $fecha, $idArea, $idProyecto, $opcion)
@@ -153,8 +165,20 @@
             return $this->connect()->query("CALL spPorPagarBanco()");
         }
 
+        function porCobrar() {
+            return $this->connect()->query("CALL spPorCobrar()");
+        }
+
         function presupuestoArea($idProyecto) {
             return $this->connect()->query("CALL spPresupuesto_Area($idProyecto)");
+        }
+
+        function obtenerMaquinaria() {
+            return $this->connect()->query("CALL spObtenerMaquinaria()");
+        }
+
+        function gastoMaquinaria() {
+            return $this->connect()->query("CALL spGastoMaquinaria()");
         }
 
         /**

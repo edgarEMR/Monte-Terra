@@ -33,9 +33,9 @@ if (isset($_POST['accion'])) {
     $cliente->setEmail($_POST["email"]);
     $cliente->setFechaNacimiento($_POST["fecha"]);
     $cliente->setTelefono($_POST["telefono"]);
-    $cliente->setNumeroSS("");
-    $cliente->setPuntaje(0);
-    $cliente->setContraseña("");
+    $cliente->setNumeroSS($_POST["NSS"]);
+    $cliente->setPuntaje($_POST["puntaje"]);
+    $cliente->setContraseña($_POST["contraseña"]);
     $cliente->setTipoVivienda($_POST["tipoVivienda"]);
     $cliente->setIngresos($_POST["ingresos"]);
     $cliente->setCredito($_POST["credito"]);

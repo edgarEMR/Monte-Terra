@@ -20,6 +20,7 @@ class Pago extends DB
     private $idCliente;
     private $idAportador;
     private $idBanco;
+    private $idMaquinaria;
     
 
     /**
@@ -299,6 +300,26 @@ class Pago extends DB
     public function setIdBanco($idBanco)
     {
         $this->idBanco = $idBanco;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idMaquinaria
+     */ 
+    public function getIdMaquinaria()
+    {
+        return $this->idMaquinaria;
+    }
+
+    /**
+     * Set the value of idMaquinaria
+     *
+     * @return  self
+     */ 
+    public function setIdMaquinaria($idMaquinaria)
+    {
+        $this->idMaquinaria = $idMaquinaria;
 
         return $this;
     }

@@ -1,3 +1,14 @@
+<?php 
+    session_start();
+
+    $nombreUsuario = "";
+    $correo = "";
+
+    if(isset($_SESSION["nombre"]) && isset($_SESSION["correo"])) {
+        $nombreUsuario = $_SESSION["nombre"];
+        $correo = $_SESSION["correo"];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +28,7 @@
     <nav class="navbar">
         <div class="container-fluid d-flex">
             <div class="navbar-brand">
-                <a href="Proyectos.php"><i class="bi bi-building"></i>
+                <a id="logo" href="Proyectos.php"><i class="bi bi-building"></i>
                 MonteTerra</a>
             </div>
             
@@ -28,6 +39,7 @@
                     Menu
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end text-center">
+                    <li><h6 class="dropdown-header"><?php echo $nombreUsuario . '</br>' . $correo;?></h6></li>
                     <li><button id="crearProyecto" type="button" class="btn btn-link" onclick="location.href='Nuevo_Proyecto.php'" style="text-decoration: none;">Nuevo Proyecto</button></li>
                     <li><button id="agregarPago" type="button" class="btn btn-link" onclick="sendVariables('Detalle_Pago.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Movimiento</button></li>
                     <li><button id="crearPresupuesto" type="button" class="btn btn-link" onclick="sendVariables('Presupuestos.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Presupuesto</button></li>
@@ -41,6 +53,7 @@
                     <li><button id="agregarPrestamo" type="button" class="btn btn-link" onclick="location.href='Detalle_Abono.php'" style="text-decoration: none;">Agregar Préstamo</button></li>
                     <li><hr id="dividerBottom" class="dropdown-divider"></li>
                     <li><button id="atras" type="button" class="btn btn-link" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-arrow-return-left"></i> Atrás</button></li>
+                    <li><button id="cerrarSesion" type="button" class="btn btn-link" onclick="location.href='index.php'" style="text-decoration: none;"><i class="bi bi-power"></i> Cerrar sesión</button></li>
                 </ul>
             </div>
     </nav>

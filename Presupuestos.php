@@ -61,7 +61,7 @@
     
     <div class="presupuesto-form">
         <form id="nuevoPresupuesto" action="php/Presupuesto_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
                 <label for="inputConcepto">Concepto</label>
                 <input type="text" name="concepto" class="form-control" id="inputConcepto"
                     pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $presupuesto->getConcepto();?>">
@@ -69,8 +69,8 @@
                 <div class="invalid-feedback">
                     Ingrese un nombre válido.
                 </div>
-            </div>
-            <div class="form-group col-md-4">
+            </div> -->
+            <div class="form-group col-md-6">
                 <label for="inputImporte">Importe</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <label for="inputArea">Área</label>
                 <select class="form-select" name="area" id="inputArea" required>
                     <option selected disabled value="">Elige...</option>
