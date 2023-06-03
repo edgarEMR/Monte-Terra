@@ -30,6 +30,20 @@
             </div>
           </form>
     </div>
+
+    
+    <div class="toast-container top-0 start-50 translate-middle-x mt-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto">Monteterra</strong>
+              <small>Ahora</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/index.js"></script>
 </body>

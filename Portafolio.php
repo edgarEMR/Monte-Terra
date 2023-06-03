@@ -50,31 +50,31 @@
             ?>
             <thead>
                 <tr class="table-primary">
-                    <th>FECHA <br>
+                    <th col-index = 1>FECHA <br>
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th>INGRESO</th>
-                    <th>EGRESO</th>
-                    <th>CONCEPTO</th>
-                    <th>PROVEEDOR <br>
+                    <th col-index = 2>INGRESO</th>
+                    <th col-index = 3>EGRESO</th>
+                    <th col-index = 4>CONCEPTO</th>
+                    <th col-index = 5>PROVEEDOR <br>
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th>TIPO DE PAGO <br>
+                    <th col-index = 6>TIPO DE PAGO <br>
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th>ÁREA <br>
+                    <th col-index = 7>ÁREA <br>
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th>ETAPA</th>
-                    <th>TOTAL</th>
+                    <th col-index = 9>ETAPA</th>
+                    <th col-index = 10>TOTAL</th>
                 </tr>
             </thead>
             <tbody>
@@ -163,6 +163,20 @@
                 }
             ?>
         </table>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            Hello, world! This is a toast message.
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Portafolio.js"></script>
