@@ -11,8 +11,9 @@ if (isset($_POST['accion'])) {
     $aportador = new Aportador(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
 
-    $aportador->setRFC($_POST["RFCAportador"]);
+    $aportador->setRFC('XAXX010101000');
     $aportador->setNombre($_POST["nombreAportador"]);
+    $aportador->setProyecto($_POST["proyecto"]);
 
     if ($_POST['accion'] == 'registrar') {
         
@@ -24,6 +25,7 @@ if (isset($_POST['accion'])) {
                 0,
                 $aportador->getRFC(),
                 $aportador->getNombre(),
+                $aportador->getProyecto(),
                 'I'
             );
             
@@ -60,6 +62,7 @@ if (isset($_POST['accion'])) {
                 $aportador->getIdAportador(),
                 $aportador->getRFC(),
                 $aportador->getNombre(),
+                $aportador->getProyecto(),
                 'U'
             );
             

@@ -42,7 +42,7 @@
     </div>
     <div class="register-form">
         <form id="registroProyecto" action="php/Aportador_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
-            <div class="form-group input-group-sm col-md-6">
+            <!-- <div class="form-group input-group-sm col-md-6">
                 <label for="nombreProyecto">RFC</label>
                 <input type="text" name="RFCAportador" class="form-control" id="inputRFC" placeholder="XAXX010101000"
                     pattern="[A-Z0-9]{12,13}" value="" required>
@@ -50,7 +50,7 @@
                 <div class="invalid-feedback">
                     Ingrese un nombre válido.
                 </div>
-            </div>
+            </div> -->
             <div class="form-group input-group-sm col-md-6">
                 <label for="nombreProyecto">Nombre</label>
                 <input type="text" name="nombreAportador" class="form-control" id="inputNombre"
@@ -58,6 +58,27 @@
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
                     Ingrese un nombre válido.
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputProyecto">Proyecto</label>
+                <select class="form-select" name="proyecto" id="inputProyecto" required>
+                    <option selected disabled value="">Elige...</option>
+                    <option value="0">General</option>
+                    <?php
+                        $procedure = $conection->obtenerProyectos();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            if ($rows['idProyecto'] == $idProyecto) {
+                                echo "<option value=".$rows['idProyecto']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idProyecto'].">".$rows['nombre']."</option>";
+                            }
+                            
+                        }
+                    ?>
+                    </select>
+                <div class="invalid-feedback">
+                    Elija una opción.
                 </div>
             </div>
             <div class="form-group d-grid mt-3">
@@ -71,16 +92,16 @@
             <thead>
                 <tr class="table-primary">
                     <th>Nombre</th>
-                    <th>RFC</th>
+                    <th>Proyecto</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $procedure = $conection->gestionAportador(0, '', '', 'S');
+                    $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td>" . $rows['nombre'] . "</td>";
-                        echo "<td>" . $rows['RFC'] . "</td>";
+                        echo "<td>" . $rows['nombreProyecto'] . "</td>";
                         echo "</tr>";
                     }
                 ?>

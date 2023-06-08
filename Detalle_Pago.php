@@ -182,7 +182,7 @@
                         <select class="form-select" name="aportador" id="inputAportador">
                             <option selected disabled value="">Elige...</option>
                             <?php
-                                $procedure = $conection->gestionAportador(0, '', '', 'S');
+                                $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     if ($rows['idAportador'] == $pago->getIdAportador()) {
                                         echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";
@@ -382,7 +382,7 @@
                         <select class="form-select" name="aportador" id="inputAportadorEg" required>
                             <option selected disabled value="">Elige...</option>
                             <?php
-                                $procedure = $conection->gestionAportador(0, '', '', 'S');
+                                $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     if ($rows['idAportador'] == $pago->getIdAportador()) {
                                         echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";

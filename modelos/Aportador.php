@@ -9,6 +9,7 @@ class Aportador extends DB
     private $idAportador;
     private $nombre;
     private $RFC;
+    private $proyecto;
 
     /**
      * Get the value of idAportador
@@ -66,6 +67,26 @@ class Aportador extends DB
     public function setRFC($RFC)
     {
         $this->RFC = $RFC;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of proyecto
+     */ 
+    public function getProyecto()
+    {
+        return $this->proyecto;
+    }
+
+    /**
+     * Set the value of proyecto
+     *
+     * @return  self
+     */ 
+    public function setProyecto($proyecto)
+    {
+        $this->proyecto = $proyecto;
 
         return $this;
     }

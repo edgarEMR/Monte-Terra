@@ -1,5 +1,5 @@
 $('#navigation').load("Navbar.php", function() {
-    $('#titulo').text('Abonos');
+    $('#titulo').text('Agregar Préstamo');
 
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();

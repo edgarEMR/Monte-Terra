@@ -4,7 +4,7 @@ $(document).ready(function (){
 
 
 $('#navigation').load("Navbar.php", function() {
-    $('#titulo').text('Bancos');
+    $('#titulo').text('Cotizaciones');
 
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();

@@ -1,3 +1,8 @@
+$(document).ready(function (){
+
+    $("#crecimento").text("Crecimiento: " + $("#crecimientoHidden").text());
+});
+
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Proyectos');
  

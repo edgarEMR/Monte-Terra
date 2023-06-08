@@ -20,6 +20,7 @@
         include_once('php/conection.php');
 
         $date = '';
+        $crecimiento = 0;
         $conection = new DB(require 'php/config.php');
 
         if(isset($_GET['date'])){
@@ -35,9 +36,10 @@
     
 
     <div id="resumen" class="table-responsive">
-        <!--diferencia hoy vs pasadp-->
+        <!--diferencia hoy vs pasado-->
         <div id="titulo">
             <h2 class="text-primary">Resumen</h2>
+            <h4 id="crecimento" class="text-secondary"></h4>
             <div id="selector-semana" class="input-group mb-3">
                 <button class="btn btn-outline-secondary" type="button" onclick="subDays('<?php echo $date;?>');"><i class="bi bi-caret-left-fill"></i></button>
                 <input id="inputDate" type="text" class="form-control" placeholder="" aria-label="Example text with two button addons" disabled value="<?php echo date_format(date_create($date), 'd-m-Y');?>">
@@ -76,6 +78,7 @@
                         $sumaIng += $rows['ingreso'];
                         $sumaEgr += $rows['egreso'];
                         $sumaHoy += $rows['totalHoy'];
+                        $crecimiento = $sumaHoy - $sumaPasado;
                     }
                 ?>
                 <tr class="table-success">
@@ -85,6 +88,7 @@
                     <td><?php echo "$" . number_format($sumaEgr, 2);?></td>
                     <td><?php echo "$" . number_format($sumaHoy, 2);?></td>
                 </tr>
+                <label id="crecimientoHidden" hidden><?php echo "$" . number_format($crecimiento, 2);?></label>
             </tbody>
         </table>
     </div>
@@ -155,7 +159,7 @@
                     $procedure = $conection->porPagarAportador();
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td><a onclick=\"sendVariables('Aportaciones_Pagar.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
                         $pendiente = $rows['monto'] - number_format($rows['pagado']);
@@ -202,7 +206,7 @@
                     $procedure = $conection->porPagarBanco();
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td><a onclick=\"sendVariables('Creditos_Pagar.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
                         $pendiente = $rows['monto'] - number_format($rows['pagado']);
@@ -248,7 +252,47 @@
                     $procedure = $conection->porCobrar();
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idPago'] . ", 'id');\">" . $rows['concepto'] . "</a></td>";
+                        // echo "<td><a onclick=\"sendVariables('Ventas_Proyecto.php', " . $rows['idPago'] . ", 'id');\">" . $rows['concepto'] . "</a></td>";
+                        echo "<td>" . $rows['concepto'] . "</td>";
+                        echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
+                        echo "</tr>";
+
+                        $sumaMonto += $rows['importe'];
+                    }
+                ?>
+                <tr class="table-success">
+                    <td>TOTAL</td>
+                    <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- COTIZACIONES -->
+    <div id="resumen" class="table-responsive">
+        
+        <div id="titulo">
+            <h2 class="text-primary">Cotizaciones</h2>
+        </div>
+        
+        <table id="tabla-resumen" class="table table-hover">
+            <thead>
+                <tr class="table-primary">
+                    <th>PROYECTO</th>
+                    <th>IMPORTE</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php 
+                    $pendiente = 0;
+                    $sumaMonto = 0;
+                    $sumaPagado = 0;
+                    $sumaPendiente = 0;
+
+                    $procedure = $conection->spObtenerCotizacion(0, 0, 1);
+                    while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td><a onclick=\"sendVariables('Cotizacion_Etapa.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombreProyecto'] . "</a></td>";
                         echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
                         echo "</tr>";
 

@@ -145,10 +145,14 @@
                                                                 $idArea, $idProyecto, $idEtapa, '$opcion')");
         }
 
-        function gestionAportador($idAportador, $RFC, $nombre, $opcion)
+        function spObtenerCotizacion($idProyecto, $idEtapa, $idNivel) {
+            return $this->connect()->query("CALL spObtenerCotizacion($idProyecto, $idEtapa, $idNivel)");
+        }
+
+        function gestionAportador($idAportador, $RFC, $nombre, $idProyecto, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionAportador($idAportador, '$RFC', '$nombre', '$opcion')");
+            return $this->connect()->query("CALL spGestionAportador($idAportador, '$RFC', '$nombre', $idProyecto, '$opcion')");
         }
 
         function gestionBanco($idTipoPago, $nombre, $opcion)
@@ -161,8 +165,16 @@
             return $this->connect()->query("CALL spPorPagarAportador()");
         }
 
+        function spObtenerAportaciones($idProyecto) {
+            return $this->connect()->query("CALL spObtenerAportaciones($idProyecto)");
+        }
+
         function porPagarBanco() {
             return $this->connect()->query("CALL spPorPagarBanco()");
+        }
+
+        function spObtenerCreditos($idProyecto) {
+            return $this->connect()->query("CALL spObtenerCreditos($idProyecto)");
         }
 
         function porCobrar() {

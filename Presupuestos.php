@@ -128,7 +128,7 @@
                         echo "<tr>";
                         echo "<td>" . $rows['nombre'] . "</td>";
                         echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
-                        echo "<td>" . number_format($rows['porcentaje']) . "%</td>";
+                        echo "<td>" . number_format($rows['porcentaje'], 2) . "%</td>";
                         echo "</tr>";
 
                         $sumaImporte += $rows['importe'];
@@ -139,7 +139,7 @@
                 <tr class="table-success">
                     <td>TOTAL</td>
                     <td><?php echo "$" . number_format($sumaImporte, 2);?></td>
-                    <td><?php echo number_format($sumaPorcentaje) . "%";?></td>
+                    <td><?php echo number_format($sumaPorcentaje, 2) . "%";?></td>
                 </tr>
             </tbody>
         </table>
