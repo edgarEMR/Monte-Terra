@@ -15,8 +15,7 @@ if (isset($_POST['accion'])) {
 
             $procedure = $coneccion->gestionEtapa( 0, 0, 0, $idProyecto, "S");
             
-            echo '<option selected disabled value="">Elige...</option>';
-            echo '<option value="NULL">Todas</option>';
+            echo '<option value="0">Todas</option>';
 
             while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                 echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
@@ -74,12 +73,6 @@ if (isset($_POST['accion'])) {
         }
             
     }*/
-
-    ECHO $_POST["concepto"] . '<br>';
-    ECHO $_POST["importe"] . '<br>';
-    ECHO $_POST["etapa"] . '<br>';
-    ECHO $_POST["proyectoID"] . '<br>';
-    ECHO $_POST["accion"] . '<br>';
 
     /*if ($_POST['accion'] == 'registrar') {
         $presupuesto = new Presupuesto();

@@ -5,7 +5,10 @@ $(document).ready(function (){
 
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Proyectos');
- 
+    
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+
     $('#crearPresupuesto').toggle();
     $('#agregarPago').on("click", function () {
         location.href = 'Detalle_Pago.php';
@@ -18,7 +21,6 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarProveedor').toggle();
     $('#agregarPrestamo').toggle();
     $('#dividerBottom').toggle();
-    $('#atras').toggle();
 });
 
 function sendVariables(pagina, id, name){

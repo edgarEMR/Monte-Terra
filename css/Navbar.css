@@ -1,7 +1,7 @@
 nav.navbar {
     background-color: #EFF6FF;
     color: #2563EB;
-    padding: 2% 1%;
+    padding: 1% 1%;
 }
 
 .navbar-brand {
@@ -21,4 +21,12 @@ nav.navbar {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+}
+
+#navMenu button {
+    color: white;
+}
+
+#navConst button {
+    color: white;
 }

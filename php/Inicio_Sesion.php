@@ -19,7 +19,7 @@
             $_SESSION["correo"] = $row["correo"];
 
             session_write_close();
-            header("Location: ../Proyectos.php");
+            header("Location: ../Menu.php");
         } else {
             header("Location: ../index.php#error");
         }

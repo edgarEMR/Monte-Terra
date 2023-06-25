@@ -10,7 +10,7 @@ if (isset($_POST['accion'])) {
     ECHO $_POST["esIngreso"] . '<br>';
     ECHO $_POST["concepto"] . '<br>';
     ECHO $_POST["importe"] . '<br>';
-    ECHO $_POST["area"] . '<br>';
+    ECHO isset($_POST['area'])? $_POST["area"] . '<br>' : '';
     ECHO $_POST["etapa"] . '<br>';
     ECHO $_POST["tipoPago"] . '<br>';
     ECHO $_POST["proyectoID"] . '<br>';
@@ -44,34 +44,34 @@ if (isset($_POST['accion'])) {
     if($_POST["tipo"] == 'Maquinaria') {
         $pago->setIdMaquinaria($_POST['maquina']);
     }
-
-    switch ($_POST["tipo"]) {
-        case 'value':
-            # code...
-            break;
-        
-        default:
-            # code...
-            break;
+    else {
+        $pago->setIdMaquinaria('NULL');
     }
 
     if(isset($_POST["origenIngreso"])){
         switch ($_POST["origenIngreso"]) {
-            case 'Banco':
+            case '1':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador('NULL');
                 $pago->setIdCliente('NULL');
                 $pago->setIdBanco($_POST["tipoPago"]);
                 break;
 
-            case 'Aportacion':
+            case '2':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador($_POST["aportador"]);
                 $pago->setIdCliente('NULL');
                 $pago->setIdBanco('NULL');
                 break;
 
-            case 'Venta':
+            case '3':
+                $pago->setIdProveedor('NULL');
+                $pago->setIdAportador($_POST["aportador"]);
+                $pago->setIdCliente('NULL');
+                $pago->setIdBanco('NULL');
+                break;
+
+            case '4':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador('NULL');
                 $pago->setIdCliente($_POST["cliente"]);
@@ -153,7 +153,7 @@ if (isset($_POST['accion'])) {
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            header("Location: ../Detalle_Pago.php?error=1");
+            //header("Location: ../Detalle_Pago.php?error=1");
         } catch (Exception $error) {
             echo $error;
         }

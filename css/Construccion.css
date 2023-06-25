@@ -1,0 +1,62 @@
+#resumen, #prospectos, #cancelacion {
+    margin: 5% 0;
+    padding: 0 10%;
+}
+
+#tabla-resumen, #tabla-prospectos, #tabla-cancel {
+    text-align: center;
+}
+
+#tabla-resumen tbody tr>td a {
+    text-decoration: none;
+    color: #2563EB; 
+    cursor: pointer;
+}
+
+#tabla-prospectos tbody tr>td a {
+    text-decoration: none;
+    color: #2563EB; 
+    cursor: pointer;
+}
+
+#selector-semana {
+    width: 20%;
+    margin-left: auto;
+}
+
+#selector-semana>input {
+    text-align: center;
+}
+
+#titulo, #titulo-prospectos , #titulo-cancel{
+    display: flex;
+}
+
+h2 {
+    margin-left: 0;
+    margin-right: auto;
+    width: 80%;
+}
+
+#tabla-desglose-semana {
+    margin: 0 auto 5% auto;
+    max-width: 80%;
+}
+
+#tabla-semana {
+    width: 130%;
+}
+
+thead {
+    text-align: center;
+}
+
+.register-form {
+    background-color: #EFF6FF;
+    color: #2563EB;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    border-radius: 3%;
+}

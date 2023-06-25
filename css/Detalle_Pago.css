@@ -19,3 +19,14 @@ h2 {
 #nuevoPagoIng > div, #nuevoPagoEgr > div, #nuevoPagoGen > div {
     margin-top: 2%;
 }
+
+.form-control.is-valid,
+.was-validated .form-control:valid {
+    background-image: none;
+}
+
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: none;
+}

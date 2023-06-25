@@ -1,6 +1,8 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Movimientos');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();
     $('#crearPresupuesto').toggle();
@@ -11,18 +13,27 @@ $('#navigation').load("Navbar.php", function() {
 
 });
 
-$(document).ready(function () {
-    $("#inputProyecto").change(function () {
-        var idProyecto = $('#inputProyecto').val();
-        $.ajax({
-            method: "POST",
-            url: "php/Etapa_Procesos.php",
-            cache: false,
-            data: { accion: "obtener", id: idProyecto }
-        }).done(function( result ) {
-            $("#inputEtapa").empty().html(result);
-        });
+$('.selectpicker').selectpicker({
+    style: '',
+    styleBase: 'form-control'
+});
+
+$("#inputProyecto").change(function () {
+    var idProyecto = $('#inputProyecto').val();
+    $.ajax({
+        method: "POST",
+        url: "php/Etapa_Procesos.php",
+        cache: false,
+        data: { accion: "obtener", id: idProyecto }
+    }).done(function( result ) {
+        $("#inputEtapa").empty().html(result);
+        $('#inputEtapa').selectpicker('destroy');
+        $('#inputEtapa').selectpicker({style: '', styleBase: 'form-control'});
     });
+
+});
+
+$(document).ready(function () {
 
     $("#inputProyectoEg").change(function () {
         var idProyecto = $('#inputProyectoEg').val();
@@ -93,6 +104,37 @@ $(document).ready(function () {
             break;
     }
 
+    $('.selectpicker').on('change', function() {
+        var selectpicker = $(this);
+        selectpicker.removeClass('is-valid is-invalid');
+        // selectpicker.next('.invalid-feedback').text(''); // Clear any previous error message
+
+        if (!selectpicker.val()) {
+            selectpicker.addClass('is-invalid');
+            selectpicker.parent().next().show();
+        } else {
+            selectpicker.addClass('is-valid');
+            selectpicker.parent().next().hide();
+        }
+    });
+
+    // Handle form submission to prevent invalid selects
+    $('form').on('submit', function(event) {
+        var selectpicker = $('.selectpicker');
+        if (!selectpicker.val()) {
+            selectpicker.addClass('is-invalid');
+            selectpicker.parent().next().show();
+        } else {
+            selectpicker.addClass('is-valid');
+            selectpicker.parent().next().hide();
+        }
+
+        var invalidSelects = $('.selectpicker.is-invalid');
+        if (invalidSelects.length > 0) {
+            invalidSelects.first().focus();
+        }
+    });
+
 });
 
 (() => {
@@ -124,22 +166,42 @@ function getParameterByName(name, url = window.location.search) {
 }
 
 function checkIngreso() {
-    if(document.getElementById('esBanco').checked) {
-        console.log('Banco checked');
-        $("#divAportador").hide();
-        $("#divCliente").hide();
-    }
+    switch($('#inputOgIngreso').val()){
+        case "1":
+            console.log('Banco selected');
+            $("#divAportador").hide();
+            $("#divCliente").hide();
 
-    if(document.getElementById('esAportacion').checked) {
-        console.log('Aportacion checked');
-        $("#divAportador").show();
-        $("#divCliente").hide();
-    }
+            $("#inputAportador").prop('required', false);
+            $("#inputCliente").prop('required', false);
+            break;
 
-    if(document.getElementById('esVenta').checked) {
-        console.log('Venta checked');
-        $("#divAportador").hide();
-        $("#divCliente").show();
+        case "2":
+            console.log('Aportacion selected');
+            $("#divAportador").show();
+            $("#divCliente").hide();
+
+            $("#inputAportador").prop('required', true);
+            $("#inputCliente").prop('required', false);
+            break;
+
+        case "3":
+            console.log('Prestamo checked');
+            $("#divAportador").show();
+            $("#divCliente").hide();
+
+            $("#inputAportador").prop('required', true);
+            $("#inputCliente").prop('required', false);
+            break;
+
+        case "4":
+            console.log('Venta checked');
+            $("#divAportador").hide();
+            $("#divCliente").show();
+
+            $("#inputAportador").prop('required', false);
+            $("#inputCliente").prop('required', true);
+            break;
     }
 }
 
