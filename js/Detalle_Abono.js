@@ -1,16 +1,25 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Agregar Préstamo');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
-    $('#crearPresupuesto').toggle();
     $('#agregarPago').toggle();
+    $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
     $('#crearCliente').toggle();
     $('#agregarAbono').toggle();
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
+    $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
-        location.href = 'Ventas.php';
+        history.back();
     });
-
 });
 
 $(document).ready(function () {

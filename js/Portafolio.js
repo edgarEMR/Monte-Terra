@@ -5,6 +5,9 @@ $(document).ready(function (){
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Portafolio');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();
     $('#crearCotizacion').toggle()

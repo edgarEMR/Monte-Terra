@@ -35,8 +35,7 @@
                     $nombre = $rows['nombre'];
                 }
             }
-            ;
-
+            
         }
 
         $procedure = $conection->obtenerPagoBanco($idTipoPago);
@@ -78,7 +77,7 @@
                             $total -= $rows['importe'];
                         }
                         echo "<td><a onclick=\"sendVariables('Detalle_Pago.php', " . $rows['idPago'] . ", 'idPago');\">" . $rows['concepto'] . "</a></td>";
-                        echo "<td>" . $rows['area'] . "</td>";
+                        echo "<td>" . $rows['familia'] . "</td>";
                         echo "<td>" . $rows['proyecto'] . "</td>";
                         echo "<td>$" . number_format($total, 2) . "</td>";
                         echo "</tr>";

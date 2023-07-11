@@ -1,6 +1,9 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Aportadores');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();
     $('#crearPresupuesto').toggle();

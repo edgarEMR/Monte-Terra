@@ -85,13 +85,9 @@
                 <select class="form-select" name="area" id="inputArea" required>
                     <option selected disabled value="">Elige...</option>
                     <?php
-                        $procedure = $conection->obtenerAreas();
+                        $procedure = $conection->obtenerFamilias();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['tipoArea'] == 1) {
-                                echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
-                                
-                            }
-                            
+                            echo "<option value=".$rows['idFamilia'].">".$rows['nombre']."</option>";
                         }
                     ?>
                     </select>
@@ -123,7 +119,7 @@
                     $sumaImporte = 0;
                     $sumaPorcentaje = 0;
 
-                    $procedure = $conection->presupuestoArea($idProyecto);
+                    $procedure = $conection->presupuestoFamilia($idProyecto);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td>" . $rows['nombre'] . "</td>";

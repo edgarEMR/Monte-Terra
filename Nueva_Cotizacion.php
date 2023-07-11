@@ -56,10 +56,10 @@
                 <select class="form-select" name="area" id="inputArea" required>
                     <option selected disabled value="">Elige...</option>
                     <?php
-                        $procedure = $conection->obtenerAreas();
+                        $procedure = $conection->obtenerFamilias();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['tipoArea'] == 1 && ($rows['idArea'] == 5 || $rows['idArea'] == 11)) {
-                                echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
+                            if ($rows['idFamilia'] == 5 || $rows['idFamilia'] == 11) {
+                                echo "<option value=".$rows['idFamilia'].">".$rows['nombre']."</option>";
                                 
                             }
                             

@@ -80,28 +80,28 @@ if (isset($_POST['accion'])) {
         }
     } else if(isset($_POST["origenEgreso"])){
         switch ($_POST["origenEgreso"]) {
-            case 'Banco':
+            case '2':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador('NULL');
                 $pago->setIdCliente('NULL');
                 $pago->setIdBanco($_POST["tipoPago"]);
                 break;
 
-            case 'Aportacion':
+            case '3':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador($_POST["aportador"]);
                 $pago->setIdCliente('NULL');
                 $pago->setIdBanco('NULL');
                 break;
 
-            case 'Pago':
+            case '1':
                 $pago->setIdProveedor($_POST["proveedor"]);
                 $pago->setIdAportador('NULL');
                 $pago->setIdCliente('NULL');
                 $pago->setIdBanco('NULL');
                 break;
 
-            case 'Devolucion':
+            case '4':
                 $pago->setIdProveedor('NULL');
                 $pago->setIdAportador('NULL');
                 $pago->setIdCliente($_POST["cliente"]);
@@ -118,7 +118,7 @@ if (isset($_POST['accion'])) {
     if ($_POST['accion'] == 'registrar') {
         
         echo 'registrar';
-        
+        //REVISAR CUANDO LA ETAPA SEA CERO
         try {
             echo 'Try';
             $procedure = $coneccion->gestionPago(

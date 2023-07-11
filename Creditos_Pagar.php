@@ -65,6 +65,6 @@
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/Aportaciones_Pagar.js"></script>
+    <script src="js/Creditos_Pagar.js"></script>
 </body>
 </html>

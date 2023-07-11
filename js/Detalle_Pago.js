@@ -3,6 +3,7 @@ $('#navigation').load("Navbar.php", function() {
 
     $('#navConst').removeClass();
     $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();
     $('#crearPresupuesto').toggle();
@@ -18,22 +19,22 @@ $('.selectpicker').selectpicker({
     styleBase: 'form-control'
 });
 
-$("#inputProyecto").change(function () {
-    var idProyecto = $('#inputProyecto').val();
-    $.ajax({
-        method: "POST",
-        url: "php/Etapa_Procesos.php",
-        cache: false,
-        data: { accion: "obtener", id: idProyecto }
-    }).done(function( result ) {
-        $("#inputEtapa").empty().html(result);
-        $('#inputEtapa').selectpicker('destroy');
-        $('#inputEtapa').selectpicker({style: '', styleBase: 'form-control'});
-    });
-
-});
 
 $(document).ready(function () {
+    $("#inputProyecto").change(function () {
+        var idProyecto = $('#inputProyecto').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapa").empty().html(result);
+            $('#inputEtapa').selectpicker('destroy');
+            $('#inputEtapa').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    
+    });
 
     $("#inputProyectoEg").change(function () {
         var idProyecto = $('#inputProyectoEg').val();
@@ -44,6 +45,8 @@ $(document).ready(function () {
             data: { accion: "obtener", id: idProyecto }
         }).done(function( result ) {
             $("#inputEtapaEg").empty().html(result);
+            $('#inputEtapaEg').selectpicker('destroy');
+            $('#inputEtapaEg').selectpicker({style: '', styleBase: 'form-control'});
         });
     });
 
@@ -65,11 +68,15 @@ $(document).ready(function () {
     $("#divProveedor").hide();
     $("#divAportadorEg").hide();
     $("#divClienteEg").hide();
+    $("#divAreaEg").hide();
+    $("#divConceptoEg").hide();
+
+    
     
     switch ($("#idTipoArea").text()) {
         case '0':
-            $("#ingreso-tab").addClass('active');
-            $("#ingreso-tab-pane").addClass('show active');
+            $("#general-tab").addClass('active');
+            $("#general-tab-pane").addClass('show active');
             break;
 
         case '1':
@@ -118,9 +125,23 @@ $(document).ready(function () {
         }
     });
 
+    $('#inputOgEgreso').on('change', function() {
+        var selectpicker = $('#inputAreaEg');
+        selectpicker.removeClass('is-valid is-invalid');
+
+        if($(this).val() == '1') {
+            selectpicker.addClass('is-invalid');
+            //selectpicker.parent().next().show();
+        } else {
+            selectpicker.addClass('is-valid');
+            //selectpicker.parent().next().hide();
+        }
+        // selectpicker.next('.invalid-feedback').text(''); // Clear any previous error message
+    });
+
     // Handle form submission to prevent invalid selects
-    $('form').on('submit', function(event) {
-        var selectpicker = $('.selectpicker');
+    $('#nuevoPagoIng').on('submit', function(event) {
+        var selectpicker = $('#nuevoPagoIng').find('.selectpicker');
         if (!selectpicker.val()) {
             selectpicker.addClass('is-invalid');
             selectpicker.parent().next().show();
@@ -129,7 +150,34 @@ $(document).ready(function () {
             selectpicker.parent().next().hide();
         }
 
-        var invalidSelects = $('.selectpicker.is-invalid');
+        var invalidSelects = $('#nuevoPagoIng').find('.selectpicker.is-invalid');
+        if (invalidSelects.length > 0) {
+            invalidSelects.first().focus();
+        }
+    });
+
+    $('#nuevoPagoEgr').on('submit', function(event) {
+        var selectpicker = $('#nuevoPagoEgr').find('.selectpicker');
+        if (!selectpicker.val()) {
+            selectpicker.addClass('is-invalid');
+            selectpicker.parent().next().show();
+        } else {
+            selectpicker.addClass('is-valid');
+            selectpicker.parent().next().hide();
+        }
+
+        var selectFamilia = $('#inputAreaEg');
+        selectFamilia.removeClass('is-valid is-invalid');
+
+        if($('#inputOgEgreso').val() == '1') {
+            selectFamilia.addClass('is-invalid');
+            selectFamilia.parent().next().show();
+        } else {
+            selectFamilia.addClass('is-valid');
+            selectFamilia.parent().next().hide();
+        }
+
+        var invalidSelects = $('#nuevoPagoEgr').find('.selectpicker.is-invalid');
         if (invalidSelects.length > 0) {
             invalidSelects.first().focus();
         }
@@ -206,72 +254,87 @@ function checkIngreso() {
 }
 
 function checkEgreso() {
-    if(document.getElementById('esBancoEg').checked) {
-        console.log('Banco checked');
-        $("#divProveedor").hide();
-        $("#divAportadorEg").hide();
-        $("#divClienteEg").hide();
-        $("#inputAreaEg").prop('disabled', true);
-        $("#inputAreaEg").prop('required', false);
-        $("#inputAreaEg").addClass('is-valid');
+    switch($('#inputOgEgreso').val()){
+        case "1":
+            console.log('Pago selected');
+            $("#divProveedor").show();
+            $("#divAportadorEg").hide();
+            $("#divClienteEg").hide();
+            $("#divAreaEg").show();
+            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
+            $("#divConceptoEg").addClass('col-md-3');
+            $("#divConceptoEg").show();
+            $("#inputAreaEg").prop('required', true);
+            $("#inputAreaEg").removeClass('is-valid');
 
-        $("#inputProveedorEg").prop('required', false);
-        $("#inputAportadorEg").prop('required', false);
-        $("#inputClienteEg").prop('required', false);
-        $("#inputProveedorEg").addClass('is-valid');
-        $("#inputAportadorEg").addClass('is-valid');
-        $("#inputClienteEg").addClass('is-valid');
-    }
+            $("#inputProveedorEg").prop('required', true);
+            $("#inputAportadorEg").prop('required', false);
+            $("#inputClienteEg").prop('required', false);
+            $("#inputProveedorEg").removeClass('is-valid');
+            $("#inputAportadorEg").addClass('is-valid');
+            $("#inputClienteEg").addClass('is-valid');
+            break;
 
-    if(document.getElementById('esAportacionEg').checked) {
-        console.log('Aportacion checked');
-        $("#divProveedor").hide();
-        $("#divAportadorEg").show();
-        $("#divClienteEg").hide();
-        $("#inputAreaEg").prop('disabled', true);
-        $("#inputAreaEg").prop('required', false);
-        $("#inputAreaEg").addClass('is-valid');
+        case "2":
+            console.log('Banco selected');
+            $("#divProveedor").hide();
+            $("#divAportadorEg").hide();
+            $("#divClienteEg").hide();
+            $("#divAreaEg").hide();
+            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
+            $("#divConceptoEg").addClass('col-md-6');
+            $("#divConceptoEg").show();
+            $("#inputAreaEg").prop('disabled', true);
+            $("#inputAreaEg").prop('required', false);
+            $("#inputAreaEg").addClass('is-valid');
+    
+            $("#inputProveedorEg").prop('required', false);
+            $("#inputAportadorEg").prop('required', false);
+            $("#inputClienteEg").prop('required', false);
+            $("#inputProveedorEg").addClass('is-valid');
+            $("#inputAportadorEg").addClass('is-valid');
+            $("#inputClienteEg").addClass('is-valid');
+            break;
 
-        $("#inputProveedorEg").prop('required', false);
-        $("#inputAportadorEg").prop('required', true);
-        $("#inputClienteEg").prop('required', false);
-        $("#inputProveedorEg").addClass('is-valid');
-        $("#inputAportadorEg").removeClass('is-valid');
-        $("#inputClienteEg").addClass('is-valid');
-    }
+        case "3":
+            console.log('Aportacion selected');
+            $("#divProveedor").hide();
+            $("#divAportadorEg").show();
+            $("#divClienteEg").hide();
+            $("#divAreaEg").hide();
+            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
+            $("#divConceptoEg").addClass('col-md-6');
+            $("#divConceptoEg").show();
+            $("#inputAreaEg").prop('disabled', true);
+            $("#inputAreaEg").prop('required', false);
+            $("#inputAreaEg").addClass('is-valid');
+    
+            $("#inputProveedorEg").prop('required', false);
+            $("#inputAportadorEg").prop('required', true);
+            $("#inputClienteEg").prop('required', false);
+            $("#inputProveedorEg").addClass('is-valid');
+            $("#inputAportadorEg").removeClass('is-valid');
+            $("#inputClienteEg").addClass('is-valid');
+            break;
 
-    if(document.getElementById('esPagoEg').checked) {
-        console.log('Pago checked');
-        $("#divProveedor").show();
-        $("#divAportadorEg").hide();
-        $("#divClienteEg").hide();
-        $("#inputAreaEg").prop('disabled', false);
-        $("#inputAreaEg").prop('required', true);
-        $("#inputAreaEg").removeClass('is-valid');
-
-        $("#inputProveedorEg").prop('required', true);
-        $("#inputAportadorEg").prop('required', false);
-        $("#inputClienteEg").prop('required', false);
-        $("#inputProveedorEg").removeClass('is-valid');
-        $("#inputAportadorEg").addClass('is-valid');
-        $("#inputClienteEg").addClass('is-valid');
-    }
-
-    if(document.getElementById('esDevolucionEg').checked) {
-        console.log('Devolucion checked');
-        $("#divProveedor").hide();
-        $("#divAportadorEg").hide();
-        $("#divClienteEg").show();
-        $("#inputAreaEg").prop('disabled', true);
-        $("#inputAreaEg").prop('required', false);
-        $("#inputAreaEg").addClass('is-valid');
-
-        $("#inputProveedorEg").prop('required', false);
-        $("#inputAportadorEg").prop('required', false);
-        $("#inputClienteEg").prop('required', true);
-        $("#inputProveedorEg").addClass('is-valid');
-        $("#inputAportadorEg").addClass('is-valid');
-        $("#inputClienteEg").removeClass('is-valid');
+        case "4":
+            console.log('Devolucion selected');
+            $("#divProveedor").hide();
+            $("#divAportadorEg").hide();
+            $("#divClienteEg").show();
+            $("#divAreaEg").hide();
+            $("#divConceptoEg").hide();
+            $("#inputAreaEg").prop('disabled', true);
+            $("#inputAreaEg").prop('required', false);
+            $("#inputAreaEg").addClass('is-valid');
+    
+            $("#inputProveedorEg").prop('required', false);
+            $("#inputAportadorEg").prop('required', false);
+            $("#inputClienteEg").prop('required', true);
+            $("#inputProveedorEg").addClass('is-valid');
+            $("#inputAportadorEg").addClass('is-valid');
+            $("#inputClienteEg").removeClass('is-valid');
+            break;
     }
 }
 

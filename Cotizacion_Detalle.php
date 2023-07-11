@@ -57,7 +57,7 @@
                         echo "<td>" . $rows['fecha'] . "</td>";
                         echo "<td>" . $rows['concepto'] . "</td>";
                         echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
-                        echo "<td>" . $rows['area'] . "</td>";
+                        echo "<td>" . $rows['familia'] . "</td>";
                         echo "</tr>";
                     }
                 ?>

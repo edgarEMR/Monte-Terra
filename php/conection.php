@@ -75,8 +75,8 @@
             return $this->connect()->query("CALL spObtenerPagoBanco($tipoPago)");
         }
 
-        function obtenerAreas() {
-            return $this->connect()->query("CALL spObtenerAreas()");
+        function obtenerFamilias() {
+            return $this->connect()->query("CALL spObtenerFamilias()");
         }
         
         function obtenerProveedores() {
@@ -98,11 +98,11 @@
         }
 
         function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, $idTipoPago, $idEtapa, $idProyecto,
-                             $idArea, $idProveedor, $idCliente, $idAportador, $idBanco, $idMaquinaria, $opcion)
+                             $idFamilia, $idProveedor, $idCliente, $idAportador, $idBanco, $idMaquinaria, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso,
-                                                                $idTipoPago, $idEtapa, $idProyecto, $idArea, $idProveedor, 
+                                                                $idTipoPago, $idEtapa, $idProyecto, $idFamilia, $idProveedor, 
                                                                 $idCliente, $idAportador, $idBanco, $idMaquinaria, '$opcion')");
         }
 
@@ -181,8 +181,8 @@
             return $this->connect()->query("CALL spPorCobrar()");
         }
 
-        function presupuestoArea($idProyecto) {
-            return $this->connect()->query("CALL spPresupuesto_Area($idProyecto)");
+        function presupuestoFamilia($idProyecto) {
+            return $this->connect()->query("CALL spPresupuestoFamilia($idProyecto)");
         }
 
         function obtenerMaquinaria() {

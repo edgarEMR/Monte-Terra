@@ -1,9 +1,21 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Nuevo Proyecto');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
     $('#agregarPago').toggle();
+    $('#crearCliente').toggle();
+    $('#agregarAbono').toggle();
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
+    $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
       if(getParameterByName('id') == null){

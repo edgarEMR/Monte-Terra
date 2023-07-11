@@ -11,7 +11,7 @@ class Pago extends DB
     private $importe;
     private $fechaPago;
     private $esIngreso;
-    private $idArea;
+    private $idFamilia;
     private $idProveedor;
     private $activo;
     private $idTipoPago;
@@ -205,21 +205,21 @@ class Pago extends DB
 
 
     /**
-     * Get the value of idArea
+     * Get the value of idFamilia
      */ 
-    public function getIdArea()
+    public function getIdFamilia()
     {
-        return $this->idArea;
+        return $this->idFamilia;
     }
 
     /**
-     * Set the value of idArea
+     * Set the value of idFamilia
      *
      * @return  self
      */ 
-    public function setIdArea($idArea)
+    public function setIdFamilia($idFamilia)
     {
-        $this->idArea = $idArea;
+        $this->idFamilia = $idFamilia;
 
         return $this;
     }

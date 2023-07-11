@@ -1,10 +1,13 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Agregar Cotización');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
+    $('#agregarPago').toggle();
     $('#crearPresupuesto').toggle();
     $('#crearCotizacion').toggle();
-    $('#agregarPago').toggle();
     $('#crearCliente').toggle();
     $('#agregarAbono').toggle();
     $('#dividerTop').toggle();

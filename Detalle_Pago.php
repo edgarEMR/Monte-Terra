@@ -40,7 +40,7 @@
                 $pago->setIdTipoPago($row['idTipoPago']);
                 $pago->setIdEtapa($row['idEtapa']);
                 $pago->setIdProyecto($row['idProyecto']);
-                $pago->setIdArea($row['idArea']);
+                $pago->setIdFamilia($row['idFamilia']);
                 $pago->setIdProveedor($row['idProveedor']);
                 $pago->setIdCliente($row['idCliente']);
                 $pago->setIdAportador($row['idAportador']);
@@ -73,6 +73,7 @@
         <div class="tab-content" id="myTabContent">
             <label id="idTipoArea" hidden><?php echo $idTipoArea;?></label>
             <label id="idEsIngreso" hidden><?php echo $pago->getEsIngreso();?></label>
+            <!--INGRESO-->
             <div class="tab-pane fade" id="ingreso-tab-pane" role="tabpanel" aria-labelledby="ingreso-tab" tabindex="0">
                 <form id="nuevoPagoIng" action="php/Pago_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-group" hidden>
@@ -217,6 +218,7 @@
                     </div>
                 </form>
             </div>
+            <!-- EGRESO // REVISAR CONCEPTOS -->
             <div class="tab-pane fade" id="egreso-tab-pane" role="tabpanel" aria-labelledby="egreso-tab" tabindex="0">
                 <form id="nuevoPagoEgr" action="php/Pago_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-group" hidden>
@@ -225,19 +227,9 @@
                             <label class="form-check-label" for="esEgreso">Egreso</label>
                         </div>
                     </div>
-                    
-                    <div class="form-group col-md-6">
-                        <label for="inputConcepto">Concepto</label>
-                        <input type="text" name="concepto" class="form-control" id="inputConcepto"
-                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>">
-                        <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
-                        <div class="invalid-feedback">
-                            Ingrese un nombre válido.
-                        </div>
-                    </div>
                     <div class="form-group col-md-6">
                         <label for="inputImporte">Importe</label>
-                        <div class="input-group">
+                        <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
                             <input type="number" name="importe" class="form-control" id="inputImporte" min="0" step="0.01" required value="<?php echo $pago->getImporte();?>">
                             <div class="invalid-feedback">
@@ -245,11 +237,39 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="form-group col-md-6">
+                        <label for="inputOgEgreso">Área</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="origenEgreso" id="inputOgEgreso" onchange="checkEgreso()" required>
+                            <option value="1">Pago</option>
+                            <option value="2">Crédito</option>
+                            <option value="3">Aportación</option>
+                            <option value="4">Devolución</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputTipoPago">Método de Pago</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoPago" id="inputTipoPago" required>
+                            <?php
+                                $procedure = $conection->obtenerTipoPago();
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($rows['idTipoPago'] == $pago->getIdTipoPago()) {
+                                        echo "<option value=".$rows['idTipoPago']." selected>".$rows['nombre']."</option>";
+                                    } else {
+                                        echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
+                                    }
+                                }
+                            ?>
+                            </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
                     <div class="form-group col-md-4">
                         <label for="inputProyectoEg">Proyecto</label>
-                        <select class="form-select" name="proyecto" id="inputProyectoEg" required>
-                            <option selected disabled value="">Elige...</option>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyecto" id="inputProyectoEg" required>
                             <option value="0">General</option>
                             <?php
                                 $procedure = $conection->obtenerProyectos();
@@ -269,8 +289,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputEtapaEg">Etapa</label>
-                        <select class="form-select" name="etapa" id="inputEtapaEg" required>
-                            <option selected disabled value="">Elige...</option>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="etapa" id="inputEtapaEg" required>
                             <option value="NULL">Todas</option>
                             <?php
                                 $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
@@ -288,59 +307,17 @@
                             Elija una opción.
                         </div>
                     </div>
-                    <div class="form-group col-md-4" id="Areadiv">
-                        <label for="inputAreaEg">Área</label>
-                        <select class="form-select" name="area" id="inputAreaEg">
-                            <option selected disabled value="NULL">Elige...</option>
+                    <div class="form-group col-md-3" id="divAreaEg">
+                        <label for="inputAreaEg">Familia</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="area" id="inputAreaEg">
                             <?php
-                                $procedure = $conection->obtenerAreas();
+                                $procedure = $conection->obtenerFamilias();
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['tipoArea'] == 1) {
-                                        if ($rows['idArea'] == $pago->getIdArea()) {
-                                            echo "<option value=".$rows['idArea']." selected>".$rows['nombre']."</option>";
-                                        } else {
-                                            echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
-                                        }
-                                    }
-                                    
-                                }
-                            ?>
-                            </select>
-                        <div class="invalid-feedback">
-                            Elija una opción.
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8" style="align-self: center;">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="origenEgreso" id="esBancoEg" value="Banco" onclick="checkEgreso()" <?php if(!is_null($pago->getIdBanco())){?> checked <?php }?>>
-                            <label class="form-check-label" for="esBancoEg">Créditos</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="origenEgreso" id="esAportacionEg" value="Aportacion" onclick="checkEgreso()" <?php if(!is_null($pago->getIdAportador())){?> checked <?php }?>>
-                            <label class="form-check-label" for="esAportacionEg">Aportación</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="origenEgreso" id="esPagoEg" value="Pago" onclick="checkEgreso()" <?php if(!is_null($pago->getIdProveedor())){?> checked <?php }?>>
-                            <label class="form-check-label" for="esPagoEg">Pago</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="origenEgreso" id="esDevolucionEg" value="Devolucion" onclick="checkEgreso()" <?php if(!is_null($pago->getIdCliente())){?> checked <?php }?>>
-                            <label class="form-check-label" for="esDevolucionEg">Devolución</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputTipoPago">Método</label>
-                        <select class="form-select" name="tipoPago" id="inputTipoPago" required>
-                            <option selected disabled value="">Elige...</option>
-                            <?php
-                                $procedure = $conection->obtenerTipoPago();
-                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['idTipoPago'] == $pago->getIdTipoPago()) {
-                                        echo "<option value=".$rows['idTipoPago']." selected>".$rows['nombre']."</option>";
+                                    if ($rows['idFamilia'] == $pago->getIdFamilia()) {
+                                        echo "<option value=".$rows['idFamilia']." selected>".$rows['nombre']."</option>";
                                     } else {
-                                        echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
+                                        echo "<option value=".$rows['idFamilia'].">".$rows['nombre']."</option>";
                                     }
-                                    
                                 }
                             ?>
                             </select>
@@ -348,30 +325,9 @@
                             Elija una opción.
                         </div>
                     </div>
-                    <div class="form-group" id="divProveedor">
-                        <label for="inputProveedor">Proveedor</label>
-                        <select class="form-select" name="proveedor" id="inputProveedorEg" required>
-                            <option selected disabled value="">Elige...</option>
-                            <?php
-                                $procedure = $conection->obtenerProveedores();
-                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['idProveedor'] == $pago->getIdProveedor()) {
-                                        echo "<option value=".$rows['idProveedor']." selected>".$rows['nombre']."</option>";
-                                    } else {
-                                        echo "<option value=".$rows['idProveedor'].">".$rows['nombre']."</option>";
-                                    }
-                                    
-                                }
-                            ?>
-                            </select>
-                        <div class="invalid-feedback">
-                            Elija una opción.
-                        </div>
-                    </div>
-                    <div class="form-group" id="divAportadorEg">
+                    <div class="form-group col-md-6" id="divAportadorEg">
                         <label for="inputAportador">Aportador</label>
-                        <select class="form-select" name="aportador" id="inputAportadorEg" required>
-                            <option selected disabled value="">Elige...</option>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="aportador" id="inputAportadorEg" required>
                             <?php
                                 $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
@@ -390,8 +346,7 @@
                     </div>
                     <div class="form-group" id="divClienteEg">
                         <label for="inputProveedor">Cliente</label>
-                        <select class="form-select" name="cliente" id="inputClienteEg" required>
-                            <option selected disabled value="">Elige...</option>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="cliente" id="inputClienteEg" required>
                             <?php
                                 $procedure = $conection->obtenerProspectos();
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
@@ -399,6 +354,34 @@
                                         echo "<option value=".$rows['idCliente']." selected>".$rows['nombre']."</option>";
                                     } else {
                                         echo "<option value=".$rows['idCliente'].">".$rows['nombre']."</option>";
+                                    }
+                                    
+                                }
+                            ?>
+                            </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3" id="divConceptoEg">
+                        <label for="inputConceptoEg">Concepto</label>
+                        <input type="text" name="concepto" class="form-control" id="inputConceptoEg"
+                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>">
+                        <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre válido.
+                        </div>
+                    </div>
+                    <div class="form-group" id="divProveedor">
+                        <label for="inputProveedor">Proveedor</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proveedor" id="inputProveedorEg" required>
+                            <?php
+                                $procedure = $conection->obtenerProveedores();
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($rows['idProveedor'] == $pago->getIdProveedor()) {
+                                        echo "<option value=".$rows['idProveedor']." selected>".$rows['nombre']."</option>";
+                                    } else {
+                                        echo "<option value=".$rows['idProveedor'].">".$rows['nombre']."</option>";
                                     }
                                     
                                 }
@@ -417,6 +400,7 @@
                     </div>
                 </form>
             </div>
+            <!--GENERAL-->
             <div class="tab-pane fade" id="general-tab-pane" role="tabpanel" aria-labelledby="general-tab" tabindex="0">
                 <form id="nuevoPagoGen" action="php/Pago_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-group">
@@ -429,19 +413,21 @@
                             <label class="form-check-label" for="esEgreso">Egreso</label>
                         </div>
                     </div>
-                    
                     <div class="form-group col-md-6">
-                        <label for="inputConcepto">Concepto</label>
-                        <input type="text" name="concepto" class="form-control" id="inputConcepto"
-                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>">
-                        <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                        <label for="inputOgGeneral">Área</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="area" id="inputOgGeneral" onchange="" required>
+                            <option value="1">Pago</option>
+                            <option value="2">Crédito</option>
+                            <option value="3">Aportación</option>
+                            <option value="4">Devolución</option>
+                        </select>
                         <div class="invalid-feedback">
-                            Ingrese un nombre válido.
+                            Elija una opción.
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputImporte">Importe</label>
-                        <div class="input-group">
+                        <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
                             <input type="number" name="importe" class="form-control" id="inputImporte" min="0" step="0.01" required value="<?php echo $pago->getImporte();?>">
                             <div class="invalid-feedback">
@@ -449,32 +435,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputArea">Área</label>
-                        <select class="form-select" name="area" id="inputAreaG" onchange="" required>
-                            <option selected disabled value="">Elige...</option>
-                            <?php
-                                $procedure = $conection->obtenerAreas();
-                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['tipoArea'] == 2) {
-                                        if ($rows['idArea'] == $pago->getIdArea()) {
-                                            echo "<option value=".$rows['idArea']." selected>".$rows['nombre']."</option>";
-                                        } else {
-                                            echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
-                                        }
-                                    }
-                                    
-                                }
-                            ?>
-                        </select>
-                        <div class="invalid-feedback">
-                            Elija una opción.
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                         <label for="inputTipoPago">Método</label>
-                        <select class="form-select" name="tipoPago" id="inputTipoPago" required>
-                            <option selected disabled value="">Elige...</option>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoPago" id="inputTipoPago" required>
                             <?php
                                 $procedure = $conection->obtenerTipoPago();
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
@@ -489,6 +452,15 @@
                             </select>
                         <div class="invalid-feedback">
                             Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputConcepto">Concepto</label>
+                        <input type="text" name="concepto" class="form-control" id="inputConcepto"
+                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>">
+                        <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre válido.
                         </div>
                     </div>
                     <div class="form-group d-grid">

@@ -6,12 +6,24 @@ $(document).ready(function (){
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Créditos Por Pagar');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
     $('#agregarPago').toggle();
     $('#crearPresupuesto').toggle();
+    $('#crearCotizacion').toggle();
+    $('#crearCliente').toggle();
+    $('#agregarAbono').toggle();
+    $('#dividerTop').toggle();
+    $('#agregarAportador').toggle();
+    $('#agregarCredito').toggle();
+    $('#agregarProveedor').toggle();
+    $('#agregarPrestamo').toggle();
+    $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
-        location.href = 'Proyectos.php';
+        history.back();
     });
 
     $('#inputProyectoID').val(getParameterByName('id'));

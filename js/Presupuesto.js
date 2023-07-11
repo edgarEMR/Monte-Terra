@@ -1,6 +1,9 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Presupuesto');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
     $('#crearCotizacion').toggle();
@@ -15,7 +18,7 @@ $('#navigation').load("Navbar.php", function() {
     $('#dividerBottom').toggle();
 
     $('#atras').on("click", function () {
-        location.href = 'Portafolio.php?id=' + $("#idProyecto").val();
+        history.back();
     });
 });
 
