@@ -78,6 +78,10 @@
         function obtenerFamilias() {
             return $this->connect()->query("CALL spObtenerFamilias()");
         }
+
+        function obtenerAreas($tipoArea) {
+            return $this->connect()->query("CALL spObtenerAreas($tipoArea)");
+        }
         
         function obtenerProveedores() {
             return $this->connect()->query("CALL spObtenerProveedores()");

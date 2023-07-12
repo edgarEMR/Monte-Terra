@@ -50,6 +50,20 @@ $(document).ready(function () {
         });
     });
 
+    $('input[type=radio][name="esIngreso"]').on('change', function() {
+        var esIngreso = $(this).val();
+        $.ajax({
+            method: "POST",
+            url: "php/Area_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", tipo: esIngreso }
+        }).done(function( result ) {
+            $("#inputOgGeneral").empty().html(result);
+            $('#inputOgGeneral').selectpicker('destroy');
+            $('#inputOgGeneral').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
     $("#inputProyectoMaq").change(function () {
         var idProyecto = $('#inputProyectoMaq').val();
         $.ajax({

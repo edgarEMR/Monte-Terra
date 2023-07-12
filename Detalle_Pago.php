@@ -84,10 +84,12 @@
                     <div class="form-group col-md-6">
                         <label for="inputOgIngreso">Área</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="origenIngreso" id="inputOgIngreso" onchange="checkIngreso()" required>
-                            <option value="1">Crédito</option>
-                            <option value="2">Aportación</option>
-                            <option value="3">Préstamo</option>
-                            <option value="4">Venta</option>
+                            <?php
+                                $procedure = $conection->obtenerAreas(1);
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<option value=".$rows['valorConsecutivo'].">".$rows['nombre']."</option>";
+                                }
+                            ?>
                             </select>
                         <div class="invalid-feedback">
                             Elija una opción.
@@ -240,10 +242,12 @@
                     <div class="form-group col-md-6">
                         <label for="inputOgEgreso">Área</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="origenEgreso" id="inputOgEgreso" onchange="checkEgreso()" required>
-                            <option value="1">Pago</option>
-                            <option value="2">Crédito</option>
-                            <option value="3">Aportación</option>
-                            <option value="4">Devolución</option>
+                            <?php
+                                $procedure = $conection->obtenerAreas(2);
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<option value=".$rows['valorConsecutivo'].">".$rows['nombre']."</option>";
+                                }
+                            ?>
                         </select>
                         <div class="invalid-feedback">
                             Elija una opción.
@@ -416,10 +420,12 @@
                     <div class="form-group col-md-6">
                         <label for="inputOgGeneral">Área</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="area" id="inputOgGeneral" onchange="" required>
-                            <option value="1">Pago</option>
-                            <option value="2">Crédito</option>
-                            <option value="3">Aportación</option>
-                            <option value="4">Devolución</option>
+                            <?php
+                                $procedure = $conection->obtenerAreas(4);
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<option value=".$rows['valorConsecutivo'].">".$rows['nombre']."</option>";
+                                }
+                            ?>
                         </select>
                         <div class="invalid-feedback">
                             Elija una opción.
