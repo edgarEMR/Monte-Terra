@@ -21,72 +21,7 @@ $('.selectpicker').selectpicker({
 
 
 $(document).ready(function () {
-    $("#inputProyecto").change(function () {
-        var idProyecto = $('#inputProyecto').val();
-        $.ajax({
-            method: "POST",
-            url: "php/Etapa_Procesos.php",
-            cache: false,
-            data: { accion: "obtener", id: idProyecto }
-        }).done(function( result ) {
-            $("#inputEtapa").empty().html(result);
-            $('#inputEtapa').selectpicker('destroy');
-            $('#inputEtapa').selectpicker({style: '', styleBase: 'form-control'});
-        });
-    
-    });
-
-    $("#inputProyectoEg").change(function () {
-        var idProyecto = $('#inputProyectoEg').val();
-        $.ajax({
-            method: "POST",
-            url: "php/Etapa_Procesos.php",
-            cache: false,
-            data: { accion: "obtener", id: idProyecto }
-        }).done(function( result ) {
-            $("#inputEtapaEg").empty().html(result);
-            $('#inputEtapaEg').selectpicker('destroy');
-            $('#inputEtapaEg').selectpicker({style: '', styleBase: 'form-control'});
-        });
-    });
-
-    $('input[type=radio][name="esIngreso"]').on('change', function() {
-        var esIngreso = $(this).val();
-        $.ajax({
-            method: "POST",
-            url: "php/Area_Procesos.php",
-            cache: false,
-            data: { accion: "obtener", tipo: esIngreso }
-        }).done(function( result ) {
-            $("#inputOgGeneral").empty().html(result);
-            $('#inputOgGeneral').selectpicker('destroy');
-            $('#inputOgGeneral').selectpicker({style: '', styleBase: 'form-control'});
-        });
-    });
-
-    $("#inputProyectoMaq").change(function () {
-        var idProyecto = $('#inputProyectoMaq').val();
-        $.ajax({
-            method: "POST",
-            url: "php/Etapa_Procesos.php",
-            cache: false,
-            data: { accion: "obtener", id: idProyecto }
-        }).done(function( result ) {
-            $("#inputEtapaMaq").empty().html(result);
-        });
-    });
-
-    $("#divAportador").hide();
-    $("#divCliente").hide();
-
-    $("#divProveedor").hide();
-    $("#divAportadorEg").hide();
-    $("#divClienteEg").hide();
-    $("#divAreaEg").hide();
-    $("#divConceptoEg").hide();
-
-    
-    
+    //Cambio de panel al seleccionar una pestaña
     switch ($("#idTipoArea").text()) {
         case '0':
             $("#general-tab").addClass('active');
@@ -124,6 +59,121 @@ $(document).ready(function () {
         default:
             break;
     }
+
+    //Obtener etapas del proyecto seleccionado en Ingreso
+    $("#inputProyecto").change(function () {
+        var idProyecto = $('#inputProyecto').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapa").empty().html(result);
+            $('#inputEtapa').selectpicker('destroy');
+            $('#inputEtapa').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    
+    });
+
+    //Obtener etapas del proyecto seleccionado en Egreso
+    $("#inputProyectoEg").change(function () {
+        var idProyecto = $('#inputProyectoEg').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapaEg").empty().html(result);
+            $('#inputEtapaEg').selectpicker('destroy');
+            $('#inputEtapaEg').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
+    //Obtener Concepto dependiendo de la Familia seleccionada en Egreso
+    $("#inputAreaEg").change(function () {
+        var idFamilia = $('#inputAreaEg').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Concepto_Procesos.php",
+            cache: false,
+            data: { accion: "obtenerA", id: idFamilia }
+        }).done(function( result ) {
+            $("#inputConceptoA").empty().html(result);
+            $('#inputConceptoA').selectpicker('destroy');
+            $('#inputConceptoA').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
+    //Obtener Concepto B dependiendo del Concepto A seleccionado en Egreso
+    $("#inputConceptoA").change(function () {
+        var idConcepto = $('#inputConceptoA').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Concepto_Procesos.php",
+            cache: false,
+            data: { accion: "obtenerB", id: idConcepto }
+        }).done(function( result ) {
+            $("#inputConceptoB").empty().html(result);
+            $('#inputConceptoB').selectpicker('destroy');
+            $('#inputConceptoB').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
+    //Obtener Concepto C dependiendo del Concepto B seleccionado en Egreso
+    $("#inputConceptoB").change(function () {
+        var idConcepto = $('#inputConceptoB').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Concepto_Procesos.php",
+            cache: false,
+            data: { accion: "obtenerC", id: idConcepto }
+        }).done(function( result ) {
+            $("#inputConceptoC").empty().html(result);
+            $('#inputConceptoC').selectpicker('destroy');
+            $('#inputConceptoC').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
+    //Obtener areas en General dependiendo si es Ingreso o Egreso
+    $('input[type=radio][name="esIngreso"]').on('change', function() {
+        var esIngreso = $(this).val();
+        $.ajax({
+            method: "POST",
+            url: "php/Area_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", tipo: esIngreso }
+        }).done(function( result ) {
+            $("#inputOgGeneral").empty().html(result);
+            $('#inputOgGeneral').selectpicker('destroy');
+            $('#inputOgGeneral').selectpicker({style: '', styleBase: 'form-control'});
+        });
+    });
+
+    $("#inputProyectoMaq").change(function () {
+        var idProyecto = $('#inputProyectoMaq').val();
+        $.ajax({
+            method: "POST",
+            url: "php/Etapa_Procesos.php",
+            cache: false,
+            data: { accion: "obtener", id: idProyecto }
+        }).done(function( result ) {
+            $("#inputEtapaMaq").empty().html(result);
+        });
+    });
+
+    $("#divAportador").hide();
+    $("#divCliente").hide();
+
+    $("#divProveedor").hide();
+    $("#divAportadorEg").hide();
+    $("#divClienteEg").hide();
+    $("#divAreaEg").hide();
+    $("#divConceptoEg").hide();
+    $("#divConceptoA").hide();
+    $("#divConceptoB").hide();
+    $("#divConceptoC").hide();
 
     $('.selectpicker').on('change', function() {
         var selectpicker = $(this);
@@ -277,16 +327,20 @@ function checkEgreso() {
             $("#divAreaEg").show();
             $("#divConceptoEg").removeClass('col-md-3 col-md-6');
             $("#divConceptoEg").addClass('col-md-3');
-            $("#divConceptoEg").show();
+            $("#divConceptoA").show();
+            $("#divConceptoB").show();
+            $("#divConceptoC").show();
             $("#inputAreaEg").prop('required', true);
             $("#inputAreaEg").removeClass('is-valid');
 
             $("#inputProveedorEg").prop('required', true);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoA").prop('required', true);
             $("#inputProveedorEg").removeClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoA").removeClass('is-valid');
             break;
 
         case "2":
@@ -298,6 +352,9 @@ function checkEgreso() {
             $("#divConceptoEg").removeClass('col-md-3 col-md-6');
             $("#divConceptoEg").addClass('col-md-6');
             $("#divConceptoEg").show();
+            $("#divConceptoA").hide();
+            $("#divConceptoB").hide();
+            $("#divConceptoC").hide();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -305,9 +362,15 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoA").prop('required', false);
+            $("#inputConceptoB").prop('required', false);
+            $("#inputConceptoC").prop('required', false);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoA").addClass('is-valid');
+            $("#inputConceptoB").addClass('is-valid');
+            $("#inputConceptoC").addClass('is-valid');
             break;
 
         case "3":
@@ -319,6 +382,9 @@ function checkEgreso() {
             $("#divConceptoEg").removeClass('col-md-3 col-md-6');
             $("#divConceptoEg").addClass('col-md-6');
             $("#divConceptoEg").show();
+            $("#divConceptoA").hide();
+            $("#divConceptoB").hide();
+            $("#divConceptoC").hide();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -326,9 +392,15 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', true);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoA").prop('required', false);
+            $("#inputConceptoB").prop('required', false);
+            $("#inputConceptoC").prop('required', false);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").removeClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoA").addClass('is-valid');
+            $("#inputConceptoB").addClass('is-valid');
+            $("#inputConceptoC").addClass('is-valid');
             break;
 
         case "4":
@@ -338,6 +410,9 @@ function checkEgreso() {
             $("#divClienteEg").show();
             $("#divAreaEg").hide();
             $("#divConceptoEg").hide();
+            $("#divConceptoA").hide();
+            $("#divConceptoB").hide();
+            $("#divConceptoC").hide();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -345,9 +420,15 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', true);
+            $("#inputConceptoA").prop('required', false);
+            $("#inputConceptoB").prop('required', false);
+            $("#inputConceptoC").prop('required', false);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").removeClass('is-valid');
+            $("#inputConceptoA").addClass('is-valid');
+            $("#inputConceptoB").addClass('is-valid');
+            $("#inputConceptoC").addClass('is-valid');
             break;
     }
 }

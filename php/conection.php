@@ -79,6 +79,10 @@
             return $this->connect()->query("CALL spObtenerFamilias()");
         }
 
+        function obtenerConceptos($idBuscado, $nivelConcepto) {
+            return $this->connect()->query("CALL spObtenerConceptos($idBuscado, '$nivelConcepto')");
+        }
+
         function obtenerAreas($tipoArea) {
             return $this->connect()->query("CALL spObtenerAreas($tipoArea)");
         }

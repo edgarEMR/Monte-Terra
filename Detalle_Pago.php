@@ -376,6 +376,30 @@
                             Ingrese un nombre válido.
                         </div>
                     </div>
+                    <div class="form-group col-md-3" id="divConceptoA">
+                        <label for="inputConceptoA">Concepto</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="conceptoA" id="inputConceptoA">
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3" id="divConceptoB">
+                        <label for="inputConceptoB">Concepto - B</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="conceptoB" id="inputConceptoB">
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3" id="divConceptoC">
+                        <label for="inputConceptoC">Concepto -C</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="conceptoC" id="inputConceptoC">
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
                     <div class="form-group" id="divProveedor">
                         <label for="inputProveedor">Proveedor</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proveedor" id="inputProveedorEg" required>
