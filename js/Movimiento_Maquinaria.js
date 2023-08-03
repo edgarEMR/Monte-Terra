@@ -1,20 +1,13 @@
 $('#navigation').load("Navbar.php", function() {
-    $('#titulo').text('Movimientos');
+    $('#titulo').text('Movimientos Maquinaria');
 
-    $('#navConst').removeClass();
-    $('#navConst').hide();
+    $('#navMenu').removeClass();
+    $('#navMenu').hide();
     
-    $('#crearProyecto').toggle();
-    $('#agregarPago').toggle();
-    $('#crearPresupuesto').toggle();
-    $('#crearCotizacion').toggle();
-    $('#crearCliente').toggle();
-    $('#agregarAbono').toggle();
+    $('#agregarMovimiento').toggle();
+    $('#agregarMaquina').toggle();
+    $('#agregarOperador').toggle();
     $('#dividerTop').toggle();
-
-    $('#atras').on("click", function () {
-        history.back();
-    });
 
 });
 
@@ -111,7 +104,7 @@ $(document).ready(function () {
     });
 
     //Obtener Concepto B dependiendo del Concepto A seleccionado en Egreso
-    $("#inputConceptoA").change(function () {
+    $("#inputMaquina").change(function () {
         var idConcepto = $('#inputConceptoA').val();
         $.ajax({
             method: "POST",
@@ -666,17 +659,3 @@ function checkGeneral() {
             break;
     }
 }
-
-// var today = new Date();
-// var dd = today.getDate();
-// var mm = today.getMonth()+1; //January is 0!
-// var yyyy = today.getFullYear();
-//  if(dd<10){
-//         dd='0'+dd;
-//     } 
-//     if(mm<10){
-//         mm='0'+mm;
-//     } 
-
-// today = yyyy+'-'+mm+'-'+dd;
-// document.getElementById("inputFecha").setAttribute("max", today);

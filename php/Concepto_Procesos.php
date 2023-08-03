@@ -10,51 +10,46 @@ if (isset($_POST['accion'])) {
     $coneccion = new DB(require 'php/config.php');
     $idConcepto = $_POST['id'];
 
-    switch ($_POST['accion']) {
-        case 'obtenerA':
-            try {
-
-                $procedure = $coneccion->obtenerConceptos($idConcepto, "A");
-
-                while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<option value=".$rows['idConcepto'].">".$rows['nombre']."</option>";
-                }
-
-            } catch (PDOException $err) {
-                $errorCode = $err->getCode();
-                echo $err . ' ' . $errorCode;
-            }
-            break;
+    if ($_POST['tipo'] == 'egreso') {
         
-        case 'obtenerB':
-            try {
-
-                $procedure = $coneccion->obtenerConceptos($idConcepto, "B");
-
-                while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<option value=".$rows['idConceptoB'].">".$rows['nombre']."</option>";
-                }
-
-            } catch (PDOException $err) {
-                $errorCode = $err->getCode();
-                echo $err . ' ' . $errorCode;
+        try {
+            switch ($_POST['accion']) {
+                case 'obtenerA':
+                    $procedure = $coneccion->obtenerConceptos($idConcepto, $_POST['tipo'], "A");
+                break;
+                
+                case 'obtenerB':
+                    $procedure = $coneccion->obtenerConceptos($idConcepto, $_POST['tipo'], "B");
+                break;
+                    
+                case 'obtenerC':
+                    $procedure = $coneccion->obtenerConceptos($idConcepto, $_POST['tipo'], "C");
+                break;
             }
-        break;
-            
-        case 'obtenerC':
-            try {
 
-                $procedure = $coneccion->obtenerConceptos($idConcepto, "C");
-
-                while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<option value=".$rows['idConceptoC'].">".$rows['nombre']."</option>";
-                }
-
-            } catch (PDOException $err) {
-                $errorCode = $err->getCode();
-                echo $err . ' ' . $errorCode;
+            while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=".$rows['idConcepto'].">".$rows['nombre']."</option>";
             }
-        break;
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+        }
+    } else {
+        try{
+            echo $idConcepto;
+            if ($idConcepto == 1) {
+                $procedure = $coneccion->obtenerConceptos(102, $_POST['tipo'], "A");
+            } else if($idConcepto == 6){
+                $procedure = $coneccion->obtenerConceptos(101, $_POST['tipo'], "A");
+            }
+
+            while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=".$rows['idConcepto'].">".$rows['nombre']."</option>";
+            }
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+        }
     }
 
     /*if ($_POST['accion'] == 'editar') {

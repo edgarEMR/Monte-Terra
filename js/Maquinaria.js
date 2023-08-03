@@ -14,10 +14,10 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarPrestamo').toggle();
     $('#atras').toggle();
 
-    $('#logo').attr("href", "Ventas.php");
-    /*$('#agregarAbono').on("click", function () {
-        location.href = 'Detalle_Abono.php';
-    });*/
+    $('#logo').attr("href", "Maquinaria.php");
+    $('#atras').on("click", function () {
+        history.back();
+    });
 });
 
 function sendVariables(pagina, id, name){

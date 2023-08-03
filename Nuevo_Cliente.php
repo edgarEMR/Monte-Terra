@@ -201,10 +201,10 @@
             </div>
             <div class="form-group d-grid">
                 <input type="hidden" name="accion" value="<?php echo $accion;?>">
-                <button class="btn btn-block btn-primary btn-lg" type="submit">Agregar</button>
+                <button class="btn btn-block btn-primary btn-lg" type="submit">Guardar</button>
             </div>
         </form>
-
+        <!-- Agregar tipo de vivienda -->
         <!-- Mensaje Modal -->
         <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">

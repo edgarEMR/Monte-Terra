@@ -1,6 +1,9 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Prospectos');
 
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+    
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
     $('#crearCotizacion').toggle();

@@ -1,6 +1,9 @@
 $('#navigation').load("Navbar.php", function() {
     $('#titulo').text('Ventas');
     
+    $('#navConst').removeClass();
+    $('#navConst').hide();
+
     $('#crearProyecto').toggle();
     $('#crearPresupuesto').toggle();
     $('#agregarPago').toggle();
@@ -10,7 +13,6 @@ $('#navigation').load("Navbar.php", function() {
     $('#agregarCredito').toggle();
     $('#agregarProveedor').toggle();
     $('#agregarPrestamo').toggle();
-    $('#atras').toggle();
 
     $('#logo').attr("href", "Ventas.php");
     /*$('#agregarAbono').on("click", function () {

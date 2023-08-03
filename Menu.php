@@ -24,7 +24,7 @@
     <div id="menuItems">    
         <button id="redAdministracion" type="button" class="btn btn-outline-primary" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-building-check"></i> <br> Administración</button>
         <button id="redVentas" type="button" class="btn btn-outline-success" onclick="location.href='Ventas.php'" style="text-decoration: none;" style="text-decoration: none;"><i class="bi bi-house-check-fill"></i> <br> Ventas</button>
-        <button id="redConstru" type="button" class="btn btn-outline-danger" onclick="location.href='Construccion.php'" style="text-decoration: none;" style="text-decoration: none;"><i class="bi bi-truck-flatbed"></i> <br> Maquinaria</button>
+        <button id="redConstru" type="button" class="btn btn-outline-danger" onclick="location.href='Maquinaria.php'" style="text-decoration: none;" style="text-decoration: none;"><i class="bi bi-truck-flatbed"></i> <br> Maquinaria</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Menu.js"></script>

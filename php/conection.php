@@ -79,8 +79,8 @@
             return $this->connect()->query("CALL spObtenerFamilias()");
         }
 
-        function obtenerConceptos($idBuscado, $nivelConcepto) {
-            return $this->connect()->query("CALL spObtenerConceptos($idBuscado, '$nivelConcepto')");
+        function obtenerConceptos($idBuscado, $tipo, $nivelConcepto) {
+            return $this->connect()->query("CALL spObtenerConceptos($idBuscado, '$tipo', '$nivelConcepto')");
         }
 
         function obtenerAreas($tipoArea) {
@@ -193,8 +193,8 @@
             return $this->connect()->query("CALL spPresupuestoFamilia($idProyecto)");
         }
 
-        function obtenerMaquinaria() {
-            return $this->connect()->query("CALL spObtenerMaquinaria()");
+        function gestionMaquinaria($idMaquinaria, $nombre, $costo, $idRecu, $opcion) {
+            return $this->connect()->query("CALL spGestionMaquinaria($idMaquinaria, '$nombre', $costo, $idRecu, '$opcion')");
         }
 
         function gastoMaquinaria() {

@@ -35,8 +35,8 @@
             <h6 id="titulo">Titulo</h6>
             
             <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Menu
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end text-center">
                     <li><h6 class="dropdown-header"><?php echo $nombreUsuario . '</br>' . $correo;?></h6></li>
@@ -59,7 +59,7 @@
         <button id="atras" type="button" class="btn btn-link" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
     <div id="navConst" class="bg-primary d-flex justify-content-center">
-        <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='#'" style="text-decoration: none;">Agregar Movimiento</button>
+        <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='Movimiento_Maquinaria.php'" style="text-decoration: none;">Agregar Movimiento</button>
         <button id="agregarMaquina" type="button" class="btn btn-link" onclick="location.href='Nueva_Maquina.php'" style="text-decoration: none;">Agregar Maquina</button>
         <button id="agregarOperador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Operador.php'" style="text-decoration: none;">Agregar Operador</button>
         <button id="atras" type="button" class="btn btn-link" onclick="location.href='Menu.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>

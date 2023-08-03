@@ -14,6 +14,24 @@
     <div id="navigation" class="top">
 
     </div>
+    <?php
+        ob_start();
+        session_start();
+        include_once('modelos/Pago.php');
+        include_once('php/conection.php');
+
+        $idProyecto = 0;
+        $idPago = 0;
+        $idTipoArea = 0;
+        $nombreProyecto = '';
+        $accion = 'registrar';
+        $pago = new Pago(require 'php/config.php');
+        $conection = new DB(require 'php/config.php');
+        $idUsuario = 0;
+
+        $idUsuario = $_SESSION['idUsuario'];
+
+    ?>
     
     <div id="prospectos" class="table-responsive">
         
@@ -46,10 +64,16 @@
                 </div>
             </div>
             <div class="form-group col-md-12">
-                <label for="inputProyecto">Maquina</label>
-                <select class="form-select" name="proyecto" id="inputProyecto" required>
+                <label for="inputMaquina">Maquinaria</label>
+                <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="maquina" id="inputMaquina" onchange="" required>
                     <option selected disabled value="">Elige...</option>
-                    </select>
+                    <?php
+                        $procedure = $conection->obtenerMaquinaria();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value=".$rows['idMaquinaria'].">".$rows['nombre']."</option>";
+                        }
+                    ?>
+                </select>
                 <div class="invalid-feedback">
                     Elija una opción.
                 </div>
