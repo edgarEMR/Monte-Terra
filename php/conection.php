@@ -105,13 +105,14 @@
                                                                 $idProyecto, '$opcion')");
         }
 
-        function gestionPago($idPago, $concepto, $importe, $fecha, $esIngreso, $idTipoPago, $idEtapa, $idProyecto,
-                             $idFamilia, $idProveedor, $idCliente, $idAportador, $idBanco, $idMaquinaria, $opcion)
+        function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 
+                            $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $idConceptoC,
+                            $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, '$fecha', $esIngreso,
-                                                                $idTipoPago, $idEtapa, $idProyecto, $idFamilia, $idProveedor, 
-                                                                $idCliente, $idAportador, $idBanco, $idMaquinaria, '$opcion')");
+            return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario,
+                                                                $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $idConceptoC, 
+                                                                $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, '$opcion')");
         }
 
         function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $fechaNacimiento,
@@ -199,6 +200,14 @@
 
         function gastoMaquinaria() {
             return $this->connect()->query("CALL spGastoMaquinaria()");
+        }
+
+        function gestionCredito($idCredito, $idBanco, $idProyecto, $opcion) {
+            return $this->connect()->query("CALL spGestionCredito($idCredito, $idBanco, $idProyecto, '$opcion')");
+        }
+
+        function gestionProrrateo($idProrrateo, $idProyecto, $esAdmin, $opcion) {
+            return $this->connect()->query("CALL spGestionProrrateo($idProrrateo, $idProyecto, $esAdmin, '$opcion')");
         }
 
         /**

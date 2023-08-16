@@ -15,7 +15,7 @@ if (isset($_POST['accion'])) {
             $procedure = $coneccion->obtenerAreas($tipoArea);
             
             while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value=".$rows['valorConsecutivo'].">".$rows['nombre']."</option>";
+                echo "<option value=".$rows['idArea'].">".$rows['nombre']."</option>";
             }
 
         } catch (PDOException $err) {

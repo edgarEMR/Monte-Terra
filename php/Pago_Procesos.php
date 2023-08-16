@@ -1,148 +1,103 @@
 <?php 
 ob_start();
+session_start();
 include_once('../php/conection.php');
 include_once('../modelos/Pago.php');
 
 echo "HOLA" . '<br>';
 
 if (isset($_POST['accion'])) {
-
-    ECHO $_POST["esIngreso"] . '<br>';
-    ECHO $_POST["concepto"] . '<br>';
-    ECHO $_POST["importe"] . '<br>';
-    ECHO isset($_POST['area'])? $_POST["area"] . '<br>' : '';
-    ECHO $_POST["etapa"] . '<br>';
-    ECHO $_POST["tipoPago"] . '<br>';
-    ECHO $_POST["proyectoID"] . '<br>';
-    ECHO $_POST["accion"] . '<br>';
+    echo "<table>";
+    foreach ($_POST as $key => $value) {
+        $checked = $value ?: 'NULL';
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $checked;
+        //echo $value;
+        echo "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 
     $pago = new Pago(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
 
-    $pago->setEsIngreso($_POST["esIngreso"]);
-    $pago->setConcepto($_POST["concepto"]);
-    $pago->setImporte($_POST["importe"]);
-    $pago->setFechaPago("");
-    $pago->setIdTipoPago($_POST["tipoPago"]);
-    
-    if($_POST["tipo"] == 'General') {
-        $pago->setIdProyecto('NULL');
-        $pago->setIdEtapa('NULL');
-    }
-    else {
-        $pago->setIdProyecto($_POST["proyecto"]);
-        $pago->setIdEtapa($_POST["etapa"]);
-    }
+    $pago->setConcepto($_POST['concepto'] ?: 'NULL');
+    $pago->setImporte($_POST['importe']) ?: 'NULL';
+    $pago->setFechaPago('');
+    $pago->setEsIngreso($_POST['esIngreso'] ?: 'NULL');
+    $pago->setIdTipoPago($_POST['tipoPago'] ?: 'NULL');
+    $pago->setIdArea($_POST['origen'] ?: 'NULL');
+    $pago->setIdUsuario($_SESSION['idUsuario'] ?: 'NULL');
+    $pago->setEsGeneral($_POST['tipo'] == 'General' ? 1 : 0);
+    $pago->setIdProyecto($_POST['proyecto'] ?: 'NULL');
+    $pago->setIdEtapa($_POST['etapa'] ?: 'NULL');
+    $pago->setIdFamilia($_POST['area'] ?: 'NULL');
+    $pago->setIdConcepto($_POST['conceptoA'] ?: 'NULL');
+    $pago->setIdConceptoB($_POST['conceptoB'] ?: 'NULL');
+    $pago->setIdConceptoC($_POST['conceptoC'] ?: 'NULL');
+    $pago->setIdCliente($_POST['cliente'] ?: 'NULL');
+    $pago->setIdAportador($_POST['aportador'] ?: 'NULL');
+    $pago->setIdBanco($_POST['banco'] ?: 'NULL');
+    $pago->setIdProveedor($_POST['proveedor'] ?: 'NULL');
+    $pago->setIdEmpleado($_POST['empleado'] ?: 'NULL');
 
-    if($_POST["tipo"] != 'Ingreso' && $_POST["tipo"] != 'Maquinaria') {
-        $pago->setIdArea($_POST["area"]);
-    }
-    else {
-        $pago->setIdArea('NULL');
-    }
-
-    if($_POST["tipo"] == 'Maquinaria') {
-        $pago->setIdMaquinaria($_POST['maquina']);
-    }
-    else {
-        $pago->setIdMaquinaria('NULL');
-    }
-
-    if(isset($_POST["origenIngreso"])){
-        switch ($_POST["origenIngreso"]) {
-            case '1':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador('NULL');
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco($_POST["tipoPago"]);
-                break;
-
-            case '2':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador($_POST["aportador"]);
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco('NULL');
-                break;
-
-            case '3':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador($_POST["aportador"]);
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco('NULL');
-                break;
-
-            case '4':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador('NULL');
-                $pago->setIdCliente($_POST["cliente"]);
-                $pago->setIdBanco('NULL');
-                break;
-        }
-    } else if(isset($_POST["origenEgreso"])){
-        switch ($_POST["origenEgreso"]) {
-            case '2':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador('NULL');
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco($_POST["tipoPago"]);
-                break;
-
-            case '3':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador($_POST["aportador"]);
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco('NULL');
-                break;
-
-            case '1':
-                $pago->setIdProveedor($_POST["proveedor"]);
-                $pago->setIdAportador('NULL');
-                $pago->setIdCliente('NULL');
-                $pago->setIdBanco('NULL');
-                break;
-
-            case '4':
-                $pago->setIdProveedor('NULL');
-                $pago->setIdAportador('NULL');
-                $pago->setIdCliente($_POST["cliente"]);
-                $pago->setIdBanco('NULL');
-                break;
-        }
-    } else {
-        $pago->setIdProveedor('NULL');
-        $pago->setIdAportador('NULL');
-        $pago->setIdCliente('NULL');
-        $pago->setIdBanco('NULL');
-    }
+    echo $pago->getConcepto() . '<br>';
+    echo $pago->getImporte() . '<br>';
+    echo $pago->getFechaPago() . '<br>';
+    echo $pago->getEsIngreso() . '<br>';
+    echo $pago->getIdTipoPago() . '<br>';
+    echo $pago->getIdArea() . '<br>';
+    echo $pago->getIdUsuario() . '<br>';
+    echo $pago->getEsGeneral() . '<br>';
+    echo $pago->getIdProyecto() . '<br>';
+    echo $pago->getIdEtapa() . '<br>';
+    echo $pago->getIdFamilia() . '<br>';
+    echo $pago->getIdConcepto() . '<br>';
+    echo $pago->getIdConceptoB() . '<br>';
+    echo $pago->getIdConceptoC() . '<br>';
+    echo $pago->getIdCliente() . '<br>';
+    echo $pago->getIdAportador() . '<br>';
+    echo $pago->getIdBanco() . '<br>';
+    echo $pago->getIdProveedor() . '<br>';
+    echo $pago->getIdEmpleado() . '<br>';
 
     if ($_POST['accion'] == 'registrar') {
         
         echo 'registrar';
-        //REVISAR CUANDO LA ETAPA SEA CERO
         try {
             echo 'Try';
+
             $procedure = $coneccion->gestionPago(
                 0,
                 $pago->getConcepto(),
                 $pago->getImporte(),
-                "",
                 $pago->getEsIngreso(),
                 $pago->getIdTipoPago(),
-                $pago->getIdEtapa(),
-                $pago->getIdProyecto(),
                 $pago->getIdArea(),
-                $pago->getIdProveedor(),
+                $pago->getIdUsuario(),
+                $pago->getEsGeneral(),
+                $pago->getIdProyecto(),
+                $pago->getIdEtapa(),
+                $pago->getIdFamilia(),
+                $pago->getIdConcepto(),
+                $pago->getIdConceptoB(),
+                $pago->getIdConceptoC(),
                 $pago->getIdCliente(),
                 $pago->getIdAportador(),
                 $pago->getIdBanco(),
-                $pago->getIdMaquinaria(),
+                $pago->getIdProveedor(),
+                $pago->getIdEmpleado(),
                 'I'
             );
             
             echo 'Lo ejecuto';
             $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
 
-            header('Location: ../Detalle_Pago.php');
+            // header('Location: ../Detalle_Pago.php');
 
             // if($_POST['idRol'] != 1){
             //     header('Location: ../inicio.php?register=success');
@@ -169,28 +124,27 @@ if (isset($_POST['accion'])) {
         try {
 
             echo 'Try';
-            $procedure = $coneccion->gestionPago(
-                $pago->getIdPago(),
-                $pago->getConcepto(),
-                $pago->getImporte(),
-                "",
-                $pago->getEsIngreso(),
-                $pago->getIdTipoPago(),
-                $pago->getIdEtapa(),
-                $pago->getIdProyecto(),
-                $pago->getIdArea(),
-                $pago->getIdProveedor(),
-                $pago->getIdCliente(),
-                $pago->getIdAportador(),
-                $pago->getIdBanco(),
-                $pago->getIdMaquinaria(),
-                'U'
-            );
+            // $procedure = $coneccion->gestionPago(
+            //     $pago->getIdPago(),
+            //     $pago->getConcepto(),
+            //     $pago->getImporte(),
+            //     "",
+            //     $pago->getEsIngreso(),
+            //     $pago->getIdTipoPago(),
+            //     $pago->getIdEtapa(),
+            //     $pago->getIdProyecto(),
+            //     $pago->getIdArea(),
+            //     $pago->getIdProveedor(),
+            //     $pago->getIdCliente(),
+            //     $pago->getIdAportador(),
+            //     $pago->getIdBanco(),
+            //     'U'
+            // );
             
-            echo 'Lo ejecuto';
-            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+            // echo 'Lo ejecuto';
+            // $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
             
-            header('Location: ../Portafolio.php?id='. $pago->getIdProyecto());
+            // header('Location: ../Portafolio.php?id='. $pago->getIdProyecto());
 
 
         } catch (PDOException $err) {

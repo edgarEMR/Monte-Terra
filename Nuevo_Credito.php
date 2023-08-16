@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Aportador</title>
-    <link rel="stylesheet" href="css/Nuevo_Aportador.css">
+    <title>Agregar Banco</title>
+    <link rel="stylesheet" href="css/Nuevo_Credito.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -22,7 +22,7 @@
     
         $idProyecto = 0;
         $nombreProyecto = '';
-        $accion = 'registrar';
+        $accion = 'credito';
         $conection = new DB(require 'php/config.php');
 
     ?>
@@ -42,36 +42,38 @@
         </div>
     </div>
     <div class="register-form">
-        <form id="registroAportador" action="php/Aportador_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
-            <div class="form-group input-group-sm col-md-6">
-                <label for="nombreProyecto">Nombre</label>
-                <input type="text" name="nombreAportador" class="form-control" id="inputNombre"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="" required>
-                <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
-                <div class="invalid-feedback">
-                    Ingrese un nombre válido.
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputProyecto">Proyecto</label>
-                <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyecto" id="inputProyecto" required>
-                    <option value="-1">General</option>
-                    <?php
-                        $procedure = $conection->obtenerProyectos();
-                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['idProyecto'] == $idProyecto) {
-                                echo "<option value=".$rows['idProyecto']." selected>".$rows['nombre']."</option>";
-                            } else {
-                                echo "<option value=".$rows['idProyecto'].">".$rows['nombre']."</option>";
+        <form id="registroCredito" action="php/Banco_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+                <div class="form-group col-md-6">
+                    <label for="inputBanco">Banco</label>
+                    <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="banco" id="inputBanco" required>
+                        <?php
+                            $procedure = $conection->obtenerTipoPago();
+                            while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                if ($rows['idTipoPago'] !== 3) {
+                                    echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
+                                }
                             }
-                            
-                        }
-                    ?>
-                    </select>
-                <div class="invalid-feedback">
-                    Elija una opción.
+                        ?>
+                        </select>
+                    <div class="invalid-feedback">
+                        Elija una opción.
+                    </div>
                 </div>
-            </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputProyecto">Proyecto</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyecto" id="inputProyecto" required>
+                            <option value="-1">General</option>
+                            <?php
+                                $procedure = $conection->obtenerProyectos();
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<option value=".$rows['idProyecto'].">".$rows['nombre']."</option>";
+                                }
+                            ?>
+                            </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
             <div class="form-group d-grid mt-3">
                 <input type="hidden" name="accion" value="<?php echo $accion;?>">
                 <button class="btn btn-block btn-primary" type="submit">Agregar</button>
@@ -82,17 +84,17 @@
         <table id="tabla-aportador" class="table table-hover table-bordered">
             <thead>
                 <tr class="table-primary">
-                    <th>Nombre</th>
                     <th>Proyecto</th>
+                    <th>Banco</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
+                    $procedure = $conection->gestionCredito(0, 0, 0, 'S');
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td>" . $rows['nombre'] . "</td>";
                         echo "<td>" . $rows['nombreProyecto'] . "</td>";
+                        echo "<td>" . $rows['nombreBanco'] . "</td>";
                         echo "</tr>";
                     }
                 ?>
@@ -103,6 +105,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/bootstrap-select.js"></script>
-    <script src="js/Nuevo_Aportador.js"></script>
+    <script src="js/Nuevo_Credito.js"></script>
 </body>
 </html>

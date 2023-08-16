@@ -1,5 +1,5 @@
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("Aportadores");
+  $("#titulo").text("Prorrateo");
 
   $("#navConst").removeClass();
   $("#navConst").hide();
@@ -15,6 +15,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarCredito").toggle();
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
+  $("#gestionProrrateo").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
@@ -55,7 +56,7 @@ $(document).ready(function () {
     $("#modalMensaje").find(".modal-title").text("Atención");
     $("#modalMensaje")
       .find(".modal-body")
-      .text("Error al agregar Aportador, intente de nuevo");
+      .text("Error al agregar el Credito, intente de nuevo");
     $("#modalMensaje").modal("show");
   }
 
@@ -73,8 +74,8 @@ $(document).ready(function () {
     }
   });
 
-  $("#registroAportador").on("submit", function (event) {
-    var selectpicker = $("#registroAportador").find(".selectpicker");
+  $("#registroCredito").on("submit", function (event) {
+    var selectpicker = $("#registroCredito").find(".selectpicker");
     if (!selectpicker.val()) {
       selectpicker.addClass("is-invalid");
       selectpicker.parent().next().show();
@@ -83,9 +84,7 @@ $(document).ready(function () {
       selectpicker.parent().next().hide();
     }
 
-    var invalidSelects = $("#registroAportador").find(
-      ".selectpicker.is-invalid"
-    );
+    var invalidSelects = $("#registroCredito").find(".selectpicker.is-invalid");
     if (invalidSelects.length > 0) {
       invalidSelects.first().focus();
     }

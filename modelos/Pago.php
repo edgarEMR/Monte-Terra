@@ -11,16 +11,22 @@ class Pago extends DB
     private $importe;
     private $fechaPago;
     private $esIngreso;
-    private $idFamilia;
-    private $idProveedor;
     private $activo;
     private $idTipoPago;
-    private $idEtapa;
+    private $idArea;
+    private $idUsuario;
+    private $esGeneral; //Pago Detalle
     private $idProyecto;
+    private $idEtapa;
+    private $idFamilia;
+    private $idConcepto;
+    private $idConceptoB;
+    private $idConceptoC;
     private $idCliente;
     private $idAportador;
     private $idBanco;
-    private $idMaquinaria;
+    private $idProveedor;
+    private $idEmpleado;
     
 
     /**
@@ -164,21 +170,61 @@ class Pago extends DB
     }
 
     /**
-     * Get the value of idEtapa
+     * Get the value of idArea
      */ 
-    public function getIdEtapa()
+    public function getIdArea()
     {
-        return $this->idEtapa;
+        return $this->idArea;
     }
 
     /**
-     * Set the value of idEtapa
+     * Set the value of idArea
      *
      * @return  self
      */ 
-    public function setIdEtapa($idEtapa)
+    public function setIdArea($idArea)
     {
-        $this->idEtapa = $idEtapa;
+        $this->idArea = $idArea;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idUsuario
+     */ 
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * Set the value of idUsuario
+     *
+     * @return  self
+     */ 
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of esGeneral
+     */ 
+    public function getEsGeneral()
+    {
+        return $this->esGeneral;
+    }
+
+    /**
+     * Set the value of esGeneral
+     *
+     * @return  self
+     */ 
+    public function setEsGeneral($esGeneral)
+    {
+        $this->esGeneral = $esGeneral;
 
         return $this;
     }
@@ -203,6 +249,25 @@ class Pago extends DB
         return $this;
     }
 
+    /**
+     * Get the value of idEtapa
+     */ 
+    public function getIdEtapa()
+    {
+        return $this->idEtapa;
+    }
+
+    /**
+     * Set the value of idEtapa
+     *
+     * @return  self
+     */ 
+    public function setIdEtapa($idEtapa)
+    {
+        $this->idEtapa = $idEtapa;
+
+        return $this;
+    }
 
     /**
      * Get the value of idFamilia
@@ -225,21 +290,61 @@ class Pago extends DB
     }
 
     /**
-     * Get the value of idProveedor
+     * Get the value of idConcepto
      */ 
-    public function getIdProveedor()
+    public function getIdConcepto()
     {
-        return $this->idProveedor;
+        return $this->idConcepto;
     }
 
     /**
-     * Set the value of idProveedor
+     * Set the value of idConcepto
      *
      * @return  self
      */ 
-    public function setIdProveedor($idProveedor)
+    public function setIdConcepto($idConcepto)
     {
-        $this->idProveedor = $idProveedor;
+        $this->idConcepto = $idConcepto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idConceptoB
+     */ 
+    public function getIdConceptoB()
+    {
+        return $this->idConceptoB;
+    }
+
+    /**
+     * Set the value of idConceptoB
+     *
+     * @return  self
+     */ 
+    public function setIdConceptoB($idConceptoB)
+    {
+        $this->idConceptoB = $idConceptoB;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idConceptoC
+     */ 
+    public function getIdConceptoC()
+    {
+        return $this->idConceptoC;
+    }
+
+    /**
+     * Set the value of idConceptoC
+     *
+     * @return  self
+     */ 
+    public function setIdConceptoC($idConceptoC)
+    {
+        $this->idConceptoC = $idConceptoC;
 
         return $this;
     }
@@ -305,21 +410,41 @@ class Pago extends DB
     }
 
     /**
-     * Get the value of idMaquinaria
+     * Get the value of idProveedor
      */ 
-    public function getIdMaquinaria()
+    public function getIdProveedor()
     {
-        return $this->idMaquinaria;
+        return $this->idProveedor;
     }
 
     /**
-     * Set the value of idMaquinaria
+     * Set the value of idProveedor
      *
      * @return  self
      */ 
-    public function setIdMaquinaria($idMaquinaria)
+    public function setIdProveedor($idProveedor)
     {
-        $this->idMaquinaria = $idMaquinaria;
+        $this->idProveedor = $idProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idEmpleado
+     */ 
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set the value of idEmpleado
+     *
+     * @return  self
+     */ 
+    public function setIdEmpleado($idEmpleado)
+    {
+        $this->idEmpleado = $idEmpleado;
 
         return $this;
     }

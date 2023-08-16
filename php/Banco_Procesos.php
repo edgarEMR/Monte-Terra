@@ -74,5 +74,39 @@ if (isset($_POST['accion'])) {
         }
             
     }
+
+    if ($_POST['accion'] == 'credito') {
+        
+        echo 'registrar';
+        
+        try {
+            echo 'Try';
+            $procedure = $coneccion->gestionCredito(
+                0,
+                $_POST['banco'],
+                $_POST['proyecto'],
+                'I'
+            );
+            
+            echo 'Lo ejecuto';
+            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+            header('Location: ../Nuevo_Credito.php');
+
+            // if($_POST['idRol'] != 1){
+            //     header('Location: ../inicio.php?register=success');
+            // } else {
+            //     header("Location: ../perfil.php?nombreUsuario=edgar");
+            // }
+
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo '<br>' . $err;
+            header("Location: ../Nuevo_Credito.php?error=1");
+        } catch (Exception $error) {
+            echo $error;
+        }
+            
+    }
 }
 ?>

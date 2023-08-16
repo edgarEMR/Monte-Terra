@@ -53,9 +53,10 @@
         <button id="crearCliente" type="button" class="btn btn-link" onclick="location.href='Nuevo_Cliente.php'" style="text-decoration: none;">Agregar Cliente</button>
         <button hidden id="agregarAbono" type="button" class="btn btn-link" onclick="location.href='Detalle_Abono.php'" style="text-decoration: none;">Agregar Abono</button>
         <button id="agregarAportador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Aportador.php'" style="text-decoration: none;">Agregar Aportador</button>
-        <button id="agregarCredito" type="button" class="btn btn-link" onclick="location.href='Nuevo_Banco.php'" style="text-decoration: none;">Agregar Crédito</button>
+        <button id="agregarCredito" type="button" class="btn btn-link" onclick="location.href='Nuevo_Credito.php'" style="text-decoration: none;">Agregar Crédito</button>
         <button id="agregarProveedor" type="button" class="btn btn-link" onclick="location.href='Nuevo_Proveedor.php'" style="text-decoration: none;">Agregar Proveedor</button>
         <button id="agregarPrestamo" type="button" class="btn btn-link" onclick="location.href='Detalle_Abono.php'" style="text-decoration: none;">Agregar Préstamo</button>
+        <button id="gestionProrrateo" type="button" class="btn btn-link" onclick="location.href='Gestion_Prorrateo.php'" style="text-decoration: none;">Prorrateo</button>
         <button id="atras" type="button" class="btn btn-link" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
     <div id="navConst" class="bg-primary d-flex justify-content-center">

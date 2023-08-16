@@ -40,7 +40,8 @@ $(document).ready(function () {
                 $("#egreso-tab").prop('disabled', true);
                 $("#general-tab").prop('disabled', true);
                 
-                checkIngreso();
+                $('#inputOgIngreso').trigger('change');
+                
             } else {
                 $("#egreso-tab").addClass('active');
                 $("#egreso-tab-pane").addClass('show active');
@@ -48,7 +49,8 @@ $(document).ready(function () {
                 $("#ingreso-tab").prop('disabled', true);
                 $("#general-tab").prop('disabled', true);
                 
-                checkEgreso();
+                $('#inputOgEgreso').trigger('change');
+                
             }
             break;
             
@@ -58,6 +60,8 @@ $(document).ready(function () {
 
             $("#ingreso-tab").prop('disabled', true);
             $("#egreso-tab").prop('disabled', true);
+
+            $('#inputOgEgreso').trigger('change');
             break;
             
         default:
@@ -193,6 +197,7 @@ $(document).ready(function () {
 
     $("#divAportador").hide();
     $("#divCliente").hide();
+    $("#divBanco").hide();
 
     $("#divProveedor").hide();
     $("#divAportadorEg").hide();
@@ -202,6 +207,7 @@ $(document).ready(function () {
     $("#divConceptoA").hide();
     $("#divConceptoB").hide();
     $("#divConceptoC").hide();
+    $("#divBancoEg").hide();
 
     $("#divConceptoGen").hide();
     $("#divConceptoGenA").hide();
@@ -313,83 +319,122 @@ function getParameterByName(name, url = window.location.search) {
 }
 
 function checkIngreso() {
-    switch($('#inputOgIngreso').val()){
-        case "1":
+    $("#inputAportador").selectpicker('val', '');
+    $("#inputCliente").selectpicker('val', '');
+    $("#inputBanco").selectpicker('val', '');
+
+    switch($('#inputOgIngreso').prop('selectedIndex')){
+        case 1:
             console.log('Banco selected');
             $("#divAportador").hide();
             $("#divCliente").hide();
+            $("#divBanco").show();
 
             $("#inputAportador").prop('required', false);
             $("#inputCliente").prop('required', false);
+            $("#inputBanco").prop('required', true);
+            $("#inputAportador").addClass('is-valid');
+            $("#inputCliente").addClass('is-valid');
+            $("#inputBanco").removeClass('is-valid');
             break;
 
-        case "2":
+        case 2:
             console.log('Aportacion selected');
             $("#divAportador").show();
             $("#divCliente").hide();
+            $("#divBanco").hide();
 
             $("#inputAportador").prop('required', true);
             $("#inputCliente").prop('required', false);
+            $("#inputBanco").prop('required', false);
+            $("#inputAportador").removeClass('is-valid');
+            $("#inputCliente").addClass('is-valid');
+            $("#inputBanco").addClass('is-valid');
             break;
 
-        case "3":
+        case 3:
             console.log('Prestamo checked');
             $("#divAportador").show();
             $("#divCliente").hide();
+            $("#divBanco").hide();
 
             $("#inputAportador").prop('required', true);
             $("#inputCliente").prop('required', false);
+            $("#inputBanco").prop('required', false);
+            $("#inputAportador").removeClass('is-valid');
+            $("#inputCliente").addClass('is-valid');
+            $("#inputBanco").addClass('is-valid');
             break;
 
-        case "4":
+        case 4:
             console.log('Venta checked');
             $("#divAportador").hide();
             $("#divCliente").show();
+            $("#divBanco").hide();
 
             $("#inputAportador").prop('required', false);
             $("#inputCliente").prop('required', true);
+            $("#inputBanco").prop('required', false);
+            $("#inputAportador").addClass('is-valid');
+            $("#inputCliente").removeClass('is-valid');
+            $("#inputBanco").addClass('is-valid');
             break;
     }
 }
 
 function checkEgreso() {
-    switch($('#inputOgEgreso').val()){
-        case "1":
+    $('#inputAreaEg').selectpicker('val', '');
+    $('#inputProveedorEg').selectpicker('val', '');
+    $('#inputAportadorEg').selectpicker('val', '');
+    $('#inputClienteEg').selectpicker('val', '');
+    $('#inputConceptoA').selectpicker('val', '');
+    $('#inputConceptoB').selectpicker('val', '');
+    $('#inputConceptoC').selectpicker('val', '');
+    $('#inputBancoEg').selectpicker('val', '');
+
+    switch($('#inputOgEgreso').prop('selectedIndex')){
+        case 1:
             console.log('Pago selected');
             $("#divProveedor").show();
             $("#divAportadorEg").hide();
             $("#divClienteEg").hide();
             $("#divAreaEg").show();
-            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
-            $("#divConceptoEg").addClass('col-md-3');
+            $("#divConceptoEg").hide();
             $("#divConceptoA").show();
             $("#divConceptoB").show();
             $("#divConceptoC").show();
+            $("#divBancoEg").hide();
+            $("#inputAreaEg").prop('disabled', false);
             $("#inputAreaEg").prop('required', true);
             $("#inputAreaEg").removeClass('is-valid');
 
+            $("#inputAreaEg").prop('required', true);
             $("#inputProveedorEg").prop('required', true);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoEg").prop('required', false);
             $("#inputConceptoA").prop('required', true);
+            $("#inputBancoEg").prop('required', false);
+            $("#inputAreaEg").removeClass('is-valid');
             $("#inputProveedorEg").removeClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoEg").addClass('is-valid');
             $("#inputConceptoA").removeClass('is-valid');
+            $("#inputBancoEg").addClass('is-valid');
             break;
 
-        case "2":
+        case 2:
             console.log('Banco selected');
             $("#divProveedor").hide();
             $("#divAportadorEg").hide();
             $("#divClienteEg").hide();
             $("#divAreaEg").hide();
-            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
-            $("#divConceptoEg").addClass('col-md-6');
             $("#divConceptoEg").show();
             $("#divConceptoA").hide();
             $("#divConceptoB").hide();
             $("#divConceptoC").hide();
+            $("#divBancoEg").show();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -397,29 +442,32 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoEg").prop('required', true);
             $("#inputConceptoA").prop('required', false);
             $("#inputConceptoB").prop('required', false);
             $("#inputConceptoC").prop('required', false);
+            $("#inputBancoEg").prop('required', true);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoEg").removeClass('is-valid');
             $("#inputConceptoA").addClass('is-valid');
             $("#inputConceptoB").addClass('is-valid');
             $("#inputConceptoC").addClass('is-valid');
+            $("#inputBancoEg").removeClass('is-valid');
             break;
 
-        case "3":
+        case 3:
             console.log('Aportacion selected');
             $("#divProveedor").hide();
             $("#divAportadorEg").show();
             $("#divClienteEg").hide();
             $("#divAreaEg").hide();
-            $("#divConceptoEg").removeClass('col-md-3 col-md-6');
-            $("#divConceptoEg").addClass('col-md-6');
             $("#divConceptoEg").show();
             $("#divConceptoA").hide();
             $("#divConceptoB").hide();
             $("#divConceptoC").hide();
+            $("#divBancoEg").hide();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -427,18 +475,22 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', true);
             $("#inputClienteEg").prop('required', false);
+            $("#inputConceptoEg").prop('required', true);
             $("#inputConceptoA").prop('required', false);
             $("#inputConceptoB").prop('required', false);
             $("#inputConceptoC").prop('required', false);
+            $("#inputBancoEg").prop('required', false);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").removeClass('is-valid');
             $("#inputClienteEg").addClass('is-valid');
+            $("#inputConceptoEg").removeClass('is-valid');
             $("#inputConceptoA").addClass('is-valid');
             $("#inputConceptoB").addClass('is-valid');
             $("#inputConceptoC").addClass('is-valid');
+            $("#inputBancoEg").addClass('is-valid');
             break;
 
-        case "4":
+        case 4:
             console.log('Devolucion selected');
             $("#divProveedor").hide();
             $("#divAportadorEg").hide();
@@ -448,6 +500,7 @@ function checkEgreso() {
             $("#divConceptoA").hide();
             $("#divConceptoB").hide();
             $("#divConceptoC").hide();
+            $("#divBancoEg").hide();
             $("#inputAreaEg").prop('disabled', true);
             $("#inputAreaEg").prop('required', false);
             $("#inputAreaEg").addClass('is-valid');
@@ -455,22 +508,33 @@ function checkEgreso() {
             $("#inputProveedorEg").prop('required', false);
             $("#inputAportadorEg").prop('required', false);
             $("#inputClienteEg").prop('required', true);
+            $("#inputConceptoEg").prop('required', false);
             $("#inputConceptoA").prop('required', false);
             $("#inputConceptoB").prop('required', false);
             $("#inputConceptoC").prop('required', false);
+            $("#inputBancoEg").prop('required', false);
             $("#inputProveedorEg").addClass('is-valid');
             $("#inputAportadorEg").addClass('is-valid');
             $("#inputClienteEg").removeClass('is-valid');
+            $("#inputConceptoEg").addClass('is-valid');
             $("#inputConceptoA").addClass('is-valid');
             $("#inputConceptoB").addClass('is-valid');
             $("#inputConceptoC").addClass('is-valid');
+            $("#inputBancoEg").addClass('is-valid');
             break;
     }
 }
 
 function checkGeneral() {
-    switch($('#inputOgGeneral').val()){
-        case "1":
+    $("#inputConceptoGen").selectpicker('val', '');
+    $("#inputConceptoGenA").selectpicker('val', '');
+    $("#inputConceptoGenB").selectpicker('val', '');
+    $("#inputEmpleado").selectpicker('val', '');
+    $("#inputInstitucion").selectpicker('val', '');
+    $("#inputProyectoGen").selectpicker('val', '');
+
+    switch($('#inputOgGeneral').prop('selectedIndex')){
+        case 1:
             console.log('PEG selected');
             $("#divConceptoGen").hide();
             $("#divConceptoGenA").show();
@@ -494,7 +558,7 @@ function checkGeneral() {
             $("#inputProyectoGen").addClass('is-valid');
             break;
 
-        case "2":
+        case 2:
             console.log('PES selected');
             $("#divConceptoGen").show();
             $("#divConceptoGenA").hide();
@@ -518,7 +582,7 @@ function checkGeneral() {
             $("#inputProyectoGen").addClass('is-valid');
             break;
 
-        case "3":
+        case 3:
             console.log('EES selected');
             $("#divConceptoGen").show();
             $("#divConceptoGenA").hide();
@@ -542,10 +606,8 @@ function checkGeneral() {
             $("#inputProyectoGen").addClass('is-valid');
             break;
 
-        case "4":
+        case 4:
             console.log('Credito selected');
-            console.log($("#esIngresoGen").is(':checked'));
-            console.log($("#esEgresoGen").is(':checked'));
             if($("#esIngresoGen").is(':checked')){
                 $("#divConceptoGen").hide();
                 $("#divConceptoGenA").show();
@@ -593,7 +655,7 @@ function checkGeneral() {
             }
             break;
 
-        case "5":
+        case 5:
             console.log('Prestamo selected');
             $("#divConceptoGen").show();
             $("#divConceptoGenA").hide();
@@ -617,7 +679,7 @@ function checkGeneral() {
             $("#inputProyectoGen").addClass('is-valid');
             break;
 
-        case "6":
+        case 6:
             console.log('Prorrateo Admin selected');
             $("#divConceptoGen").hide();
             $("#divConceptoGenA").show();
@@ -641,7 +703,7 @@ function checkGeneral() {
             $("#inputProyectoGen").removeClass('is-valid');
             break;
 
-        case "7":
+        case 7:
             console.log('Prorrateo Int selected');
             $("#divConceptoGen").hide();
             $("#divConceptoGenA").show();
