@@ -51,6 +51,7 @@
         <button id="crearPresupuesto" type="button" class="btn btn-link" onclick="sendVariables('Presupuestos.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Presupuesto</button>
         <button id="crearCotizacion" type="button" class="btn btn-link" onclick="location.href='Nueva_Cotizacion.php'" style="text-decoration: none;">Agregar Cotización</button>
         <button id="crearCliente" type="button" class="btn btn-link" onclick="location.href='Nuevo_Cliente.php'" style="text-decoration: none;">Agregar Cliente</button>
+        <button id="crearProspecto" type="button" class="btn btn-link" onclick="location.href='Nuevo_Prospecto.php'" style="text-decoration: none;">Agregar Prospecto</button>
         <button hidden id="agregarAbono" type="button" class="btn btn-link" onclick="location.href='Detalle_Abono.php'" style="text-decoration: none;">Agregar Abono</button>
         <button id="agregarAportador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Aportador.php'" style="text-decoration: none;">Agregar Aportador</button>
         <button id="agregarCredito" type="button" class="btn btn-link" onclick="location.href='Nuevo_Credito.php'" style="text-decoration: none;">Agregar Crédito</button>

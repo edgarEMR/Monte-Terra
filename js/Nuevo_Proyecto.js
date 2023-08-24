@@ -48,7 +48,7 @@ $('#navigation').load("Navbar.php", function() {
 
 $(document).ready(function(){
     
-    $('#inputTotalEtapas').on('change', totalEtapas);
+    $('#inputPrototipo').on('change', totalPrototipos);
     $('#inputTotalCasas').on('change', function() {
       var etapas = $('#inputTotalEtapas');
       if(this.value < etapas.val()){
@@ -67,7 +67,7 @@ $(document).ready(function(){
       var casas = $('#inputTotalCasas').val();
       var totalCasas = 0;
 
-      $('.casasEnEtapa').each(function(){
+      $('.prototiposEnProyecto').each(function(){
         totalCasas += parseInt(this.value);
       });
       console.log('total casas: ' + totalCasas);
@@ -83,25 +83,26 @@ $(document).ready(function(){
     });
 });
 
-function totalEtapas() {
-    var casas = $('#inputTotalCasas').val();
-    var etapas = $('#inputTotalEtapas').val();
+function totalPrototipos() {
+    var prototipos = $('#inputTotalEtapas').val();
 
-    $('#casasEtapa').empty();
+    $('#divPrototipos').empty();
 
-    for (let i = 0; i < etapas && i < casas; i++) {
-        $('#casasEtapa').append(
+    for (let i = 0; i < prototipos; i++) {
+        $('#divPrototipos').append(
             '<div class="form-group col-md-4">' +
-                '<label for="inputCasasEtapa' + (i + 1) + '">Casas en Etapa ' + (i + 1) +'</label>' +
-                '<input type="number" name="casasEtapa' + (i + 1) + '" class="form-control casasEnEtapa" id="inputCasasEtapa' + (i + 1) + '" min="1" required>' +
-                '<div class="invalid-feedback">' +
-                    'Ingrese un número válido.' +
+                '<label for="inputMetros">Prototipo ' + (i + 1) +'</label>' +
+                '<div class="input-group has-validation">' +
+                  '<input type="number" name="metros[]" class="form-control prototiposEnProyecto" id="inputMetros" min="1" required>' +
+                  '<span class="input-group-text">metros</span>' +
+                  '<div class="invalid-feedback">' +
+                      'Ingrese un número válido.' +
+                  '</div>' +
                 '</div>' +
             '</div>'
         );
     }
 
-    if(etapas > casas) $('#inputTotalEtapas').val(casas);
 }
 
 function getParameterByName(name, url = window.location.search) {

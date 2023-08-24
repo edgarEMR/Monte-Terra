@@ -11,7 +11,7 @@ class Proyecto extends DB
     private $nombre;
     private $totalCasas;
     private $totalEtapas;
-    private $presupuesto;
+    private $prototipos;
     private $activo;
 
     /**

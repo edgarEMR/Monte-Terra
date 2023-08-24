@@ -14,14 +14,15 @@ class Cliente extends DB
     private $email;
     private $telefono;
     private $fechaNacimiento;
-    private $numeroSS;
-    private $puntaje;
-    private $contraseña;
-    private $tipoVivienda;
-    private $ingresos;
+    private $idProyecto;
+    private $idEtapa;
+    private $prototipo;
+    private $tipoCredito;
     private $credito;
+    private $tipoVivienda;
     private $medio;
     private $esProspecto;
+    private $idVendedor;
 
     /**
      * Get the value of idCliente

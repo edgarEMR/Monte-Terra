@@ -42,7 +42,7 @@ if (isset($_POST['accion'])) {
     $cliente->setMedio($_POST["medio"]);
     $cliente->setEsProspecto(1);
 
-    if ($_POST['accion'] == 'registrar') {
+    if ($_POST['accion'] == 'registrarP') {
         
         echo 'registrar';
         
