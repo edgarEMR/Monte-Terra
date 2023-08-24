@@ -1,32 +1,37 @@
 h2 {
-    padding-top: 3%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+  padding-top: 3%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 .pago-form {
-    background-color: #EFF6FF;
-    color: #2563EB;
-    width: 50%;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 2%;
-    border-radius: 3%;
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 50%;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+  border-radius: 3%;
 }
 
-#nuevoPagoIng > div, #nuevoPagoEgr > div, #nuevoPagoGen > div {
-    margin-top: 2%;
+#nuevoPagoIng > div,
+#nuevoPagoEgr > div,
+#nuevoPagoGen > div {
+  margin-top: 2%;
 }
 
 .form-control.is-valid,
 .was-validated .form-control:valid {
-    background-image: none;
+  background-image: none;
 }
-
 
 .form-control.is-invalid,
 .was-validated .form-control:invalid {
-    background-image: none;
+  background-image: none;
+}
+
+#liveAlert {
+  width: 25%;
 }

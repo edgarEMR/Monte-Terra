@@ -33,13 +33,13 @@
 
     ?>
     
-    <div id="prospectos" class="table-responsive">
+    <div id="maquinaria" class="table-responsive">
         
-        <div id="titulo-prospectos">
+        <div id="titulo-maquinaria">
             <h2 class="text-primary">Por Pagar Operadores</h2>
         </div>
         
-        <table id="tabla-prospectos" class="table table-hover">
+        <table id="tabla-maquinaria" class="table table-hover">
             <thead>
                 <tr class="table-primary">
                     <th>MAQUINA</th>
@@ -63,13 +63,13 @@
         </table>
     </div>
 
-    <div id="prospectos" class="table-responsive">
+    <div id="maquinaria" class="table-responsive">
         
-        <div id="titulo-prospectos">
+        <div id="titulo-maquinaria">
             <h2 class="text-primary">Por Pagar Gastos</h2>
         </div>
         
-        <table id="tabla-prospectos" class="table table-hover">
+        <table id="tabla-maquinaria" class="table table-hover">
             <thead>
                 <tr class="table-primary">
                     <th>MAQUINA</th>

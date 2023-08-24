@@ -63,7 +63,7 @@
         <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='Movimiento_Maquinaria.php'" style="text-decoration: none;">Agregar Movimiento</button>
         <button id="agregarMaquina" type="button" class="btn btn-link" onclick="location.href='Nueva_Maquina.php'" style="text-decoration: none;">Agregar Maquina</button>
         <button id="agregarOperador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Operador.php'" style="text-decoration: none;">Agregar Operador</button>
-        <button id="atras" type="button" class="btn btn-link" onclick="location.href='Menu.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
+        <button id="atrasMaquinaria" type="button" class="btn btn-link" onclick="location.href='Menu.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
     <div id="variables">
         <input id="inputProyectoID" type="number" hidden>

@@ -1,0 +1,18 @@
+#maquinaria {
+  margin: 5% 0;
+  padding: 0 10%;
+}
+
+.register-form {
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+  border-radius: 3%;
+}
+
+#liveAlert {
+  width: 25%;
+}

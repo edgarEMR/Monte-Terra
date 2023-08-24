@@ -8,9 +8,12 @@ class Cotizacion extends DB
 {
     private $idCotizacion;
     private $concepto;
+    private $numeroCasas;
+    private $importeM2;
+    private $metros2;
     private $importe;
     private $fecha;
-    private $idArea;
+    private $idFamilia;
     private $idEtapa;
     private $idProyecto;
 
@@ -96,21 +99,21 @@ class Cotizacion extends DB
     }
 
     /**
-     * Get the value of idArea
+     * Get the value of idFamilia
      */ 
-    public function getIdArea()
+    public function getIdFamilia()
     {
-        return $this->idArea;
+        return $this->idFamilia;
     }
 
     /**
-     * Set the value of idArea
+     * Set the value of idFamilia
      *
      * @return  self
      */ 
-    public function setIdArea($idArea)
+    public function setIdFamilia($idFamilia)
     {
-        $this->idArea = $idArea;
+        $this->idFamilia = $idFamilia;
 
         return $this;
     }
@@ -151,6 +154,66 @@ class Cotizacion extends DB
     public function setIdEtapa($idEtapa)
     {
         $this->idEtapa = $idEtapa;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of numeroCasas
+     */ 
+    public function getNumeroCasas()
+    {
+        return $this->numeroCasas;
+    }
+
+    /**
+     * Set the value of numeroCasas
+     *
+     * @return  self
+     */ 
+    public function setNumeroCasas($numeroCasas)
+    {
+        $this->numeroCasas = $numeroCasas;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of importeM2
+     */ 
+    public function getImporteM2()
+    {
+        return $this->importeM2;
+    }
+
+    /**
+     * Set the value of importeM2
+     *
+     * @return  self
+     */ 
+    public function setImporteM2($importeM2)
+    {
+        $this->importeM2 = $importeM2;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of metros2
+     */ 
+    public function getMetros2()
+    {
+        return $this->metros2;
+    }
+
+    /**
+     * Set the value of metros2
+     *
+     * @return  self
+     */ 
+    public function setMetros2($metros2)
+    {
+        $this->metros2 = $metros2;
 
         return $this;
     }

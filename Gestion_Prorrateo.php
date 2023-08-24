@@ -62,7 +62,7 @@
 
                             echo "<li class='list-group-item'>";
 
-                            if ($rows['idProrrateo'] === NULL) {
+                            if (is_null($rows['idProrrateo'])) {
                                 echo "<input class='form-check-input me-1' type='checkbox' name='prorrateo[]' value=".$rows['idProyecto'].">";
                             } else {
                                 echo "<input class='form-check-input me-1' type='checkbox' name='prorrateo[]' value=".$rows['idProyecto']." checked>";
@@ -91,7 +91,7 @@
 
                             echo "<li class='list-group-item'>";
                             
-                            if ($rows['idProrrateo'] === NULL) {
+                            if (is_null($rows['idProrrateo'])) {
                                 echo "<input class='form-check-input me-1' type='checkbox' name='prorrateo[]' value=".$rows['idProyecto'].">";
                             } else {
                                 echo "<input class='form-check-input me-1' type='checkbox' name='prorrateo[]' value=".$rows['idProyecto']." checked>";

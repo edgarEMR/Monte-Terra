@@ -25,10 +25,11 @@ if (isset($_POST['accion'])) {
     $pago = new Pago(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
 
+    $pago->setIdPago($_POST['pagoID'] ?: 'NULL');
     $pago->setConcepto($_POST['concepto'] ?: 'NULL');
     $pago->setImporte($_POST['importe']) ?: 'NULL';
     $pago->setFechaPago('');
-    $pago->setEsIngreso($_POST['esIngreso'] ?: 'NULL');
+    $pago->setEsIngreso($_POST['esIngreso']);
     $pago->setIdTipoPago($_POST['tipoPago'] ?: 'NULL');
     $pago->setIdArea($_POST['origen'] ?: 'NULL');
     $pago->setIdUsuario($_SESSION['idUsuario'] ?: 'NULL');
@@ -45,6 +46,7 @@ if (isset($_POST['accion'])) {
     $pago->setIdProveedor($_POST['proveedor'] ?: 'NULL');
     $pago->setIdEmpleado($_POST['empleado'] ?: 'NULL');
 
+    echo $pago->getIdPago() . '<br>';
     echo $pago->getConcepto() . '<br>';
     echo $pago->getImporte() . '<br>';
     echo $pago->getFechaPago() . '<br>';
@@ -66,11 +68,100 @@ if (isset($_POST['accion'])) {
     echo $pago->getIdEmpleado() . '<br>';
 
     if ($_POST['accion'] == 'registrar') {
+
+        $esProrrateo = $pago->getIdArea() == 19 || $pago->getIdArea() == 20 ? true : false;
         
         echo 'registrar';
         try {
-            echo 'Try';
+            echo 'Try' . '</br>';
 
+            if ($esProrrateo) {
+                echo 'Es Prorrateo' . '</br>';
+                $importeProrrateo = number_format($_POST['importe'] / count($_POST['proyectoGen']), 2);
+                $pago->setImporte($importeProrrateo);
+                foreach ($_POST['proyectoGen'] as $proyecto) {
+                        $pago->setIdProyecto($proyecto);
+                        $procedure = $coneccion->gestionPago(
+                            0,
+                            $pago->getConcepto(),
+                            $pago->getImporte(),
+                            $pago->getEsIngreso(),
+                            $pago->getIdTipoPago(),
+                            $pago->getIdArea(),
+                            $pago->getIdUsuario(),
+                            $pago->getEsGeneral(),
+                            $pago->getIdProyecto(),
+                            $pago->getIdEtapa(),
+                            $pago->getIdFamilia(),
+                            $pago->getIdConcepto(),
+                            $pago->getIdConceptoB(),
+                            $pago->getIdConceptoC(),
+                            $pago->getIdCliente(),
+                            $pago->getIdAportador(),
+                            $pago->getIdBanco(),
+                            $pago->getIdProveedor(),
+                            $pago->getIdEmpleado(),
+                            'I'
+                        );
+
+                        $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+                }
+            } else {
+                $procedure = $coneccion->gestionPago(
+                    0,
+                    $pago->getConcepto(),
+                    $pago->getImporte(),
+                    $pago->getEsIngreso(),
+                    $pago->getIdTipoPago(),
+                    $pago->getIdArea(),
+                    $pago->getIdUsuario(),
+                    $pago->getEsGeneral(),
+                    $pago->getIdProyecto(),
+                    $pago->getIdEtapa(),
+                    $pago->getIdFamilia(),
+                    $pago->getIdConcepto(),
+                    $pago->getIdConceptoB(),
+                    $pago->getIdConceptoC(),
+                    $pago->getIdCliente(),
+                    $pago->getIdAportador(),
+                    $pago->getIdBanco(),
+                    $pago->getIdProveedor(),
+                    $pago->getIdEmpleado(),
+                    'I'
+                );
+
+                $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+            }
+            
+            echo 'Lo ejecuto';
+
+            // header('Location: ../Detalle_Pago.php');
+
+            if($resultado){
+                header('Location: ../Detalle_Pago.php?success=1');
+            } else {
+                header("Location: ../Detalle_Pago.php?success=0");
+            }
+
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo '<br>' . $err;
+            header("Location: ../Detalle_Pago.php?success=0");
+        } catch (Exception $error) {
+            echo $error;
+        }
+            
+    }
+    
+    if ($_POST['accion'] == 'editar') {
+
+        echo 'editar';
+
+        $pago->setIdPago($_POST["pagoID"]);
+        
+        try {
+
+            echo 'Try';
             $procedure = $coneccion->gestionPago(
                 0,
                 $pago->getConcepto(),
@@ -96,52 +187,7 @@ if (isset($_POST['accion'])) {
             
             echo 'Lo ejecuto';
             $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
-
-            // header('Location: ../Detalle_Pago.php');
-
-            // if($_POST['idRol'] != 1){
-            //     header('Location: ../inicio.php?register=success');
-            // } else {
-            //     header("Location: ../perfil.php?nombreUsuario=edgar");
-            // }
-
-        } catch (PDOException $err) {
-            $errorCode = $err->getCode();
-            echo '<br>' . $err;
-            //header("Location: ../Detalle_Pago.php?error=1");
-        } catch (Exception $error) {
-            echo $error;
-        }
-            
-    }
-    
-    if ($_POST['accion'] == 'editar') {
-
-        echo 'editar';
-
-        $pago->setIdPago($_POST["pagoID"]);
-        
-        try {
-
-            echo 'Try';
-            // $procedure = $coneccion->gestionPago(
-            //     $pago->getIdPago(),
-            //     $pago->getConcepto(),
-            //     $pago->getImporte(),
-            //     "",
-            //     $pago->getEsIngreso(),
-            //     $pago->getIdTipoPago(),
-            //     $pago->getIdEtapa(),
-            //     $pago->getIdProyecto(),
-            //     $pago->getIdArea(),
-            //     $pago->getIdProveedor(),
-            //     $pago->getIdCliente(),
-            //     $pago->getIdAportador(),
-            //     $pago->getIdBanco(),
-            //     'U'
-            // );
-            
-            // echo 'Lo ejecuto';
+            echo 'Lo ejecuto';
             // $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
             
             // header('Location: ../Portafolio.php?id='. $pago->getIdProyecto());

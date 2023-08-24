@@ -598,7 +598,7 @@
                     </div>
                     <div class="form-group col-md-12" id="divProyectos">
                         <label for="inputProyectoGen">Proyectos</label>
-                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyectoGen" id="inputProyectoGen">
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyectoGen[]" id="inputProyectoGen" multiple>
                         </select>
                         <div class="invalid-feedback">
                             Elija una opción.
@@ -615,6 +615,9 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div id="liveAlert" class="alert alert-dismissible fade show position-fixed fixed-bottom mx-auto" role="alert">
+        <p class="alert-body mb-0"></p>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

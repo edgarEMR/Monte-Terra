@@ -9,6 +9,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();
   $("#crearCliente").toggle();
+  $("#gestionProrrateo").toggle();
   $("#agregarAbono").toggle();
   $("#dividerTop").toggle();
   $("#agregarAportador").toggle();
@@ -18,7 +19,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
-    history.back();
+    location.href = "Detalle_Pago.php";
   });
 });
 

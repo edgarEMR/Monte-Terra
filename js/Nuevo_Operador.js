@@ -34,7 +34,7 @@ $(document).ready(function () {
     console.log("SUCCESS");
     const liveAlert = $("#liveAlert");
     if (getParameterByName("success") == 1) {
-      $(".alert-body").text("Maquinaria agregada correctamente");
+      $(".alert-body").text("Operador agregado correctamente");
       liveAlert.addClass("text-bg-success");
     } else {
       $(".alert-body").text(

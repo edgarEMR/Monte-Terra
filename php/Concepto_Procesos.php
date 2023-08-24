@@ -37,9 +37,9 @@ if (isset($_POST['accion'])) {
     } else {
         try{
             echo $idConcepto;
-            if ($idConcepto == 1) {
+            if ($idConcepto === 9 || $idConcepto === 14) {
                 $procedure = $coneccion->obtenerConceptos(102, $_POST['tipo'], "A");
-            } else if($idConcepto == 6){
+            } else if($idConcepto == 19){
                 $procedure = $coneccion->obtenerConceptos(101, $_POST['tipo'], "A");
             }
 

@@ -202,6 +202,16 @@
             return $this->connect()->query("CALL spGastoMaquinaria()");
         }
 
+        function gestionOperador($idOperador, $nombre, $sueldo, $idMaquinaria, $opcion) {
+            return $this->connect()->query("CALL spGestionOperador($idOperador, '$nombre', $sueldo, $idMaquinaria, '$opcion')");
+        }
+
+        function gestionPagoMaquinaria($idPagoMaquinaria, $concepto, $conceptoB, $cantidad, $precioUnitario, $modificacion, $importe, 
+        $esIngreso, $idTipoPago, $idMaquinaria, $idProyecto, $idProveedor, $idUsuario, $opcion) {
+            return $this->connect()->query("CALL spGestionPagoMaquinaria($idPagoMaquinaria, '$concepto', '$conceptoB', $cantidad, $precioUnitario, $modificacion, $importe, 
+            $esIngreso, $idTipoPago, $idMaquinaria, $idProyecto, $idProveedor, $idUsuario, '$opcion')");
+        }
+
         function gestionCredito($idCredito, $idBanco, $idProyecto, $opcion) {
             return $this->connect()->query("CALL spGestionCredito($idCredito, $idBanco, $idProyecto, '$opcion')");
         }
