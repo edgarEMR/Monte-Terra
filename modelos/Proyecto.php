@@ -97,9 +97,9 @@ class Proyecto extends DB
     /**
      * Get the value of presupuesto
      */ 
-    public function getPresupuesto()
+    public function getPrototipos()
     {
-        return $this->presupuesto;
+        return $this->prototipos;
     }
 
     /**
@@ -107,9 +107,9 @@ class Proyecto extends DB
      *
      * @return  self
      */ 
-    public function setPresupuesto($presupuesto)
+    public function setPrototipos($prototipos)
     {
-        $this->presupuesto = $presupuesto;
+        $this->prototipos = $prototipos;
 
         return $this;
     }
