@@ -46,9 +46,10 @@
                     <th>NOMBRE</th>
                     <th>EMAIL</th>
                     <th>TELEFONO</th>
-                    <th>PUNTAJE</th>
+                    <th>PROYECTO / ETAPA</th>
                     <th>VIVIENDA <br> DE INTERES</th>
                     <th>CREDITO</th>
+                    <th>TIPO CREDITO</th>
                     <th>MEDIO</th>
                     <th></th>
                 </tr>
@@ -61,9 +62,10 @@
                         echo "<td><a onclick=\"sendVariables('Nuevo_Cliente.php', " . $rows['idCliente'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>" . $rows['email'] . "</td>";
                         echo "<td>" . $rows['telefono'] . "</td>";
-                        echo "<td>" . $rows['puntaje'] . "</td>";
+                        echo "<td>" . "" . "</td>";
                         echo "<td>" . $rows['tipoVivienda'] . "</td>";
                         echo "<td>" . $rows['credito'] . "</td>";
+                        echo "<td>" . "" . "</td>";
                         echo "<td>" . $rows['medio'] . "</td>";
                         echo '<th><button  onclick="sendVariables(\'Nuevo_Cliente.php\', ' . $rows['idCliente'] . ', \'id\');" class="btn btn-outline-primary ms-1">Generar contrato</button></th>';
                         echo "</tr>";
