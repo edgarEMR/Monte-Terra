@@ -3,24 +3,28 @@ ob_start();
 include_once('../php/conection.php');
 include_once('../modelos/Proyecto.php');
 
-echo "HOLA";
+echo "HOLA" . "</br>";
 
 if (isset($_POST['accion'])) {
 
-    ECHO $_POST["nombreProyecto"];
-    ECHO $_POST["presupuesto"];
-    ECHO $_POST["totalCasas"];
-    ECHO $_POST["totalEtapas"];
-    ECHO $_POST["accion"];
+    ECHO $_POST["nombreProyecto"] . "</br>";
+    ECHO $_POST["totalCasas"] . "</br>";
+    ECHO $_POST["totalEtapas"] . "</br>";
+    ECHO $_POST["prototipos"] . "</br>";
+    
+    foreach ($_POST['metros'] as $metros) {
+        ECHO $metros . "</br>";
+    }
+    ECHO $_POST["accion"] . "</br>";
 
     if ($_POST['accion'] == 'registrar') {
         $proyecto = new Proyecto(require 'php/config.php');
         $coneccion = new DB(require 'php/config.php');
         echo 'registrar';
         $proyecto->setNombre($_POST["nombreProyecto"]);
-        $proyecto->setPresupuesto($_POST["presupuesto"]);
         $proyecto->setTotalCasas($_POST["totalCasas"]);
         $proyecto->setTotalEtapas($_POST["totalEtapas"]);
+        $proyecto->setPrototipos($_POST["prototipos"]);
         
         try {
             echo 'Try';
@@ -29,7 +33,7 @@ if (isset($_POST['accion'])) {
                 $proyecto->getNombre(),
                 $proyecto->getTotalCasas(),
                 $proyecto->getTotalEtapas(),
-                $proyecto->getPrototipo(),
+                $proyecto->getPrototipos(),
                 'I'
             );
             
@@ -39,43 +43,27 @@ if (isset($_POST['accion'])) {
             if ($resultado) {
                 echo $resultado['idProyecto'];
                 $idProyecto = $resultado['idProyecto'];
+                $prototipoCount = 1;
 
                 foreach ($_POST['metros'] as $metros) {
-                    # code...
+                    $nombre = "Prototipo " . $prototipoCount;
+                    $proc = $coneccion->gestionPrototipo(0, $nombre, $metros, $idProyecto, 'I');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                    echo '<br> Agregado Prototipo ' . ($prototipoCount);
+                    $prototipoCount++;
                 }
                 
-                for ($i=0; $i < $proyecto->getTotalEtapas(); $i++) { 
-                    $procedure = $coneccion->gestionEtapa(
-                        0,
-                        $i + 1,
-                        $_POST['casasEtapa' . ($i + 1)],
-                        $idProyecto,
-                        'I'
-                    );
-
-                    $resultadoEtapa = $procedure->fetch(PDO::FETCH_ASSOC);
-
-                    echo '<br> Agregada Etapa ' . ($i + 1);
-
-                }
-
-                
-                header('Location: ../Presupuestos.php?id='. $idProyecto);
+                header('Location: ../Portafolio.php?id='. $idProyecto . '&success=1');
             } else {
                 echo '<br>No trae nada';
+                header('Location: ../Nuevo_Proyecto.php?success=0');
             }
-
-
-            // if($_POST['idRol'] != 1){
-            //     header('Location: ../inicio.php?register=success');
-            // } else {
-            //     header("Location: ../perfil.php?nombreUsuario=edgar");
-            // }
 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            header("Location: ../Nuevo_Proyecto.php?error=1");
+            //header('Location: ../Nuevo_Proyecto.php?success=0');
         } catch (Exception $error) {
             echo $error;
         }

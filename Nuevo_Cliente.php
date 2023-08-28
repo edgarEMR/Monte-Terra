@@ -34,7 +34,7 @@
             $proyecto->setNombre($row['nombre']);
             $proyecto->setTotalCasas($row['totalCasas']);
             $proyecto->setTotalEtapas($row['totalEtapas']);
-            $proyecto->setPresupuesto($row['presupuestoProyecto']);
+            $proyecto->setPrototipos($row['prototipos']);
 
             $accion = 'editar';
         }

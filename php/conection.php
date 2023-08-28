@@ -91,18 +91,36 @@
             return $this->connect()->query("CALL spObtenerProveedores()");
         }
 
-        function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $presupuesto, $opcion)
+        function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $prototipos, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionProyecto($idProyecto, '$nombre', '$totalCasas', '$totalEtapas',
-                                                                '$presupuesto', '$opcion')");
+                                                                    $prototipos, '$opcion')");
         }
 
-        function gestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas, $idProyecto, $opcion)
+        function gestionPrototipo($idPrototipo, $nombre, $metros, $idProyecto, $opcion)
+        {
+            return $this->connect()->query("CALL spGestionPrototipo($idPrototipo, '$nombre', $metros, $idProyecto, '$opcion')");
+        }
+
+        function gestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas, $precioExcedente, $totalMinimo, $idProyecto, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas,
+            return $this->connect()->query("CALL spGestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas, $precioExcedente, $totalMinimo,
                                                                 $idProyecto, '$opcion')");
+        }
+
+        function gestionCalle($idCalle, $nombre, $totalLotes, $idEtapa, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionCalle($idCalle, '$nombre', $totalLotes, $idEtapa, '$opcion')");
+        }
+
+        function gestionLote($idLote, $numeroLote, $metrosExcedentes, $precioLista, $autorizado, $idPrototipo, $idCalle, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionLote($idLote, '$numeroLote', $metrosExcedentes, $precioLista, 
+                                                                $autorizado, $idPrototipo, $idCalle, '$opcion')");
         }
 
         function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 

@@ -17,6 +17,7 @@
     
     <?php
         ob_start();
+        session_start();
         include_once('php/conection.php');
 
         $idProyecto = 0;
@@ -32,7 +33,7 @@
         }
         
         $procedure = $conection->obtenerPortafolio(0, $idProyecto);
-        
+        $_SESSION['proyectoID'] = $idProyecto;
     ?>
 
     <div id="titulo">
@@ -50,7 +51,7 @@
             ?>
             <thead>
                 <tr class="table-primary">
-                    <th col-index = 1>FECHA <br>
+                    <th col-index = 1>FECHA 
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
@@ -58,17 +59,17 @@
                     <th col-index = 2>INGRESO</th>
                     <th col-index = 3>EGRESO</th>
                     <th col-index = 4>CONCEPTO</th>
-                    <th col-index = 5>PROVEEDOR <br>
+                    <th col-index = 5>PROVEEDOR
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th col-index = 6>TIPO DE PAGO <br>
+                    <th col-index = 6>TIPO DE PAGO
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
                     </th>
-                    <th col-index = 7>ÁREA <br>
+                    <th col-index = 7>ÁREA
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>
                     </select>
@@ -164,21 +165,12 @@
             ?>
         </table>
     </div>
-
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-            Hello, world! This is a toast message.
-            </div>
-        </div>
+    <div id="liveAlert" class="alert alert-dismissible fade show position-fixed fixed-bottom mx-auto" role="alert">
+        <p class="alert-body mb-0"></p>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/Portafolio.js"></script>
 </body>
 </html>

@@ -135,13 +135,7 @@ if (isset($_POST['accion'])) {
             
             echo 'Lo ejecuto';
 
-            // header('Location: ../Detalle_Pago.php');
-
-            if($resultado){
-                header('Location: ../Detalle_Pago.php?success=1');
-            } else {
-                header("Location: ../Detalle_Pago.php?success=0");
-            }
+            header('Location: ../Detalle_Pago.php?success=1');
 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();

@@ -1,0 +1,52 @@
+.register-form {
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 51%;
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+  border-radius: 3%;
+}
+
+.proyect-info {
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 51%;
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1%;
+  border-radius: 3%;
+}
+
+#registroProyecto > div {
+  margin-top: 2%;
+}
+
+#divPrototipos > div {
+  margin-top: 2%;
+}
+
+#liveAlert {
+  width: 25%;
+}
+
+#botones-etapa {
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 51%;
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 3%;
+}
+
+.etapa-info {
+  background-color: #eff6ff;
+  color: #2563eb;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1%;
+  border-radius: 3%;
+}

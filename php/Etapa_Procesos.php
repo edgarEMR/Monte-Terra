@@ -3,9 +3,39 @@ ob_start();
 include_once('../php/conection.php');
 include_once('../modelos/Etapa.php');
 
-echo "HOLA" . '<br>';
-
 if (isset($_POST['accion'])) {
+    $etapa = new Etapa(require 'php/config.php');
+
+    if ($_POST['accion'] == 'registrar') {
+        $coneccion = new DB(require 'php/config.php');
+        
+        $etapa->setNumeroEtapa($_POST['numeroEtapa'] ?: 'NULL');
+        $etapa->setCantidadCasas($_POST['totalCasas'] ?: 'NULL');
+        $etapa->setPrecioExcedente($_POST['importeExcedente'] ?: 'NULL');
+        $etapa->setTotalMinimo($_POST['minimoEtapa'] ?: 'NULL');
+        $etapa->setIdProyecto($_POST['proyectoID'] ?: 'NULL');
+        
+        try {
+            $procedure = $coneccion->gestionEtapa( 
+                0, 
+                $etapa->getNumeroEtapa(), 
+                $etapa->getCantidadCasas(), 
+                $etapa->getPrecioExcedente(), 
+                $etapa->getTotalMinimo(), 
+                $etapa->getIdProyecto(), 
+                "I");
+
+            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+            
+            header('Location: ../Nueva_Etapa.php?id='. $etapa->getIdProyecto() .'&success=1');
+
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+            header('Location: ../Nueva_Etapa.php?id='. $etapa->getIdProyecto() .'&success=0');
+        }
+            
+    }
 
     if ($_POST['accion'] == 'obtener') {
         $idProyecto = $_POST['id'];
@@ -13,7 +43,7 @@ if (isset($_POST['accion'])) {
         
         try {
 
-            $procedure = $coneccion->gestionEtapa( 0, 0, 0, $idProyecto, "S");
+            $procedure = $coneccion->gestionEtapa( 0, 0, 0, 0, 0, $idProyecto, "S");
             
             echo '<option value="0">Todas</option>';
 
@@ -21,6 +51,23 @@ if (isset($_POST['accion'])) {
                 echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
             }
 
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+        }
+            
+    }
+
+    if ($_POST['accion'] == 'select') {
+        $idEtapa = $_POST['id'];
+        $coneccion = new DB(require 'php/config.php');
+        
+        try {
+
+            $procedure = $coneccion->gestionEtapa( $idEtapa, 0, 0, 0, 0, 0, "E");
+            
+            $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
+            echo json_encode($resultado[0]);
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo $err . ' ' . $errorCode;

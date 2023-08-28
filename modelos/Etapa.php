@@ -10,6 +10,8 @@ class Etapa extends DB
     private $idEtapa;
     private $numeroEtapa;
     private $cantidadCasas;
+    private $precioExcedente;
+    private $totalMinimo;
     private $idProyecto;
 
     /**
@@ -88,6 +90,46 @@ class Etapa extends DB
     public function setIdProyecto($idProyecto)
     {
         $this->idProyecto = $idProyecto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of precioExcedente
+     */ 
+    public function getPrecioExcedente()
+    {
+        return $this->precioExcedente;
+    }
+
+    /**
+     * Set the value of precioExcedente
+     *
+     * @return  self
+     */ 
+    public function setPrecioExcedente($precioExcedente)
+    {
+        $this->precioExcedente = $precioExcedente;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of totalMinimo
+     */ 
+    public function getTotalMinimo()
+    {
+        return $this->totalMinimo;
+    }
+
+    /**
+     * Set the value of totalMinimo
+     *
+     * @return  self
+     */ 
+    public function setTotalMinimo($totalMinimo)
+    {
+        $this->totalMinimo = $totalMinimo;
 
         return $this;
     }

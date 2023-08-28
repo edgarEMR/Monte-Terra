@@ -47,6 +47,7 @@
     </nav>
     <div id="navMenu" class="bg-primary d-flex justify-content-center">
         <button id="crearProyecto" type="button" class="btn btn-link" onclick="location.href='Nuevo_Proyecto.php'" style="text-decoration: none;">Nuevo Proyecto</button>
+        <button id="crearEtapa" type="button" class="btn btn-link" onclick="sendVariables('Nueva_Etapa.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Etapa</button>
         <button id="agregarPago" type="button" class="btn btn-link" onclick="sendVariables('Detalle_Pago.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Movimiento</button>
         <button id="crearPresupuesto" type="button" class="btn btn-link" onclick="sendVariables('Presupuestos.php', $('#inputProyectoID').val(), 'id')" style="text-decoration: none;">Agregar Presupuesto</button>
         <button id="crearCotizacion" type="button" class="btn btn-link" onclick="location.href='Nueva_Cotizacion.php'" style="text-decoration: none;">Agregar Cotización</button>
