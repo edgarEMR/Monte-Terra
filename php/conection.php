@@ -133,13 +133,12 @@
                                                                 $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, '$opcion')");
         }
 
-        function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $fechaNacimiento,
-                             $numeroSS, $puntaje, $contraseña, $tipoVivienda, $ingresos, $credito, $medio, $esProspecto, $opcion)
+        function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $tipoVivienda, 
+                                $tipoCredito, $credito, $medio, $esProspecto, $idProyecto, $idEtapa, $idPrototipo, $idVendedor, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionCliente($idCliente, '$nombre', '$segundoNombre', '$apellidoPaterno', '$apellidoMaterno', 
-                            '$email', '$telefono', '$fechaNacimiento', '$numeroSS', $puntaje, '$contraseña', '$tipoVivienda', 
-                            $ingresos, $credito, '$medio', $esProspecto, '$opcion')");
+                            '$email', '$telefono', '$tipoVivienda', '$tipoCredito', $credito, '$medio', $esProspecto, $idProyecto, $idEtapa, $idPrototipo, $idVendedor, '$opcion')");
         }
 
         function obtenerProspectos() {

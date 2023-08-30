@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Cliente</title>
+    <title>Agregar Prospecto</title>
     <link rel="stylesheet" href="css/Nuevo_Prospecto.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -34,7 +34,6 @@
     <!--NOTIFICACION A TODOS CUANDO SE LIBERE-->
     <div class="register-form">
         <form id="registroProyecto" action="php/Cliente_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
-            <h6>Datos personales</h6>
             <div class="form-group input-group-sm col-md-3">
                 <label for="inputPrimerNombre">Primer nombre *</label>
                 <input type="text" name="primerNombre" class="form-control" id="inputPrimerNombre"
@@ -78,13 +77,6 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputFecha">Fecha de nacimiento *</label>
-                <input type="date" name="fecha" class="form-control" id="inputFechaNac" required>
-                <div class="invalid-feedback">
-                    Ingrese la fecha de nacimiento.
-                </div>
-            </div>
-            <div class="form-group col-md-4">
                 <label for="inputTelefono">Teléfono *</label>
                 <input type="tel" name="telefono" class="form-control" id="inputTelefono"
                     aria-describedby="emailHelp" pattern="[0-9]{10}"
@@ -115,18 +107,7 @@
             <div class="form-group col-md-4">
                 <label for="inputEtapa">Etapa</label>
                 <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="etapa" id="inputEtapa" required>
-                    <?php
-                        $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
-                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            if ($rows['idEtapa'] == $pago->getIdEtapa()) {
-                                echo "<option value=".$rows['idEtapa']." selected>".$rows['numeroEtapa']."</option>";
-                            } else {
-                                echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
-                            }
-                            
-                        }
-                    ?>
-                    </select>
+                </select>
                 <div class="invalid-feedback">
                     Elija una opción.
                 </div>
@@ -134,20 +115,16 @@
             <div class="form-group col-md-4">
                 <label for="inputPrototipo">Prototipo</label>
                 <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="prototipo" id="inputPrototipo" required>
-                    <?php
-                        // $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
-                        // while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                        //     if ($rows['idEtapa'] == $pago->getIdEtapa()) {
-                        //         echo "<option value=".$rows['idEtapa']." selected>".$rows['numeroEtapa']."</option>";
-                        //     } else {
-                        //         echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
-                        //     }
-                            
-                        // }
-                    ?>
-                    </select>
+                </select>
                 <div class="invalid-feedback">
                     Elija una opción.
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputCredito">Monto de Crédito*</label>
+                <input type="number" name="credito" class="form-control" id="inputCredito" value="" required>
+                <div class="invalid-feedback">
+                    Ingrese un número válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -159,13 +136,6 @@
                     </select>
                 <div class="invalid-feedback">
                     Elija una opción.
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputCredito">Monto de Crédito*</label>
-                <input type="number" name="credito" class="form-control" id="inputCredito" value="" required>
-                <div class="invalid-feedback">
-                    Ingrese un número válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -184,7 +154,7 @@
             </div>
             <div class="form-group d-grid">
                 <input type="hidden" name="accion" value="<?php echo $accion;?>">
-                <button class="btn btn-block btn-primary btn-lg" type="submit">Guardar</button>
+                <button class="btn btn-block btn-primary" type="submit">Guardar</button>
             </div>
         </form>
     </div>

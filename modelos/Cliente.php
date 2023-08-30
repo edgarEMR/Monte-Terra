@@ -13,15 +13,14 @@ class Cliente extends DB
     private $apellidoMaterno;
     private $email;
     private $telefono;
-    private $fechaNacimiento;
-    private $idProyecto;
-    private $idEtapa;
-    private $prototipo;
+    private $tipoVivienda;
     private $tipoCredito;
     private $credito;
-    private $tipoVivienda;
     private $medio;
     private $esProspecto;
+    private $idProyecto;
+    private $idEtapa;
+    private $idPrototipo;
     private $idVendedor;
 
     /**
@@ -165,86 +164,6 @@ class Cliente extends DB
     }
 
     /**
-     * Get the value of fechaNacimiento
-     */ 
-    public function getFechaNacimiento()
-    {
-        return $this->fechaNacimiento;
-    }
-
-    /**
-     * Set the value of fechaNacimiento
-     *
-     * @return  self
-     */ 
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fechaNacimiento = $fechaNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of numeroSS
-     */ 
-    public function getNumeroSS()
-    {
-        return $this->numeroSS;
-    }
-
-    /**
-     * Set the value of numeroSS
-     *
-     * @return  self
-     */ 
-    public function setNumeroSS($numeroSS)
-    {
-        $this->numeroSS = $numeroSS;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of contraseña
-     */ 
-    public function getContraseña()
-    {
-        return $this->contraseña;
-    }
-
-    /**
-     * Set the value of contraseña
-     *
-     * @return  self
-     */ 
-    public function setContraseña($contraseña)
-    {
-        $this->contraseña = $contraseña;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of ingresos
-     */ 
-    public function getIngresos()
-    {
-        return $this->ingresos;
-    }
-
-    /**
-     * Set the value of ingresos
-     *
-     * @return  self
-     */ 
-    public function setIngresos($ingresos)
-    {
-        $this->ingresos = $ingresos;
-
-        return $this;
-    }
-
-    /**
      * Get the value of medio
      */ 
     public function getMedio()
@@ -305,26 +224,6 @@ class Cliente extends DB
     }
 
     /**
-     * Get the value of puntaje
-     */ 
-    public function getPuntaje()
-    {
-        return $this->puntaje;
-    }
-
-    /**
-     * Set the value of puntaje
-     *
-     * @return  self
-     */ 
-    public function setPuntaje($puntaje)
-    {
-        $this->puntaje = $puntaje;
-
-        return $this;
-    }
-
-    /**
      * Get the value of esProspecto
      */ 
     public function getEsProspecto()
@@ -340,6 +239,106 @@ class Cliente extends DB
     public function setEsProspecto($esProspecto)
     {
         $this->esProspecto = $esProspecto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tipoCredito
+     */ 
+    public function getTipoCredito()
+    {
+        return $this->tipoCredito;
+    }
+
+    /**
+     * Set the value of tipoCredito
+     *
+     * @return  self
+     */ 
+    public function setTipoCredito($tipoCredito)
+    {
+        $this->tipoCredito = $tipoCredito;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idProyecto
+     */ 
+    public function getIdProyecto()
+    {
+        return $this->idProyecto;
+    }
+
+    /**
+     * Set the value of idProyecto
+     *
+     * @return  self
+     */ 
+    public function setIdProyecto($idProyecto)
+    {
+        $this->idProyecto = $idProyecto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idEtapa
+     */ 
+    public function getIdEtapa()
+    {
+        return $this->idEtapa;
+    }
+
+    /**
+     * Set the value of idEtapa
+     *
+     * @return  self
+     */ 
+    public function setIdEtapa($idEtapa)
+    {
+        $this->idEtapa = $idEtapa;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idPrototipo
+     */ 
+    public function getIdPrototipo()
+    {
+        return $this->idPrototipo;
+    }
+
+    /**
+     * Set the value of idPrototipo
+     *
+     * @return  self
+     */ 
+    public function setIdPrototipo($idPrototipo)
+    {
+        $this->idPrototipo = $idPrototipo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idVendedor
+     */ 
+    public function getIdVendedor()
+    {
+        return $this->idVendedor;
+    }
+
+    /**
+     * Set the value of idVendedor
+     *
+     * @return  self
+     */ 
+    public function setIdVendedor($idVendedor)
+    {
+        $this->idVendedor = $idVendedor;
 
         return $this;
     }

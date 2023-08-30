@@ -47,7 +47,7 @@
                     <th>EMAIL</th>
                     <th>TELEFONO</th>
                     <th>PROYECTO / ETAPA</th>
-                    <th>VIVIENDA <br> DE INTERES</th>
+                    <th>PROTOTIPO</th>
                     <th>CREDITO</th>
                     <th>TIPO CREDITO</th>
                     <th>MEDIO</th>
@@ -62,10 +62,10 @@
                         echo "<td><a onclick=\"sendVariables('Nuevo_Cliente.php', " . $rows['idCliente'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>" . $rows['email'] . "</td>";
                         echo "<td>" . $rows['telefono'] . "</td>";
-                        echo "<td>" . "" . "</td>";
-                        echo "<td>" . $rows['tipoVivienda'] . "</td>";
-                        echo "<td>" . $rows['credito'] . "</td>";
-                        echo "<td>" . "" . "</td>";
+                        echo "<td>" . $rows['nombreProyecto'] . "/Etapa " . $rows['numeroEtapa'] . "</td>";
+                        echo "<td>" . $rows['prototipo'] . "</td>";
+                        echo "<td>$" . number_format($rows['credito'], 2) . "</td>";
+                        echo "<td>" . $rows['tipoCredito'] . "</td>";
                         echo "<td>" . $rows['medio'] . "</td>";
                         echo '<th><button  onclick="sendVariables(\'Nuevo_Cliente.php\', ' . $rows['idCliente'] . ', \'id\');" class="btn btn-outline-primary ms-1">Generar contrato</button></th>';
                         echo "</tr>";
