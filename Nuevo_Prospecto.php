@@ -27,7 +27,6 @@
         $conection = new DB(require 'php/config.php');
 
     ?>
-    <!--INPUT MONTO CREDITO-->
 
     <!--PROSPECTOS PARA TODOS DESPUES DE UNO/DOS MESES-->
     <!--NOTIFICACION 15 DIAS ANTES DE SER LIBERADO A EUGENIO-->
