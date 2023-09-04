@@ -127,7 +127,7 @@
                     echo "</h2>";
                     echo "<div id='collapseCalle".$row2['idCalle']."' class='accordion-collapse collapse' aria-labelledby='headingOne' data-bs-parent='#accordionExample'>";
                     echo "<div class='accordion-body'>";
-                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, $row2['idCalle'], 'S');
+                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, $row2['idCalle'], 0, 0, 'S');
                         while ($row3 = $proc3->fetch(PDO::FETCH_ASSOC)) {
                             echo "<table class='table'>";
                             echo "<thead>";

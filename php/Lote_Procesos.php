@@ -17,7 +17,12 @@ if (isset($_POST['accion'])) {
                 $_POST['metrosExcedentes'],
                 $_POST['precioLote'],
                 $_POST['autorizado'] ?: 0,
+                0,
+                '',
+                0,
                 $_POST['prototipo'],
+                0,
+                0,
                 0, 
                 "U");
 
@@ -36,12 +41,31 @@ if (isset($_POST['accion'])) {
         $idLote = $_POST['id'];
         $coneccion = new DB(require 'php/config.php');
         
-        try {
+        try {   
 
-            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0, 0, "E");
+            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0,'',0, 0, 0, 0, 0, "E");
             
             $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
             echo json_encode($resultado[0]);
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+        }
+            
+    }
+
+    if ($_POST['accion'] == 'obtener') {
+        $idCalle = $_POST['id'];
+        $coneccion = new DB(require 'php/config.php');
+        
+        try {   
+
+            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, $idCalle, 0, 0, "S");
+            
+            while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=".$rows['idLote'].">".$rows['numeroLote']."</option>";
+            }
+            
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo $err . ' ' . $errorCode;

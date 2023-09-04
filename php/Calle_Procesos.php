@@ -25,7 +25,7 @@ if (isset($_POST['accion'])) {
 
                 for ($i=0; $i < $_POST['totalLotes']; $i++) {
                     $numeroLote = 100 + $i;
-                    $proc = $coneccion->gestionLote(0, $numeroLote, 'NULL', $_POST['precioLista'], 0, $_POST['prototipo'], $idCalle, 'I');
+                    $proc = $coneccion->gestionLote(0, $numeroLote, 'NULL', $_POST['precioLista'], 0, 'NULL', 'NULL', 'NULL', $_POST['prototipo'], $idCalle, 'NULL', 'NULL', 'I');
                     $result = $proc->fetch(PDO::FETCH_ASSOC);
                     echo '<br> Agregado Lote ' . ($numeroLote);
                 }
@@ -43,18 +43,16 @@ if (isset($_POST['accion'])) {
             
     }
 
-/*    if ($_POST['accion'] == 'obtener') {
-        $idProyecto = $_POST['id'];
+   if ($_POST['accion'] == 'obtener') {
+        $idEtapa = $_POST['id'];
         $coneccion = new DB(require 'php/config.php');
         
         try {
 
-            $procedure = $coneccion->gestionEtapa( 0, 0, 0, 0, 0, $idProyecto, "S");
+            $procedure = $coneccion->gestionCalle( 0, '', 0, $idEtapa, "S");
             
-            echo '<option value="0">Todas</option>';
-
             while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value=".$rows['idEtapa'].">".$rows['numeroEtapa']."</option>";
+                echo "<option value=".$rows['idCalle'].">".$rows['nombre']."</option>";
             }
 
         } catch (PDOException $err) {
@@ -64,7 +62,7 @@ if (isset($_POST['accion'])) {
             
     }
 
-    if ($_POST['accion'] == 'select') {
+/*     if ($_POST['accion'] == 'select') {
         $idEtapa = $_POST['id'];
         $coneccion = new DB(require 'php/config.php');
         

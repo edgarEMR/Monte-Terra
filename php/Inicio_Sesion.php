@@ -17,11 +17,33 @@
             $_SESSION["idUsuario"] = $row["idUsuario"];
             $_SESSION["nombre"] = $row["nombre"];
             $_SESSION["correo"] = $row["correo"];
+            $_SESSION["rol"] = $row["idDepa"];
 
             session_write_close();
-            header("Location: ../Menu.php");
+            switch ($row["idDepa"]) {
+                case 1:
+                    header("Location: ../Menu.php");
+                    break;
+                
+                case 2:
+                    header("Location: ../Proyectos.php");
+                    break;
+
+                case 3:
+                    header("Location: ../Ventas.php");
+                    break;
+
+                case 4:
+                    header("Location: ../Maquinaria.php");
+                    break;
+
+                default:
+                    header("Location: ../index.php?invalid=1");
+                    break;
+            }
+            
         } else {
-            header("Location: ../index.php#error");
+            header("Location: ../index.php?error=1");
         }
     }
 ?>

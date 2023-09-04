@@ -25,20 +25,21 @@ if (isset($_POST['accion'])) {
     $cliente = new Cliente(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
     
-    $cliente->setNombre($_POST["primerNombre"]);
-    $cliente->setSegundoNombre($_POST["segundoNombre"]);
-    $cliente->setApellidoPaterno($_POST["apPaterno"]);
-    $cliente->setApellidoMaterno($_POST["apMaterno"]);
-    $cliente->setEmail($_POST["email"]);
-    $cliente->setTelefono($_POST["telefono"]);
-    $cliente->setTipoVivienda($_POST["tipoVivienda"]);
-    $cliente->setTipoCredito($_POST["tipoCredito"]);
-    $cliente->setCredito($_POST["credito"]);
-    $cliente->setMedio($_POST["medio"]);
-    $cliente->setIdProyecto($_POST["proyecto"]);
-    $cliente->setIdEtapa($_POST["etapa"]);
-    $cliente->setIdPrototipo($_POST["prototipo"]);
-    $cliente->setIdVendedor($_SESSION['idUsuario']);
+    $cliente->setIdCliente($_POST["clienteID"] ?: 'NULL');
+    $cliente->setNombre($_POST["primerNombre"] ?: 'NULL');
+    $cliente->setSegundoNombre($_POST["segundoNombre"] ?: 'NULL');
+    $cliente->setApellidoPaterno($_POST["apPaterno"] ?: 'NULL');
+    $cliente->setApellidoMaterno($_POST["apMaterno"] ?: 'NULL');
+    $cliente->setEmail($_POST["email"] ?: 'NULL');
+    $cliente->setTelefono($_POST["telefono"] ?: 'NULL');
+    $cliente->setTipoVivienda($_POST["tipoVivienda"] ?: 'NULL');
+    $cliente->setTipoCredito($_POST["tipoCredito"] ?: 'NULL');
+    $cliente->setCredito($_POST["credito"] ?: 'NULL');
+    $cliente->setMedio($_POST["medio"] ?: 'NULL');
+    $cliente->setIdProyecto($_POST["proyecto"] ?: 'NULL');
+    $cliente->setIdEtapa($_POST["etapa"] ?: 'NULL');
+    $cliente->setIdPrototipo($_POST["prototipo"] ?: 'NULL');
+    $cliente->setIdVendedor($_SESSION['idUsuario'] ?: 'NULL');
     $cliente->setEsProspecto(1);
 
     if ($_POST['accion'] == 'registrarP') {
@@ -76,6 +77,57 @@ if (isset($_POST['accion'])) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
             header('Location: ../Nuevo_Prospecto.php?success=0');
+        } catch (Exception $error) {
+            echo $error;
+        }
+            
+    }
+
+    if ($_POST['accion'] == 'registrarC') {
+        
+        echo 'registrar';
+        $cliente->setEsProspecto(0);
+        try {
+            echo 'Try';
+            $procedure = $coneccion->gestionCliente(
+                $cliente->getIdCliente(),
+                $cliente->getNombre(),
+                $cliente->getSegundoNombre(),
+                $cliente->getApellidoPaterno(),
+                $cliente->getApellidoMaterno(),
+                $cliente->getEmail(),
+                $cliente->getTelefono(),
+                $cliente->getTipoVivienda(),
+                $cliente->getTipoCredito(),
+                $cliente->getCredito(),
+                $cliente->getMedio(),
+                $cliente->getEsProspecto(),
+                $cliente->getIdProyecto(),
+                $cliente->getIdEtapa(),
+                $cliente->getIdPrototipo(),
+                $cliente->getIdVendedor(),
+                'V'
+            );
+            
+            echo 'Lo ejecuto';
+            
+            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+            if($resultado) {
+                $idCliente = $resultado['idCliente'];
+
+                $proc = $coneccion->gestionLote($_POST['lote'], '', 0, 0, 0, $_POST['precioFinal'], $_POST['tipoCredito'], 
+                    'NULL', 0, 0, $idCliente, $_SESSION['idUsuario'], 'V');
+                $result = $proc->fetch(PDO::FETCH_ASSOC);
+
+                header('Location: ../Nuevo_Cliente.php?success=1');
+            } else {
+                //header('Location: ../Nuevo_Cliente.php?success=0');
+            }
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo '<br>' . $err;
+            //header('Location: ../Nuevo_Cliente.php?success=0');
         } catch (Exception $error) {
             echo $error;
         }

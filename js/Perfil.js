@@ -1,5 +1,5 @@
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("Agregar Crédito");
+  $("#titulo").text("Perfil");
 
   $("#navConst").removeClass();
   $("#navConst").hide();
@@ -20,14 +20,34 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarPrestamo").toggle();
   $("#dividerBottom").toggle();
 
-  $("#atras").on("click", function () {
-    location.href = "Detalle_Pago.php";
-  });
-});
+  var depaID = $("#depaID").val();
+  var href = "";
+  console.log(depaID);
+  switch (depaID) {
+    case "1":
+      href = "Menu.php";
+      break;
 
-$(".selectpicker").selectpicker({
-  style: "",
-  styleBase: "form-control",
+    case "2":
+      href = "Proyectos.php";
+      break;
+
+    case "3":
+      href = "Ventas.php";
+      break;
+
+    case "4":
+      href = "Maquinaria.php";
+      break;
+
+    default:
+      href = "Perfil.php";
+      break;
+  }
+  console.log(href);
+  $("#atras").on("click", function () {
+    location.href = href;
+  });
 });
 
 (() => {
@@ -54,43 +74,26 @@ $(".selectpicker").selectpicker({
 })();
 
 $(document).ready(function () {
-  if (getParameterByName("error") == 1) {
-    $("#modalMensaje").find(".modal-title").text("Atención");
-    $("#modalMensaje")
-      .find(".modal-body")
-      .text("Error al agregar el Credito, intente de nuevo");
-    $("#modalMensaje").modal("show");
+  //Detectar mensaje de error
+  const liveAlert = $("#liveAlert");
+  if (getParameterByName("success")) {
+    console.log("SUCCESS");
+    if (getParameterByName("success") == 1) {
+      $(".alert-body").text("Informacion guardada correctamente");
+      liveAlert.addClass("text-bg-success");
+    } else {
+      $(".alert-body").text(
+        "No fue posible realizar la acción, intente nuevamente"
+      );
+      liveAlert.addClass("text-bg-danger");
+    }
+
+    liveAlert.alert();
+
+    setTimeout(() => {
+      liveAlert.alert("close");
+    }, 5000);
   }
-
-  $(".selectpicker").on("change", function () {
-    var selectpicker = $(this);
-    selectpicker.removeClass("is-valid is-invalid");
-    // selectpicker.next('.invalid-feedback').text(''); // Clear any previous error message
-
-    if (!selectpicker.val()) {
-      selectpicker.addClass("is-invalid");
-      selectpicker.parent().next().show();
-    } else {
-      selectpicker.addClass("is-valid");
-      selectpicker.parent().next().hide();
-    }
-  });
-
-  $("#registroCredito").on("submit", function (event) {
-    var selectpicker = $("#registroCredito").find(".selectpicker");
-    if (!selectpicker.val()) {
-      selectpicker.addClass("is-invalid");
-      selectpicker.parent().next().show();
-    } else {
-      selectpicker.addClass("is-valid");
-      selectpicker.parent().next().hide();
-    }
-
-    var invalidSelects = $("#registroCredito").find(".selectpicker.is-invalid");
-    if (invalidSelects.length > 0) {
-      invalidSelects.first().focus();
-    }
-  });
 });
 
 function getParameterByName(name, url = window.location.search) {
@@ -100,4 +103,16 @@ function getParameterByName(name, url = window.location.search) {
   if (!results) return null;
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function verContra() {
+  var contra = document.getElementById("inputContraseña");
+
+  if (contra.type === "password") {
+    contra.type = "text";
+    document.getElementById("verIcon").className = "bi bi-eye-fill";
+  } else {
+    contra.type = "password";
+    document.getElementById("verIcon").className = "bi bi-eye-slash-fill";
+  }
 }

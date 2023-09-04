@@ -1,18 +1,33 @@
 .register-form {
-    background-color: #EFF6FF;
-    color: #2563EB;
-    width: 60%;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 2%;
-    border-radius: 3%;
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 70%;
+  margin-top: 5%;
+  padding: 2%;
+  border-radius: 3%;
 }
 
 #registroProyecto > div {
-    margin-top: 2%;
+  margin-top: 2%;
 }
 
 #casasEtapa > div {
-    margin-top: 2%;
+  margin-top: 2%;
+}
+
+.more-info {
+  background-color: #eff6ff;
+  color: #2563eb;
+  width: 30%;
+  margin-top: 5%;
+  margin-left: 2%;
+  padding: 2%;
+  border-radius: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#liveAlert {
+  width: 25%;
 }

@@ -56,7 +56,7 @@
                 <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="etapa" id="inputEtapa" required>
                     <option value="-1">Todas</option>
                     <?php
-                        $procedure = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
+                        $procedure = $conection->gestionEtapa(0, 0, 0, 0, 0, $idProyecto, 'S');
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                             if ($rows['idEtapa'] == $pago->getIdEtapa()) {
                                 echo "<option value=".$rows['idEtapa']." selected>".$rows['numeroEtapa']."</option>";

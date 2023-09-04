@@ -5,10 +5,12 @@ $("#navigation").load("Navbar.php", function () {
   $("#navConst").hide();
 
   $("#crearProyecto").toggle();
+  $("#crearEtapa").toggle();
   $("#agregarPago").toggle();
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();
   $("#crearCliente").toggle();
+  $("#crearProspecto").toggle();
   $("#gestionProrrateo").toggle();
   $("#agregarAbono").toggle();
   $("#dividerTop").toggle();

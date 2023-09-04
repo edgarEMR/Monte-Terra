@@ -28,7 +28,7 @@
         if(isset($_GET["id"]))
         {
             $idEtapa = $_GET["id"];
-            $proc = $conection->gestionEtapa($idEtapa, 0, 0, 0, 'E');
+            $proc = $conection->gestionEtapa($idEtapa, '', 0, 0, 0, 0, 'E');
             $rows = $proc->fetch(PDO::FETCH_ASSOC);
 
             $numeroEtapa = $rows['numeroEtapa'];
@@ -59,7 +59,7 @@
                     $procedure = $conection->resumenVentasEtapa($idEtapa);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td><a onclick=\"sendVariables('Nuevo_Cliente.php', " . $rows['idCliente'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
+                        echo "<td>" . $rows['nombre'] . "</td>";
                         echo "<td>" . $rows['lote'] . "</td>";
                         echo "<td>" . $rows['manzana'] . "</td>";
                         echo "<td>" . $rows['precio'] . "</td>";

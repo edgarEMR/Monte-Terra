@@ -7,6 +7,8 @@
     if(isset($_SESSION["nombre"]) && isset($_SESSION["correo"])) {
         $nombreUsuario = $_SESSION["nombre"];
         $correo = $_SESSION["correo"];
+        $idUsuario = $_SESSION["idUsuario"];
+        $rol = $_SESSION["rol"];
     }
 ?>
 <!DOCTYPE html>
@@ -40,6 +42,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end text-center">
                     <li><h6 class="dropdown-header"><?php echo $nombreUsuario . '</br>' . $correo;?></h6></li>
+                    <li><button id="perfil" type="button" class="btn btn-link" onclick="location.href='Perfil.php?id=<?php echo $idUsuario;?>'" style="text-decoration: none;"><i class="bi bi-person-circle"></i> Perfil</button></li> 
                     <li><button id="cerrarSesion" type="button" class="btn btn-link" onclick="location.href='index.php'" style="text-decoration: none;"><i class="bi bi-power"></i> Cerrar sesión</button></li> 
                 </ul>
             </div>
@@ -69,6 +72,7 @@
     </div>
     <div id="variables">
         <input id="inputProyectoID" type="number" hidden>
+        <input id="inputRolID" type="hidden" value="<?php echo $rol;?>">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

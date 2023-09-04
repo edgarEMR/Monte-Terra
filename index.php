@@ -20,7 +20,7 @@
         <h5>Bienvenido</h5>
         <form id="login" action="php/Inicio_Sesion.php" method="POST" class="gy-3">    
             <div class="mb-3">
-              <input type="text" name="usuario" class="form-control" id="inputUser" aria-describedby="userHelp" placeholder="Usuario" required>
+              <input type="text" name="usuario" class="form-control" id="inputUser" aria-describedby="userHelp" placeholder="Correo" required>
             </div>
             <div class="mb-3">
               <input type="password" name="contraseña" class="form-control" id="inputPassword" placeholder="Contraseña" required>
@@ -30,20 +30,9 @@
             </div>
           </form>
     </div>
-
-    
-    <div class="toast-container top-0 start-50 translate-middle-x mt-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto">Monteterra</strong>
-              <small>Ahora</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-            </div>
-        </div>
+    <div id="liveAlert" class="alert alert-dismissible fade show position-fixed fixed-bottom mx-auto" role="alert">
+        <p class="alert-body mb-0"></p>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/index.js"></script>
 </body>

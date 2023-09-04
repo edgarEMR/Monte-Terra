@@ -5,6 +5,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#navConst").hide();
 
   $("#crearProyecto").toggle();
+  $("#crearEtapa").toggle();
+  $("#crearProspecto").toggle();
   $("#agregarPago").toggle();
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();

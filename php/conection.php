@@ -51,6 +51,11 @@
             return $this->connect()->query("CALL spInicioSesion('$correo', '$contraseña')");
         }
 
+        function gestionUsuario($idUsuario, $nombre, $correo, $contraseña, $idDepa, $opcion)
+        {
+            return $this->connect()->query("CALL spGestionUsuario($idUsuario, '$nombre', '$correo', '$contraseña', $idDepa, '$opcion')");
+        }
+
         function obtenerResumen($date) {
             return $this->connect()->query("CALL spObtenerResumen('$date')");
         }
@@ -116,11 +121,12 @@
             return $this->connect()->query("CALL spGestionCalle($idCalle, '$nombre', $totalLotes, $idEtapa, '$opcion')");
         }
 
-        function gestionLote($idLote, $numeroLote, $metrosExcedentes, $precioLista, $autorizado, $idPrototipo, $idCalle, $opcion)
+        function gestionLote($idLote, $numeroLote, $metrosExcedentes, $precioLista, $autorizado, $precioVenta, $formaPago, 
+                            $idTipoPago, $idPrototipo, $idCalle, $idCliente, $idVendedor, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionLote($idLote, '$numeroLote', $metrosExcedentes, $precioLista, 
-                                                                $autorizado, $idPrototipo, $idCalle, '$opcion')");
+            return $this->connect()->query("CALL spGestionLote($idLote, '$numeroLote', $metrosExcedentes, $precioLista, $autorizado, 
+                $precioVenta, '$formaPago', $idTipoPago, $idPrototipo, $idCalle, $idCliente, $idVendedor, '$opcion')");
         }
 
         function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 

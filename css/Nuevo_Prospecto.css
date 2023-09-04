@@ -16,3 +16,7 @@
 #casasEtapa > div {
   margin-top: 2%;
 }
+
+#liveAlert {
+  width: 25%;
+}

@@ -88,8 +88,8 @@
                 <tr class="table-primary">
                     <th>PROYECTO</th>
                     <th># CLIENTES</th>
-                    <th>PROM VENTA</th>
-                    <th>PENDIENTE</th>
+                    <th>VENTA</th>
+                    <th>POR COBRAR</th>
                 </tr>
             </thead>
             <tbody>

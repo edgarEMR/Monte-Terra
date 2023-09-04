@@ -31,41 +31,127 @@ $(".selectpicker").selectpicker({
 });
 
 $(document).ready(function () {
-  $("#inputTotalEtapas").on("change", totalEtapas);
-  $("#inputTotalCasas").on("change", function () {
-    var etapas = $("#inputTotalEtapas");
-    if (this.value < etapas.val()) {
-      this.value = etapas.val();
+  if (getParameterByName("success")) {
+    const liveAlert = $("#liveAlert");
+    if (getParameterByName("success") == 1) {
+      $(".alert-body").text("Cliente creado correctamente");
+      liveAlert.addClass("text-bg-success");
+    } else {
+      $(".alert-body").text(
+        "No fue posible realizar la acción, intente nuevamente"
+      );
+      liveAlert.addClass("text-bg-danger");
     }
+
+    liveAlert.alert();
+
+    setTimeout(() => {
+      liveAlert.alert("close");
+    }, 5000);
+  }
+  $("#fechaFirma").text(getDate());
+
+  //Obtener las calles de la etapa seleccionada al cargar la pagina
+  //Solo si existe el Cliente
+  var idEtapa = $("#inputEtapa").val();
+  console.log($("#inputEtapa").val());
+  $.ajax({
+    method: "POST",
+    url: "php/Calle_Procesos.php",
+    cache: false,
+    data: { accion: "obtener", id: idEtapa },
+  }).done(function (result) {
+    $("#inputCalle").empty().html(result);
+    $("#inputCalle").selectpicker("destroy");
+    $("#inputCalle").selectpicker({ style: "", styleBase: "form-control" });
   });
 
-  if (getParameterByName("error") == 1) {
-    $("#modalMensaje").find(".modal-title").text("Atención");
-    $("#modalMensaje")
-      .find(".modal-body")
-      .text("Error al crear proyecto, intente de nuevo");
-    $("#modalMensaje").modal("show");
-  }
-
-  $("#registroProyecto").submit(function (e) {
-    var casas = $("#inputTotalCasas").val();
-    var totalCasas = 0;
-
-    $(".casasEnEtapa").each(function () {
-      totalCasas += parseInt(this.value);
+  //Obtener etapas del proyecto seleccionado en Ingreso
+  $("#inputProyecto").change(function () {
+    var idProyecto = $("#inputProyecto").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Etapa_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", id: idProyecto },
+    }).done(function (result) {
+      $("#inputEtapa").empty().html(result);
+      $("#inputEtapa").selectpicker("destroy");
+      $("#inputEtapa").selectpicker({ style: "", styleBase: "form-control" });
     });
-    console.log("total casas: " + totalCasas);
 
-    if (casas < totalCasas) {
-      e.preventDefault();
-      $("#liveToast .me-auto").text("Atención");
-      $("#liveToast > .toast-body").text(
-        "La suma de las casas por etapa no puede ser mayor al total de casas"
-      );
-      $("#liveToast rect").attr("fill", "red");
-      const toast = new bootstrap.Toast($("#liveToast"));
-      toast.show();
-    }
+    $.ajax({
+      method: "POST",
+      url: "php/Prototipo_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", id: idProyecto },
+    }).done(function (result) {
+      $("#inputPrototipo").empty().html(result);
+      $("#inputPrototipo").selectpicker("destroy");
+      $("#inputPrototipo").selectpicker({
+        style: "",
+        styleBase: "form-control",
+      });
+    });
+  });
+
+  $("#inputEtapa").change(function () {
+    var idEtapa = $("#inputEtapa").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Calle_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", id: idEtapa },
+    }).done(function (result) {
+      $("#inputCalle").empty().html(result);
+      $("#inputCalle").selectpicker("destroy");
+      $("#inputCalle").selectpicker({ style: "", styleBase: "form-control" });
+    });
+  });
+
+  $("#inputCalle").change(function () {
+    var idCalle = $("#inputCalle").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Lote_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", id: idCalle },
+    }).done(function (result) {
+      $("#inputLote").empty().html(result);
+      $("#inputLote").selectpicker("destroy");
+      $("#inputLote").selectpicker({ style: "", styleBase: "form-control" });
+    });
+  });
+
+  $("#inputLote").change(function () {
+    var idLote = $("#inputLote").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Lote_Procesos.php",
+      cache: false,
+      data: { accion: "select", id: idLote },
+    }).done(function (result) {
+      var jsonResult = JSON.parse(result);
+      let precioLista = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      });
+      $("#inputPrototipo").selectpicker("val", jsonResult["idLote"].toString());
+      $("#inputExcedente").val(jsonResult["metrosExcedentes"]);
+      $("#precioLista").text(precioLista.format(jsonResult["precioLista"]));
+      $("#precioLista").attr("value", jsonResult["precioLista"]);
+    });
+
+    var idEtapa = $("#inputEtapa").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Etapa_Procesos.php",
+      cache: false,
+      data: { accion: "select", id: idEtapa },
+    }).done(function (result) {
+      var jsonResult = JSON.parse(result);
+      $("#inputPrecioExcedente").val(jsonResult["precioExcedente"]);
+    });
   });
 });
 
@@ -101,16 +187,43 @@ function getParameterByName(name, url = window.location.search) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
-if (dd < 10) {
-  dd = "0" + dd;
-}
-if (mm < 10) {
-  mm = "0" + mm;
-}
+function getDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
 
-today = yyyy + "-" + mm + "-" + dd;
-document.getElementById("inputFecha").setAttribute("max", today);
+  today = dd + "-" + mm + "-" + yyyy;
+  return today;
+}
+//document.getElementById("inputFecha").setAttribute("max", today);
+
+function calcularImporte() {
+  const liveAlert = $("#liveAlert");
+
+  var m2Excedente = $("#inputExcedente").val();
+  var precioExcedente = $("#inputPrecioExcedente").val();
+  var precioVenta = $("#inputPrecioVenta").val();
+  var precioFinal = $("#inputPrecioFinal");
+  var precioLista = parseInt($("#precioLista").attr("value"));
+
+  var pFinal = m2Excedente * precioExcedente + parseInt(precioVenta);
+  console.log(pFinal, precioLista);
+  if (pFinal >= precioLista) {
+    liveAlert.alert("close");
+    precioFinal.val(pFinal);
+  } else {
+    precioFinal.val("");
+    $(".alert-body").text(
+      "El precio de venta no puede ser menor al precio de lista"
+    );
+    liveAlert.addClass("text-bg-warning");
+    liveAlert.alert();
+  }
+}
