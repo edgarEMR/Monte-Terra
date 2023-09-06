@@ -17,7 +17,7 @@ $(document).ready(function () {
       "Correo o contraseña incorrectos, intente nuevamente"
     );
     liveAlert.addClass("text-bg-danger");
-  } else {
+  } else if (getParameterByName("invalid")) {
     $(".alert-body").text(
       "Ocurrio un problema, pongase en contacto con su administrador"
     );

@@ -127,20 +127,21 @@
                     echo "</h2>";
                     echo "<div id='collapseCalle".$row2['idCalle']."' class='accordion-collapse collapse' aria-labelledby='headingOne' data-bs-parent='#accordionExample'>";
                     echo "<div class='accordion-body'>";
+                    
+                    echo "<table class='table'>";
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th scope='col'>Lote</th>";
+                    echo "<th scope='col'>Metros Excedentes</th>";
+                    echo "<th scope='col'>Precio Lista</th>";
+                    echo "<th scope='col'>Prototipo</th>";
+                    echo "<th scope='col'>Autorizado</th>";
+                    echo "<th></th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
                         $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, $row2['idCalle'], 0, 0, 'S');
                         while ($row3 = $proc3->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<table class='table'>";
-                            echo "<thead>";
-                            echo "<tr>";
-                            echo "<th scope='col'>Lote</th>";
-                            echo "<th scope='col'>Metros Excedentes</th>";
-                            echo "<th scope='col'>Precio Lista</th>";
-                            echo "<th scope='col'>Prototipo</th>";
-                            echo "<th scope='col'>Autorizado</th>";
-                            echo "<th></th>";
-                            echo "</tr>";
-                            echo "</thead>";
-                            echo "<tbody>";
                             echo "<tr>";
                             echo "<td>".$row3['numeroLote']."</td>";
                             echo "<td>".$row3['metrosExcedentes']."</td>";
@@ -149,9 +150,9 @@
                             echo "<td>".$row3['autorizado']."</td>";
                             echo "<td><button class='btn btn-primary btn-sm showLoteModal' loteID=".$row3['idLote']." type='button' data-bs-toggle='modal' data-bs-target='#modalLote'>Editar</button></td>";
                             echo "</tr>";
-                            echo "</tbody>";
-                            echo "</table>";
                         }
+                    echo "</tbody>";
+                    echo "</table>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
