@@ -159,6 +159,10 @@
             return $this->connect()->query("CALL spResumenVentasProyecto($idProyecto)");
         }
 
+        function detalleVentasProyecto($idProyecto) {
+            return $this->connect()->query("CALL spDetalleVentasProyecto($idProyecto)");
+        }
+
         function resumenVentasEtapa($idEtapa) {
             return $this->connect()->query("CALL spResumenVentasEtapa($idEtapa)");
         }

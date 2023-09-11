@@ -21,6 +21,7 @@
 
         $date = '';
         $conection = new DB(require 'php/config.php');
+        $countProyecto = 0;
 
         if(isset($_GET['date'])){
             $date = $_GET['date'];
@@ -87,8 +88,12 @@
             <thead>
                 <tr class="table-primary">
                     <th>PROYECTO</th>
-                    <th># CLIENTES</th>
+                    <th>ETAPAS</th>
+                    <th>LOTES / CASAS</th>
+                    <th>PROTOTIPOS</th>
+                    <th>VENDIDAS</th>
                     <th>VENTA</th>
+                    <th>COBRADO</th>
                     <th>POR COBRAR</th>
                 </tr>
             </thead>
@@ -98,17 +103,17 @@
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td><a onclick=\"sendVariables('Ventas_Proyecto.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
-                        echo "<td>" . $rows['numeroClientes'] . "</td>";
-                        echo "<td>" . $rows['promedioVenta'] . "</td>";
-                        echo "<td>" . $rows['pendiente'] . "</td>";
+                        echo "<td>" . $rows['etapa'] . "</td>";
+                        echo "<td>" . $rows['lotes'] . "</td>";
+                        echo "<td>" . $rows['prototipos'] . "</td>";
+                        echo "<td>" . $rows['vendidas'] . "</td>";
+                        echo "<td>$" . number_format($rows['venta'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['cobrado'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['porCobrar'], 2) . "</td>";
                         echo "</tr>";
+                        $countProyecto++;
                     }
                 ?>
-                <tr class="table-success">
-                    <td>TOTAL</td>
-                    <td colspan="2"></td>
-                    <td>TOTAL PENDIENTE</td>
-                </tr>
             </tbody>
         </table>
     </div>
