@@ -44,14 +44,38 @@
         <table id="tabla-prospectos" class="table table-hover">
             <thead>
                 <tr class="table-primary">
-                    <th>NOMBRE</th>
-                    <th>EMAIL</th>
-                    <th>TELEFONO</th>
-                    <th>PROYECTO / ETAPA</th>
-                    <th>PROTOTIPO</th>
-                    <th>CREDITO</th>
-                    <th>TIPO CREDITO</th>
-                    <th>MEDIO</th>
+                    <th col-index = 1>NOMBRE
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 2>EMAIL
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 3>TELEFONO
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 4>PROYECTO / ETAPA
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 5>PROTOTIPO
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 6>CREDITO
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 7>TIPO CREDITO
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 8>MEDIO
+                    <select class="table-filter" onchange="filter_rows('prospectos')">
+                        <option value="all">Todos</option>
+                    </select></th>
                     <th></th>
                 </tr>
             </thead>
@@ -87,14 +111,38 @@
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
-                    <th>PROYECTO</th>
-                    <th>ETAPAS</th>
-                    <th>LOTES / CASAS</th>
-                    <th>PROTOTIPOS</th>
-                    <th>VENDIDAS</th>
-                    <th>VENTA</th>
-                    <th>COBRADO</th>
-                    <th>POR COBRAR</th>
+                    <th col-index = 1>PROYECTO
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 2>ETAPAS
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 3>LOTES / CASAS
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 4>PROTOTIPOS
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 5>VENDIDAS
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 6>VENTA
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 7>COBRADO
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 8>POR COBRAR
+                    <select class="table-filter" onchange="filter_rows('resumen')">
+                        <option value="all">Todos</option>
+                    </select></th>
                 </tr>
             </thead>
             <tbody>
@@ -128,13 +176,34 @@
         <table id="tabla-cancel" class="table table-hover">
             <thead>
                 <tr class="table-primary">
-                    <th>NOMBRE</th>
-                    <th>PROYECTO</th>
-                    <th>CASA #</th>
-                    <th>MANZANA</th>
-                    <th>COSTO</th>
-                    <th>PAGO</th>
-                    <th>PENDIENTE</th>
+                    <th col-index = 1>NOMBRE
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 2>PROYECTO
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 3>CASA #
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 4>MANZANA
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 5>COSTO
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 6>PAGO
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
+                    <th col-index = 7>PENDIENTE
+                    <select class="table-filter" onchange="filter_rows('cancel')">
+                        <option value="all">Todos</option>
+                    </select></th>
                 </tr>
             </thead>
             <tbody>

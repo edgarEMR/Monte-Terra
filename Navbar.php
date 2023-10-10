@@ -60,15 +60,22 @@
         <button id="agregarAportador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Aportador.php'" style="text-decoration: none;">Agregar Aportador</button>
         <button id="agregarCredito" type="button" class="btn btn-link" onclick="location.href='Nuevo_Credito.php'" style="text-decoration: none;">Agregar Crédito</button>
         <button id="agregarProveedor" type="button" class="btn btn-link" onclick="location.href='Nuevo_Proveedor.php'" style="text-decoration: none;">Agregar Proveedor</button>
-        <button id="agregarPrestamo" type="button" class="btn btn-link" onclick="location.href='Detalle_Abono.php'" style="text-decoration: none;">Agregar Préstamo</button>
+        <button id="agregarPrestamo" type="button" class="btn btn-link" onclick="location.href='Nuevo_Prestamo.php'" style="text-decoration: none;">Agregar Préstamo</button>
         <button id="gestionProrrateo" type="button" class="btn btn-link" onclick="location.href='Gestion_Prorrateo.php'" style="text-decoration: none;">Prorrateo</button>
         <button id="atras" type="button" class="btn btn-link" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
-    <div id="navConst" class="bg-primary d-flex justify-content-center">
+    <div id="navMaqu" class="bg-primary d-flex justify-content-center">
         <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='Movimiento_Maquinaria.php'" style="text-decoration: none;">Agregar Movimiento</button>
         <button id="agregarMaquina" type="button" class="btn btn-link" onclick="location.href='Nueva_Maquina.php'" style="text-decoration: none;">Agregar Maquina</button>
         <button id="agregarOperador" type="button" class="btn btn-link" onclick="location.href='Nuevo_Operador.php'" style="text-decoration: none;">Agregar Operador</button>
         <button id="atrasMaquinaria" type="button" class="btn btn-link" onclick="location.href='Menu.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
+    </div>
+    <div id="navConst" class="bg-primary d-flex justify-content-center">
+    <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='#'" style="text-decoration: none;">Resumen</button>
+    <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='#'" style="text-decoration: none;">Manzaneros</button>
+    <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='#'" style="text-decoration: none;">Grafica de avances</button>
+    <button id="agregarMovimiento" type="button" class="btn btn-link" onclick="location.href='#'" style="text-decoration: none;">Programa</button>
+        <button id="atrasConstruccion" type="button" class="btn btn-link" onclick="location.href='Menu.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
     <div id="variables">
         <input id="inputProyectoID" type="number" hidden>

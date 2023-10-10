@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Aportadores");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 

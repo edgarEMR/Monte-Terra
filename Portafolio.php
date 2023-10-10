@@ -58,7 +58,10 @@
                     </th>
                     <th col-index = 2>INGRESO</th>
                     <th col-index = 3>EGRESO</th>
-                    <th col-index = 4>CONCEPTO</th>
+                    <th col-index = 4>CONCEPTO
+                    <select class="table-filter" onchange="filter_rows()">
+                        <option value="all">Todos</option>
+                    </select></th>
                     <th col-index = 5>PROVEEDOR
                     <select class="table-filter" onchange="filter_rows()">
                         <option value="all">Todos</option>

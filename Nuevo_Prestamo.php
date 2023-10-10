@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Aportador</title>
-    <link rel="stylesheet" href="css/Nuevo_Aportador.css">
+    <title>Agregar Prestamo</title>
+    <link rel="stylesheet" href="css/Nuevo_Prestamo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -89,7 +89,7 @@
             </thead>
             <tbody>
                 <?php
-                    $procedure = $conection->gestionAportador(0, '', '', 0, 0, 'S');
+                    $procedure = $conection->gestionAportador(0, '', '', 1, 0, 'S');
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td>" . $rows['nombre'] . "</td>";
@@ -104,6 +104,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/bootstrap-select.js"></script>
-    <script src="js/Nuevo_Aportador.js"></script>
+    <script src="js/Nuevo_Prestamo.js"></script>
 </body>
 </html>

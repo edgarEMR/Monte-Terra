@@ -19,17 +19,21 @@
         ob_start();
         include_once('php/conection.php');
 
-        $date = '';
+        $fechaIni = '';
+        $fechaFin = '';
         $crecimiento = 0;
         $conection = new DB(require 'php/config.php');
 
-        if(isset($_GET['date'])){
-            $date = $_GET['date'];
+        if(isset($_GET['dateEnd'])){
+            $fechaIni = $_GET['dateSrt'];
+            $fechaFin = $_GET['dateEnd'];
         } else {
-            $date = $conection->getCurrent_date();
+            $tempFecha = date_sub(date_create($conection->getCurrent_date()), date_interval_create_from_date_string('6 days'));
+            $fechaIni = $tempFecha->format('Y-m-d');
+            $fechaFin = $conection->getCurrent_date();
         }
         
-        $procedure = $conection->obtenerResumen($date);
+        $procedure = $conection->obtenerResumen($fechaIni, $fechaFin);
         $rows = $procedure->fetch(PDO::FETCH_ASSOC);
 
     ?>
@@ -40,10 +44,15 @@
         <div id="titulo">
             <h2 class="text-primary">Resumen</h2>
             <h4 id="crecimento" class="text-secondary"></h4>
-            <div id="selector-semana" class="input-group mb-3">
-                <button class="btn btn-outline-secondary" type="button" onclick="subDays('<?php echo $date;?>');"><i class="bi bi-caret-left-fill"></i></button>
-                <input id="inputDate" type="text" class="form-control" placeholder="" aria-label="Example text with two button addons" disabled value="<?php echo date_format(date_create($date), 'd-m-Y');?>">
-                <button class="btn btn-outline-secondary" type="button" onclick="addDays('<?php echo $date;?>');"><i class="bi bi-caret-right-fill"></i></button>
+            <div id="selector-semana" class="mb-3">
+                <div class="mx-1">
+                    <label for="inputFechaIni">Desde</label>
+                    <input type="date" name="fechaIni" class="form-control" id="inputDateIni" value="<?php echo $fechaIni;?>" onchange="setDateRange();">
+                </div>
+                <div class="mx-1">
+                    <label for="inputFechaFin">Hasta</label>
+                    <input type="date" name="fechaFin" class="form-control" id="inputDateFin" value="<?php echo $fechaFin;?>" onchange="setDateRange();">
+                </div>
             </div>
         </div>
         
@@ -64,7 +73,7 @@
                     $sumaEgr = 0;
                     $sumaHoy = 0;
 
-                    $procedure = $conection->obtenerResumen($date);
+                    $procedure = $conection->obtenerResumen($fechaIni, $fechaFin);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td><a onclick=\"sendVariables('Portafolio.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
@@ -104,23 +113,33 @@
                 <tr class="table-primary">
                     <th>BANCOS</th>
                     <th>ANTERIOR</th>
+                    <th>INGRESOS</th>
+                    <th>EGRESOS</th>
                     <th>ACTUAL</th>
+                    <th>DIFERENCIA</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
                     $sumaPasadoB = 0;
+                    $sumaIngB = 0;
+                    $sumaEgrB = 0;
                     $sumaHoyB = 0;
 
-                    $procedure = $conection->obtenerBancos($date);
+                    $procedure = $conection->obtenerBancos($fechaIni, $fechaFin);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         echo "<td><a onclick=\"sendVariables('Bancos.php', " . $rows['idTipoPago'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>$" . number_format($rows['totalPasado'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['ingreso'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['egreso'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['totalHoy'], 2) . "</td>";
+                        echo "<td></td>";
                         echo "</tr>";
 
                         $sumaPasadoB += $rows['totalPasado'];
+                        $sumaIngB += $rows['ingreso'];
+                        $sumaEgrB += $rows['egreso'];
                         $sumaHoyB += $rows['totalHoy'];
                     }
 
@@ -128,7 +147,10 @@
                 <tr class="table-success">
                     <td>TOTAL</td>
                     <td><?php echo "$" . number_format($sumaPasadoB, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaIngB, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaEgrB, 2);?></td>
                     <td><?php echo "$" . number_format($sumaHoyB, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPasadoB + $sumaIngB - $sumaEgrB - $sumaHoyB, 2);?></td>
                 </tr>
             </tbody>
         </table>
@@ -305,6 +327,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div id="liveAlert" class="alert alert-dismissible fade show position-fixed fixed-bottom mx-auto" role="alert">
+        <p class="alert-body mb-0"></p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

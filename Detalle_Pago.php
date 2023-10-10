@@ -110,7 +110,7 @@
                     <div class="form-group col-md-6">
                         <label for="inputConcepto">Concepto</label>
                         <input type="text" name="concepto" class="form-control" id="inputConcepto"
-                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>">
+                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>" disabled>
                         <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                         <div class="invalid-feedback">
                             Ingrese un nombre válido.
@@ -189,7 +189,26 @@
                         <label for="inputAportador">Aportador</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="aportador" id="inputAportador">
                             <?php
-                                $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
+                                $procedure = $conection->gestionAportador(0, '', '', 0, 0, 'S');
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($rows['idAportador'] == $pago->getIdAportador()) {
+                                        echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";
+                                    } else {
+                                        echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";
+                                    }
+                                    
+                                }
+                            ?>
+                            </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group" id="divPrestamo">
+                        <label for="inputPrestamo">Préstamo</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="aportador" id="inputPrestamo">
+                            <?php
+                                $procedure = $conection->gestionAportador(0, '', '', 1, 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     if ($rows['idAportador'] == $pago->getIdAportador()) {
                                         echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";
@@ -207,18 +226,7 @@
                     <div class="form-group" id="divCliente">
                         <label for="inputCliente">Cliente</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="cliente" id="inputCliente">
-                            <?php
-                                $procedure = $conection->obtenerProspectos();
-                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['idCliente'] == $pago->getIdProveedor()) {
-                                        echo "<option value=".$rows['idCliente']." selected>".$rows['nombre']."</option>";
-                                    } else {
-                                        echo "<option value=".$rows['idCliente'].">".$rows['nombre']."</option>";
-                                    }
-                                    
-                                }
-                            ?>
-                            </select>
+                        </select>
                         <div class="invalid-feedback">
                             Elija una opción.
                         </div>
@@ -369,7 +377,7 @@
                         <label for="inputAportador">Aportador</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="aportador" id="inputAportadorEg" required>
                             <?php
-                                $procedure = $conection->gestionAportador(0, '', '', 0, 'S');
+                                $procedure = $conection->gestionAportador(0, '', '', 0, 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     if ($rows['idAportador'] == $pago->getIdAportador()) {
                                         echo "<option value=".$rows['idAportador'].">".$rows['nombre']."</option>";
@@ -433,16 +441,7 @@
                     <div class="form-group col-md-3" id="divConceptoA">
                         <label for="inputConceptoA">Concepto</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="conceptoA" id="inputConceptoA">
-                            <?php
-                                $procedure = $conection->obtenerTipoPago();
-                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($rows['idBanco'] == $pago->getIdTipoPago()) {
-                                        echo "<option value=".$rows['idTipoPago']." selected>".$rows['nombre']."</option>";
-                                    } else {
-                                        echo "<option value=".$rows['idTipoPago'].">".$rows['nombre']."</option>";
-                                    }
-                                }
-                            ?>
+                            
                         </select>
                         <div class="invalid-feedback">
                             Elija una opción.
@@ -573,6 +572,16 @@
                     <div class="form-group col-md-12" id="divEmpleado">
                         <label for="inputEmpleado">Empleado</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="empleado" id="inputEmpleado">
+                        <?php
+                                $procedure = $conection->obtenerEmpleados();
+                                while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($rows['idUsuario'] == $pago->getIdEmpleado()) {
+                                        echo "<option value=".$rows['idUsuario']." selected>".$rows['nombre']."</option>";
+                                    } else {
+                                        echo "<option value=".$rows['idUsuario'].">".$rows['nombre']."</option>";
+                                    }
+                                }
+                            ?>
                         </select>
                         <div class="invalid-feedback">
                             Elija una opción.

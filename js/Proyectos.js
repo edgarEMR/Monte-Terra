@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Proyectos");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
@@ -85,4 +87,53 @@ function subDays(date) {
   console.log(dateString);
 
   sendVariables("Proyectos.php", dateString, "date");
+}
+
+function sendDate(pagina, dateIni, dateEnd) {
+  var body = document.getElementsByTagName("body")[0];
+
+  //var sessionImagen = document.getElementById('sessionImagen').value;
+  var form = document.createElement("form"); //CREATE FORM
+  form.setAttribute("method", "get"); //SET FORM ATTRIBUTES
+  form.setAttribute("style", "display:none");
+  form.setAttribute("action", pagina);
+  body.appendChild(form); //APPEND FORM TO BODY
+
+  var inputDateIni = document.createElement("input"); //CREATE INPUT
+  inputDateIni.setAttribute("type", "hidden"); //SET INPUT ATTRIBUTES
+  inputDateIni.setAttribute("name", "dateSrt");
+  inputDateIni.setAttribute("value", dateIni);
+
+  var inputDateEnd = document.createElement("input"); //CREATE INPUT
+  inputDateEnd.setAttribute("type", "hidden"); //SET INPUT ATTRIBUTES
+  inputDateEnd.setAttribute("name", "dateEnd");
+  inputDateEnd.setAttribute("value", dateEnd);
+  form.appendChild(inputDateIni); //APPEND INPUT TO FORM
+  form.appendChild(inputDateEnd); //APPEND INPUT TO FORM
+  form.submit(); //SUBMIT FORM
+}
+
+function setDateRange() {
+  var dateIni = $("#inputDateIni").val();
+  var dateFin = $("#inputDateFin").val();
+  console.log(dateIni);
+  console.log(dateFin);
+
+  console.log(Date.parse(dateIni));
+  console.log(Date.parse(dateFin));
+
+  if (Date.parse(dateIni) < Date.parse(dateFin)) {
+    sendDate("Proyectos.php", dateIni, dateFin);
+  } else {
+    console.log("ERROR");
+    const liveAlert = $("#liveAlert");
+    $(".alert-body").text("La fecha final debe ser mayor a la inicial");
+    liveAlert.addClass("text-bg-warning");
+
+    liveAlert.show();
+
+    setTimeout(() => {
+      liveAlert.hide();
+    }, 5000);
+  }
 }

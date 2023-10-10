@@ -1,5 +1,5 @@
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("Agregar Préstamo");
+  $("#titulo").text("Prestamo");
 
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
@@ -8,11 +8,11 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#crearProyecto").toggle();
   $("#crearEtapa").toggle();
+  $("#crearProspecto").toggle();
   $("#agregarPago").toggle();
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();
   $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
   $("#gestionProrrateo").toggle();
   $("#agregarAbono").toggle();
   $("#dividerTop").toggle();
@@ -27,18 +27,9 @@ $("#navigation").load("Navbar.php", function () {
   });
 });
 
-$(document).ready(function () {
-  $("#inputProyecto").change(function () {
-    var idProyecto = $("#inputProyecto").val();
-    $.ajax({
-      method: "POST",
-      url: "php/Etapa_Procesos.php",
-      cache: false,
-      data: { accion: "obtener", id: idProyecto },
-    }).done(function (result) {
-      $("#inputEtapa").empty().html(result);
-    });
-  });
+$(".selectpicker").selectpicker({
+  style: "",
+  styleBase: "form-control",
 });
 
 (() => {
@@ -64,6 +55,48 @@ $(document).ready(function () {
   });
 })();
 
+$(document).ready(function () {
+  if (getParameterByName("error") == 1) {
+    $("#modalMensaje").find(".modal-title").text("Atención");
+    $("#modalMensaje")
+      .find(".modal-body")
+      .text("Error al agregar Aportador, intente de nuevo");
+    $("#modalMensaje").modal("show");
+  }
+
+  $(".selectpicker").on("change", function () {
+    var selectpicker = $(this);
+    selectpicker.removeClass("is-valid is-invalid");
+    // selectpicker.next('.invalid-feedback').text(''); // Clear any previous error message
+
+    if (!selectpicker.val()) {
+      selectpicker.addClass("is-invalid");
+      selectpicker.parent().next().show();
+    } else {
+      selectpicker.addClass("is-valid");
+      selectpicker.parent().next().hide();
+    }
+  });
+
+  $("#registroAportador").on("submit", function (event) {
+    var selectpicker = $("#registroAportador").find(".selectpicker");
+    if (!selectpicker.val()) {
+      selectpicker.addClass("is-invalid");
+      selectpicker.parent().next().show();
+    } else {
+      selectpicker.addClass("is-valid");
+      selectpicker.parent().next().hide();
+    }
+
+    var invalidSelects = $("#registroAportador").find(
+      ".selectpicker.is-invalid"
+    );
+    if (invalidSelects.length > 0) {
+      invalidSelects.first().focus();
+    }
+  });
+});
+
 function getParameterByName(name, url = window.location.search) {
   name = name.replace(/[\[\]]/g, "\\$&");
   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -72,17 +105,3 @@ function getParameterByName(name, url = window.location.search) {
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
-// var today = new Date();
-// var dd = today.getDate();
-// var mm = today.getMonth()+1; //January is 0!
-// var yyyy = today.getFullYear();
-//  if(dd<10){
-//         dd='0'+dd;
-//     }
-//     if(mm<10){
-//         mm='0'+mm;
-//     }
-
-// today = yyyy+'-'+mm+'-'+dd;
-// document.getElementById("inputFecha").setAttribute("max", today);

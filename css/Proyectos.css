@@ -1,50 +1,62 @@
-#resumen, #bancos {
-    margin: 5% 0;
-    padding: 0 10%;
+#resumen,
+#bancos {
+  margin: 5% 0;
+  padding: 0 10%;
 }
 
 #tabla-resumen {
-    text-align: center;
+  text-align: center;
 }
 
-#tabla-resumen tbody tr>td a {
-    text-decoration: none;
-    color: #2563EB; 
-    cursor: pointer;
+#tabla-resumen tbody tr > td a {
+  text-decoration: none;
+  color: #2563eb;
+  cursor: pointer;
 }
 
 #selector-semana {
-    width: 20%;
-    margin-left: auto;
+  width: 30%;
+  display: flex;
+  margin-left: auto;
 }
 
-#selector-semana>input {
-    text-align: center;
+#selector-semana > input {
+  text-align: center;
+}
+
+#selector-semana-fecha {
+  width: 20%;
+  margin-left: auto;
 }
 
 #titulo {
-    display: flex;
+  display: flex;
 }
 
 h2 {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  align-self: center;
 }
 
 #bancos h2 {
-    width: 100%;
-}  
+  width: 100%;
+}
 
 #tabla-desglose-semana {
-    margin: 0 auto 5% auto;
-    max-width: 80%;
+  margin: 0 auto 5% auto;
+  max-width: 80%;
 }
 
 #tabla-semana {
-    width: 130%;
+  width: 130%;
 }
 
 thead {
-    text-align: center;
+  text-align: center;
+}
+
+#liveAlert {
+  width: 25%;
 }

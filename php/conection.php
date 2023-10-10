@@ -56,8 +56,8 @@
             return $this->connect()->query("CALL spGestionUsuario($idUsuario, '$nombre', '$correo', '$contraseña', $idDepa, '$opcion')");
         }
 
-        function obtenerResumen($date) {
-            return $this->connect()->query("CALL spObtenerResumen('$date')");
+        function obtenerResumen($dateIni, $dateEnd) {
+            return $this->connect()->query("CALL spObtenerResumen('$dateIni', '$dateEnd')");
         }
 
         function obtenerPortafolio($idPago, $idProyecto) {
@@ -72,8 +72,8 @@
             return $this->connect()->query("CALL spObtenerProyectos()");
         }
 
-        function obtenerBancos($date) {
-            return $this->connect()->query("CALL spObtenerBancos('$date')");
+        function obtenerBancos($dateIni, $dateEnd) {
+            return $this->connect()->query("CALL spObtenerBancos('$dateIni', '$dateEnd')");
         }
 
         function obtenerPagoBanco($tipoPago) {
@@ -151,6 +151,14 @@
             return $this->connect()->query("CALL spObtenerProspectos()");
         }
 
+        function obtenerClientes($idProyecto, $idEtapa) {
+            return $this->connect()->query("CALL spObtenerClientes($idProyecto, $idEtapa)");
+        }
+
+        function obtenerEmpleados() {
+            return $this->connect()->query("CALL spObtenerEmpleados()");
+        }
+
         function resumenVentas() {
             return $this->connect()->query("CALL spResumenVentas()");
         }
@@ -185,10 +193,10 @@
             return $this->connect()->query("CALL spObtenerCotizacion($idProyecto, $idEtapa, $idNivel)");
         }
 
-        function gestionAportador($idAportador, $RFC, $nombre, $idProyecto, $opcion)
+        function gestionAportador($idAportador, $RFC, $nombre, $esPrestamista, $idProyecto, $opcion)
         {
             
-            return $this->connect()->query("CALL spGestionAportador($idAportador, '$RFC', '$nombre', $idProyecto, '$opcion')");
+            return $this->connect()->query("CALL spGestionAportador($idAportador, '$RFC', '$nombre', $esPrestamista, $idProyecto, '$opcion')");
         }
 
         function gestionBanco($idTipoPago, $nombre, $opcion)

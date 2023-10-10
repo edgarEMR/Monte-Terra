@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Portafolio");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
@@ -86,9 +88,26 @@ function getUniqueValuesFromColumn() {
     const rows = document.querySelectorAll("#tabla-portafolio > tbody > tr");
 
     rows.forEach((row) => {
-      cell_value = row.querySelector(
+      cell_value_text = row.querySelector(
         "td:nth-child(" + col_index + ")"
       ).innerHTML;
+
+      aTagIndex = cell_value_text.indexOf('">');
+      if (aTagIndex != -1) {
+        cell_value = row.querySelector(
+          "td:nth-child(" + col_index + ") > a"
+        ).innerHTML;
+      } else {
+        cell_value = cell_value_text;
+      }
+
+      if (col_index == 1) {
+        date_value = cell_value;
+        console.log(date_value);
+        cell_value = date_value.substring(3, 5);
+        console.log(cell_value);
+      }
+
       // if the col index is already present in the dict
       if (col_index in unique_col_values_dict) {
         // if the cell value is already present in the array

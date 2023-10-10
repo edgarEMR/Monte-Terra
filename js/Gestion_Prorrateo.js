@@ -1,14 +1,18 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Prorrateo");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
   $("#crearProyecto").toggle();
+  $("#crearEtapa").toggle();
   $("#agregarPago").toggle();
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();
   $("#crearCliente").toggle();
+  $("#crearProspecto").toggle();
   $("#agregarAbono").toggle();
   $("#dividerTop").toggle();
   $("#agregarAportador").toggle();

@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Movimientos");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
@@ -88,6 +90,11 @@ $(document).ready(function () {
       break;
   }
 
+  $("#inputOgIngreso").change(function () {
+    var concepto = $("#inputOgIngreso").find("option:selected").text();
+    $("#inputConcepto").val(concepto);
+  });
+
   //Obtener etapas del proyecto seleccionado en Ingreso
   $("#inputProyecto").change(function () {
     var idProyecto = $("#inputProyecto").val();
@@ -100,6 +107,21 @@ $(document).ready(function () {
       $("#inputEtapa").empty().html(result);
       $("#inputEtapa").selectpicker("destroy");
       $("#inputEtapa").selectpicker({ style: "", styleBase: "form-control" });
+    });
+  });
+
+  $("#inputEtapa").change(function () {
+    var idProyecto = $("#inputProyecto").val();
+    var idEtapa = $("#inputEtapa").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Cliente_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", proyecto: idProyecto, etapa: idEtapa },
+    }).done(function (result) {
+      $("#inputCliente").empty().html(result);
+      $("#inputCliente").selectpicker("destroy");
+      $("#inputCliente").selectpicker({ style: "", styleBase: "form-control" });
     });
   });
 
@@ -247,6 +269,7 @@ $(document).ready(function () {
   });
 
   $("#divAportador").hide();
+  $("#divPrestamo").hide();
   $("#divCliente").hide();
   $("#divBanco").hide();
 
@@ -381,13 +404,16 @@ function checkIngreso() {
     case 1:
       console.log("Banco selected");
       $("#divAportador").hide();
+      $("#divPrestamo").hide();
       $("#divCliente").hide();
       $("#divBanco").show();
 
       $("#inputAportador").prop("required", false);
+      $("#inputPrestamo").prop("required", false);
       $("#inputCliente").prop("required", false);
       $("#inputBanco").prop("required", true);
       $("#inputAportador").addClass("is-valid");
+      $("#inputPrestamo").addClass("is-valid");
       $("#inputCliente").addClass("is-valid");
       $("#inputBanco").removeClass("is-valid");
       break;
@@ -395,27 +421,33 @@ function checkIngreso() {
     case 2:
       console.log("Aportacion selected");
       $("#divAportador").show();
+      $("#divPrestamo").hide();
       $("#divCliente").hide();
       $("#divBanco").hide();
 
       $("#inputAportador").prop("required", true);
+      $("#inputPrestamo").prop("required", false);
       $("#inputCliente").prop("required", false);
       $("#inputBanco").prop("required", false);
       $("#inputAportador").removeClass("is-valid");
+      $("#inputPrestamo").addClass("is-valid");
       $("#inputCliente").addClass("is-valid");
       $("#inputBanco").addClass("is-valid");
       break;
 
     case 3:
       console.log("Prestamo checked");
-      $("#divAportador").show();
+      $("#divAportador").hide();
+      $("#divPrestamo").show();
       $("#divCliente").hide();
       $("#divBanco").hide();
 
-      $("#inputAportador").prop("required", true);
+      $("#inputAportador").prop("required", false);
+      $("#inputPrestamo").prop("required", true);
       $("#inputCliente").prop("required", false);
       $("#inputBanco").prop("required", false);
-      $("#inputAportador").removeClass("is-valid");
+      $("#inputAportador").addClass("is-valid");
+      $("#inputPrestamo").removeClass("is-valid");
       $("#inputCliente").addClass("is-valid");
       $("#inputBanco").addClass("is-valid");
       break;
@@ -423,13 +455,16 @@ function checkIngreso() {
     case 4:
       console.log("Venta checked");
       $("#divAportador").hide();
+      $("#divPrestamo").hide();
       $("#divCliente").show();
       $("#divBanco").hide();
 
       $("#inputAportador").prop("required", false);
+      $("#inputPrestamo").prop("required", false);
       $("#inputCliente").prop("required", true);
       $("#inputBanco").prop("required", false);
       $("#inputAportador").addClass("is-valid");
+      $("#inputPrestamo").addClass("is-valid");
       $("#inputCliente").removeClass("is-valid");
       $("#inputBanco").addClass("is-valid");
       break;

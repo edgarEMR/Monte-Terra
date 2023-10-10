@@ -27,7 +27,7 @@ if (isset($_POST['accion'])) {
     
     $cliente->setIdCliente($_POST["clienteID"] ?: 'NULL');
     $cliente->setNombre($_POST["primerNombre"] ?: 'NULL');
-    $cliente->setSegundoNombre($_POST["segundoNombre"] ?: 'NULL');
+    $cliente->setSegundoNombre($_POST["segundoNombre"]);
     $cliente->setApellidoPaterno($_POST["apPaterno"] ?: 'NULL');
     $cliente->setApellidoMaterno($_POST["apMaterno"] ?: 'NULL');
     $cliente->setEmail($_POST["email"] ?: 'NULL');
@@ -128,6 +128,27 @@ if (isset($_POST['accion'])) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
             //header('Location: ../Nuevo_Cliente.php?success=0');
+        } catch (Exception $error) {
+            echo $error;
+        }
+            
+    }
+
+    if ($_POST['accion'] == 'obtener') {
+        
+        echo 'obtener';
+        try {
+            echo 'Try';
+            $procedure = $coneccion->obtenerClientes($_POST['proyecto'], $_POST['etapa']);
+            
+            echo 'Lo ejecuto';
+            
+            while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=".$rows['idCliente'].">".$rows['nombre'] . " - Calle ". $rows['calle'] . " - Lote " . $rows['numeroLote'] . "</option>";
+            }
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
         } catch (Exception $error) {
             echo $error;
         }

@@ -13,6 +13,7 @@ if (isset($_POST['accion'])) {
 
     $aportador->setRFC('XAXX010101000');
     $aportador->setNombre($_POST["nombreAportador"]);
+    $aportador->setEsPrestamista($_POST["esPrestamista"]);
     $aportador->setProyecto($_POST["proyecto"]);
 
     if ($_POST['accion'] == 'registrar') {
@@ -25,6 +26,7 @@ if (isset($_POST['accion'])) {
                 0,
                 $aportador->getRFC(),
                 $aportador->getNombre(),
+                $aportador->getEsPrestamista(),
                 $aportador->getProyecto(),
                 'I'
             );
@@ -62,6 +64,7 @@ if (isset($_POST['accion'])) {
                 $aportador->getIdAportador(),
                 $aportador->getRFC(),
                 $aportador->getNombre(),
+                $aportador->getEsPrestamista(),
                 $aportador->getProyecto(),
                 'U'
             );
