@@ -140,12 +140,12 @@
             <div class="form-group col-md-4">
                 <label for="inputTipoVivienda">Vivienda de interés*</label>
                 <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoVivienda" id="inputTipoVivienda" required>
-                    <option value="SOCIAL">SOCIAL</option>
-                    <option value="MEDIO RESIDENCIAL">MEDIO RESIDENCIAL</option>
-                    <option value="RESIDENCIAL">RESIDENCIAL</option>
-                    <option value="RESIDENCIAL PLUS">RESIDENCIAL PLUS</option>
-                    <option value="CAMPESTRE">CAMPESTRE</option>
-                    <option value="TERRENO">TERRENO</option>
+                    <?php
+                        $procedure = $conection->obtenerTipoVivienda();
+                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value=".$rows['nombre'].">".$rows['nombre']."</option>";
+                        }
+                    ?>
                     </select>
                 <div class="invalid-feedback">
                     Elija una opción.

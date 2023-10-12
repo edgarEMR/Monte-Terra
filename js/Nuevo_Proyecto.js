@@ -20,6 +20,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#gestionProrrateo").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
@@ -29,6 +31,11 @@ $("#navigation").load("Navbar.php", function () {
       location.href = "Portafolio.php?id=" + getParameterByName("id");
     }
   });
+});
+
+$(".selectpicker").selectpicker({
+  style: "",
+  styleBase: "form-control",
 });
 
 $(document).ready(function () {

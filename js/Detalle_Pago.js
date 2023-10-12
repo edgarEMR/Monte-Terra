@@ -15,6 +15,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#crearProspecto").toggle();
   $("#gestionProrrateo").toggle();
   $("#agregarAbono").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
   $("#dividerTop").toggle();
 
   $("#atras").on("click", function () {
@@ -176,24 +178,6 @@ $(document).ready(function () {
     });
   });
 
-  //Obtener Concepto C dependiendo del Concepto B seleccionado en Egreso
-  $("#inputConceptoB").change(function () {
-    var idConcepto = $("#inputConceptoB").val();
-    $.ajax({
-      method: "POST",
-      url: "php/Concepto_Procesos.php",
-      cache: false,
-      data: { accion: "obtenerC", tipo: "egreso", id: idConcepto },
-    }).done(function (result) {
-      $("#inputConceptoC").empty().html(result);
-      $("#inputConceptoC").selectpicker("destroy");
-      $("#inputConceptoC").selectpicker({
-        style: "",
-        styleBase: "form-control",
-      });
-    });
-  });
-
   //Obtener areas en General dependiendo si es Ingreso o Egreso
   $('input[type=radio][name="esIngreso"]').on("change", function () {
     var esIngreso = $(this).val();
@@ -247,7 +231,6 @@ $(document).ready(function () {
       data: { accion: "obtener", esAdmin: pAdmin },
     }).done(function (result) {
       $("#inputProyectoGen").empty().html(result);
-      console.log(result);
       $("#inputProyectoGen").selectpicker("destroy");
       $("#inputProyectoGen").selectpicker({
         style: "",
@@ -280,7 +263,7 @@ $(document).ready(function () {
   $("#divConceptoEg").hide();
   $("#divConceptoA").hide();
   $("#divConceptoB").hide();
-  $("#divConceptoC").hide();
+  $("#divComentario").hide();
   $("#divBancoEg").hide();
 
   $("#divConceptoGen").hide();
@@ -478,7 +461,7 @@ function checkEgreso() {
   $("#inputClienteEg").selectpicker("val", "");
   $("#inputConceptoA").selectpicker("val", "");
   $("#inputConceptoB").selectpicker("val", "");
-  $("#inputConceptoC").selectpicker("val", "");
+  $("#inputComentario").val("");
   $("#inputBancoEg").selectpicker("val", "");
 
   switch ($("#inputOgEgreso").prop("selectedIndex")) {
@@ -491,7 +474,7 @@ function checkEgreso() {
       $("#divConceptoEg").hide();
       $("#divConceptoA").show();
       $("#divConceptoB").show();
-      $("#divConceptoC").show();
+      $("#divComentario").show();
       $("#divBancoEg").hide();
       $("#inputAreaEg").prop("disabled", false);
       $("#inputAreaEg").prop("required", true);
@@ -522,7 +505,7 @@ function checkEgreso() {
       $("#divConceptoEg").show();
       $("#divConceptoA").hide();
       $("#divConceptoB").hide();
-      $("#divConceptoC").hide();
+      $("#divComentario").hide();
       $("#divBancoEg").show();
       $("#inputAreaEg").prop("disabled", true);
       $("#inputAreaEg").prop("required", false);
@@ -534,7 +517,6 @@ function checkEgreso() {
       $("#inputConceptoEg").prop("required", true);
       $("#inputConceptoA").prop("required", false);
       $("#inputConceptoB").prop("required", false);
-      $("#inputConceptoC").prop("required", false);
       $("#inputBancoEg").prop("required", true);
       $("#inputProveedorEg").addClass("is-valid");
       $("#inputAportadorEg").addClass("is-valid");
@@ -542,7 +524,6 @@ function checkEgreso() {
       $("#inputConceptoEg").removeClass("is-valid");
       $("#inputConceptoA").addClass("is-valid");
       $("#inputConceptoB").addClass("is-valid");
-      $("#inputConceptoC").addClass("is-valid");
       $("#inputBancoEg").removeClass("is-valid");
       break;
 
@@ -555,7 +536,7 @@ function checkEgreso() {
       $("#divConceptoEg").show();
       $("#divConceptoA").hide();
       $("#divConceptoB").hide();
-      $("#divConceptoC").hide();
+      $("#divComentario").hide();
       $("#divBancoEg").hide();
       $("#inputAreaEg").prop("disabled", true);
       $("#inputAreaEg").prop("required", false);
@@ -567,7 +548,6 @@ function checkEgreso() {
       $("#inputConceptoEg").prop("required", true);
       $("#inputConceptoA").prop("required", false);
       $("#inputConceptoB").prop("required", false);
-      $("#inputConceptoC").prop("required", false);
       $("#inputBancoEg").prop("required", false);
       $("#inputProveedorEg").addClass("is-valid");
       $("#inputAportadorEg").removeClass("is-valid");
@@ -575,7 +555,6 @@ function checkEgreso() {
       $("#inputConceptoEg").removeClass("is-valid");
       $("#inputConceptoA").addClass("is-valid");
       $("#inputConceptoB").addClass("is-valid");
-      $("#inputConceptoC").addClass("is-valid");
       $("#inputBancoEg").addClass("is-valid");
       break;
 
@@ -588,7 +567,7 @@ function checkEgreso() {
       $("#divConceptoEg").hide();
       $("#divConceptoA").hide();
       $("#divConceptoB").hide();
-      $("#divConceptoC").hide();
+      $("#divComentario").hide();
       $("#divBancoEg").hide();
       $("#inputAreaEg").prop("disabled", true);
       $("#inputAreaEg").prop("required", false);
@@ -600,7 +579,6 @@ function checkEgreso() {
       $("#inputConceptoEg").prop("required", false);
       $("#inputConceptoA").prop("required", false);
       $("#inputConceptoB").prop("required", false);
-      $("#inputConceptoC").prop("required", false);
       $("#inputBancoEg").prop("required", false);
       $("#inputProveedorEg").addClass("is-valid");
       $("#inputAportadorEg").addClass("is-valid");
@@ -608,7 +586,6 @@ function checkEgreso() {
       $("#inputConceptoEg").addClass("is-valid");
       $("#inputConceptoA").addClass("is-valid");
       $("#inputConceptoB").addClass("is-valid");
-      $("#inputConceptoC").addClass("is-valid");
       $("#inputBancoEg").addClass("is-valid");
       break;
   }

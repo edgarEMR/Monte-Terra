@@ -63,9 +63,25 @@
         function obtenerPortafolio($idPago, $idProyecto) {
             return $this->connect()->query("CALL spObtenerPortafolio($idPago, $idProyecto)");
         }
+
+        function obtenerPEG() {
+            return $this->connect()->query("CALL spObtenerPEG()");
+        }
+
+        function obtenerGeneral() {
+            return $this->connect()->query("CALL spObtenerGeneral()");
+        }
         
         function obtenerTipoPago() {
             return $this->connect()->query("CALL spObtenerTipoPago()");
+        }
+
+        function obtenerTipoVivienda() {
+            return $this->connect()->query("CALL spObtenerTipoVivienda()");
+        }
+
+        function gestionProyectoVivienda($idProyecto, $idVivienda, $opcion) {
+            return $this->connect()->query("CALL spGestionProyectoVivienda($idProyecto, $idVivienda, '$opcion')");
         }
 
         function obtenerProyectos() {

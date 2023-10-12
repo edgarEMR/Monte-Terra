@@ -53,6 +53,16 @@ if (isset($_POST['accion'])) {
                     echo '<br> Agregado Prototipo ' . ($prototipoCount);
                     $prototipoCount++;
                 }
+
+                $procedure = $coneccion->gestionProyectoVivienda($idProyecto, 0, 'D');
+                $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+                foreach ($_POST['tipoVivienda'] as $vivienda) {
+                    $proc = $coneccion->gestionProyectoVivienda($idProyecto, $vivienda, 'I');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                    echo '<br> Agregada vivienda ID ' . ($vivienda);
+                }
                 
                 header('Location: ../Portafolio.php?id='. $idProyecto . '&success=1');
             } else {

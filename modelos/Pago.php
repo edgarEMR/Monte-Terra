@@ -21,7 +21,7 @@ class Pago extends DB
     private $idFamilia;
     private $idConcepto;
     private $idConceptoB;
-    private $idConceptoC;
+    private $Comentario;
     private $idCliente;
     private $idAportador;
     private $idBanco;
@@ -330,21 +330,21 @@ class Pago extends DB
     }
 
     /**
-     * Get the value of idConceptoC
+     * Get the value of Comentario
      */ 
-    public function getIdConceptoC()
+    public function getComentario()
     {
-        return $this->idConceptoC;
+        return $this->Comentario;
     }
 
     /**
-     * Set the value of idConceptoC
+     * Set the value of Comentario
      *
      * @return  self
      */ 
-    public function setIdConceptoC($idConceptoC)
+    public function setComentario($Comentario)
     {
-        $this->idConceptoC = $idConceptoC;
+        $this->Comentario = $Comentario;
 
         return $this;
     }

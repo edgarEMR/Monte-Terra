@@ -62,6 +62,8 @@
         <button id="agregarProveedor" type="button" class="btn btn-link" onclick="location.href='Nuevo_Proveedor.php'" style="text-decoration: none;">Agregar Proveedor</button>
         <button id="agregarPrestamo" type="button" class="btn btn-link" onclick="location.href='Nuevo_Prestamo.php'" style="text-decoration: none;">Agregar Préstamo</button>
         <button id="gestionProrrateo" type="button" class="btn btn-link" onclick="location.href='Gestion_Prorrateo.php'" style="text-decoration: none;">Prorrateo</button>
+        <button id="desglosePEG" type="button" class="btn btn-link" onclick="location.href='Desglose_PEG.php'" style="text-decoration: none;">Desglose PEG</button>
+        <button id="desgloseGeneral" type="button" class="btn btn-link" onclick="location.href='Desglose_General.php'" style="text-decoration: none;">Desglose General</button>
         <button id="atras" type="button" class="btn btn-link" onclick="location.href='Proyectos.php'" style="text-decoration: none;"><i class="bi bi-arrow-left-circle-fill"></i> Atrás</button>
     </div>
     <div id="navMaqu" class="bg-primary d-flex justify-content-center">

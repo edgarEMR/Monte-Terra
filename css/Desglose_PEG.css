@@ -1,0 +1,35 @@
+h2 {
+  padding-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+#tabla-desglose-portafolio {
+  margin: 0 auto 5% auto;
+  max-width: 90%;
+}
+
+#tabla-portafolio {
+  text-align: center;
+}
+
+#tabla-portafolio tbody tr td:nth-child(4) a {
+  text-decoration: none;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+thead {
+  text-align: center;
+}
+
+.table-filter {
+  width: 20px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+#liveAlert {
+  width: 25%;
+}

@@ -20,6 +20,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#gestionProrrateo").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {

@@ -39,7 +39,7 @@ if (isset($_POST['accion'])) {
     $pago->setIdFamilia($_POST['area'] ?: 'NULL');
     $pago->setIdConcepto($_POST['conceptoA'] ?: 'NULL');
     $pago->setIdConceptoB($_POST['conceptoB'] ?: 'NULL');
-    $pago->setIdConceptoC($_POST['conceptoC'] ?: 'NULL');
+    $pago->setComentario($_POST['comentario'] ?: 'NULL');
     $pago->setIdCliente($_POST['cliente'] ?: 'NULL');
     $pago->setIdAportador($_POST['aportador'] ?: 'NULL');
     $pago->setIdBanco($_POST['banco'] ?: 'NULL');
@@ -60,7 +60,7 @@ if (isset($_POST['accion'])) {
     echo $pago->getIdFamilia() . '<br>';
     echo $pago->getIdConcepto() . '<br>';
     echo $pago->getIdConceptoB() . '<br>';
-    echo $pago->getIdConceptoC() . '<br>';
+    echo $pago->getComentario() . '<br>';
     echo $pago->getIdCliente() . '<br>';
     echo $pago->getIdAportador() . '<br>';
     echo $pago->getIdBanco() . '<br>';
@@ -95,7 +95,7 @@ if (isset($_POST['accion'])) {
                             $pago->getIdFamilia(),
                             $pago->getIdConcepto(),
                             $pago->getIdConceptoB(),
-                            $pago->getIdConceptoC(),
+                            $pago->getComentario(),
                             $pago->getIdCliente(),
                             $pago->getIdAportador(),
                             $pago->getIdBanco(),
@@ -121,7 +121,7 @@ if (isset($_POST['accion'])) {
                     $pago->getIdFamilia(),
                     $pago->getIdConcepto(),
                     $pago->getIdConceptoB(),
-                    $pago->getIdConceptoC(),
+                    $pago->getComentario(),
                     $pago->getIdCliente(),
                     $pago->getIdAportador(),
                     $pago->getIdBanco(),
@@ -170,7 +170,7 @@ if (isset($_POST['accion'])) {
                 $pago->getIdFamilia(),
                 $pago->getIdConcepto(),
                 $pago->getIdConceptoB(),
-                $pago->getIdConceptoC(),
+                $pago->getComentario(),
                 $pago->getIdCliente(),
                 $pago->getIdAportador(),
                 $pago->getIdBanco(),

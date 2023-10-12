@@ -28,9 +28,6 @@
         } else {
             $date = $conection->getCurrent_date();
         }
-        
-        $procedure = $conection->obtenerResumen($date);
-        $rows = $procedure->fetch(PDO::FETCH_ASSOC);
 
     ?>
     

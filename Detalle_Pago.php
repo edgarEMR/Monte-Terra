@@ -48,7 +48,7 @@
                 $pago->setIdFamilia($row['idFamilia']);
                 $pago->setIdConcepto($row['idConcepto']);
                 $pago->setIdConceptoB($row['idConceptoB']);
-                $pago->setIdConceptoC($row['idConceptoC']);
+                $pago->setComentario($row['comentario']);
                 $pago->setIdCliente($row['idCliente']);
                 $pago->setIdAportador($row['idAportador']);
                 $pago->setIdBanco($row['idBanco']);
@@ -455,13 +455,9 @@
                             Elija una opción.
                         </div>
                     </div>
-                    <div class="form-group col-md-3" id="divConceptoC">
-                        <label for="inputConceptoC">Concepto -C</label>
-                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="conceptoC" id="inputConceptoC">
-                        </select>
-                        <div class="invalid-feedback">
-                            Elija una opción.
-                        </div>
+                    <div class="form-group col-md-3" id="divComentario">
+                        <label for="inputComentario">Comentario</label>
+                        <input type="text" name="comentario" class="form-control" id="inputComentario" value="<?php echo $pago->getComentario();?>">
                     </div>
                     <div class="form-group" id="divProveedor">
                         <label for="inputProveedorEg">Proveedor</label>

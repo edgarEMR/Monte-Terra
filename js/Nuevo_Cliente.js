@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Clientes");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
@@ -18,6 +20,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#gestionProrrateo").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
