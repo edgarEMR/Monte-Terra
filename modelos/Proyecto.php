@@ -12,6 +12,7 @@ class Proyecto extends DB
     private $totalCasas;
     private $totalEtapas;
     private $prototipos;
+    private $manzanas;
     private $activo;
 
     /**
@@ -110,6 +111,26 @@ class Proyecto extends DB
     public function setPrototipos($prototipos)
     {
         $this->prototipos = $prototipos;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of manzanas
+     */ 
+    public function getManzanas()
+    {
+        return $this->manzanas;
+    }
+
+    /**
+     * Set the value of manzanas
+     *
+     * @return  self
+     */ 
+    public function setManzanas($manzanas)
+    {
+        $this->manzanas = $manzanas;
 
         return $this;
     }

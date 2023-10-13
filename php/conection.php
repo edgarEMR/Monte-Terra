@@ -112,16 +112,21 @@
             return $this->connect()->query("CALL spObtenerProveedores()");
         }
 
-        function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $prototipos, $opcion)
+        function gestionProyecto($idProyecto, $nombre, $totalCasas, $totalEtapas, $prototipos, $manzanas, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionProyecto($idProyecto, '$nombre', '$totalCasas', '$totalEtapas',
-                                                                    $prototipos, '$opcion')");
+                                                                    $prototipos, $manzanas, '$opcion')");
         }
 
         function gestionPrototipo($idPrototipo, $nombre, $metros, $idProyecto, $opcion)
         {
             return $this->connect()->query("CALL spGestionPrototipo($idPrototipo, '$nombre', $metros, $idProyecto, '$opcion')");
+        }
+
+        function gestionManzana($idManzana, $nombre, $numero, $idProyecto, $opcion)
+        {
+            return $this->connect()->query("CALL spGestionManzana($idManzana, '$nombre', $numero, $idProyecto, '$opcion')");
         }
 
         function gestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas, $precioExcedente, $totalMinimo, $idProyecto, $opcion)
@@ -290,53 +295,5 @@
 
                 return $this;
         }
-
-/*        function gestionSeccion($idSeccion, $nombreSeccion, $color, $orden, $opcion)
-        {
-            return $this->connect()->query("CALL gestionSeccion($idSeccion,'$nombreSeccion','$color',$orden,'$opcion')");
-        }
-
-        function gestionNoticia($idNoticia, $titulo, $descripcion, $contenidoNoticia, $lugar, $fechaHora, $esUrgente, $idEstatus, $nombreUsuario, $opcion)
-        {
-            return $this->connect()->query("CALL gestionNoticia($idNoticia, '$titulo', '$descripcion', '$contenidoNoticia', 
-                                            '$lugar', '$fechaHora', $esUrgente, '$idEstatus', '$nombreUsuario','$opcion')");
-        }
-
-        function obtenNoticia($idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL obtenNoticia($idNoticia,'$opcion')");
-        }
-
-        function obtenImagen($idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL obtenImagen($idNoticia,'$opcion')");
-        }
-
-        function obtenVideo($idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL obtenVideo($idNoticia,'$opcion')");
-        }
-
-        function gestionSeccion_Noticia($idSeccion_Noticia, $idSeccion, $idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL gestionSeccion_Noticia($idSeccion_Noticia, $idSeccion, $idNoticia, '$opcion')");
-        }
-
-        function gestionImagen($idImagen, $imagenNot, $idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL gestionImagen($idImagen, $imagenNot, $idNoticia, '$opcion')");
-        }
-
-        function gestionVideo($idVideo, $videoPath, $idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL gestionVideo($idVideo, '$videoPath', $idNoticia, '$opcion')");
-        }
-
-        function gestionPalabra_clave($idPalabra, $palabra, $idNoticia, $opcion)
-        {
-            return $this->connect()->query("CALL gestionPalabra_clave($idPalabra, '$palabra', $idNoticia, '$opcion')");
-        }*/
-    
-
         
     }

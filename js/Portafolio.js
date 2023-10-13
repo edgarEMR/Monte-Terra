@@ -33,11 +33,11 @@ $(document).ready(function () {
     console.log("SUCCESS");
     const liveAlert = $("#liveAlert");
     if (getParameterByName("success") == 1) {
-      $(".alert-body").text("Proyecto creado correctamente");
+      $(".alert-body").text("Proyecto guardado correctamente");
       liveAlert.addClass("text-bg-success");
     } else {
       $(".alert-body").text(
-        "No fue posible crear el proyecto, intente nuevamente"
+        "No fue posible modificar el proyecto, intente nuevamente"
       );
       liveAlert.addClass("text-bg-danger");
     }

@@ -6,6 +6,8 @@ include_once('../modelos/Proyecto.php');
 echo "HOLA" . "</br>";
 
 if (isset($_POST['accion'])) {
+    $proyecto = new Proyecto(require 'php/config.php');
+    $coneccion = new DB(require 'php/config.php');
 
     ECHO $_POST["nombreProyecto"] . "</br>";
     ECHO $_POST["totalCasas"] . "</br>";
@@ -17,14 +19,15 @@ if (isset($_POST['accion'])) {
     }
     ECHO $_POST["accion"] . "</br>";
 
+    
+    $proyecto->setNombre($_POST["nombreProyecto"]);
+    $proyecto->setTotalCasas($_POST["totalCasas"]);
+    $proyecto->setTotalEtapas($_POST["totalEtapas"]);
+    $proyecto->setPrototipos($_POST["prototipos"]);
+    $proyecto->setManzanas($_POST["manzanas"]);
+
     if ($_POST['accion'] == 'registrar') {
-        $proyecto = new Proyecto(require 'php/config.php');
-        $coneccion = new DB(require 'php/config.php');
         echo 'registrar';
-        $proyecto->setNombre($_POST["nombreProyecto"]);
-        $proyecto->setTotalCasas($_POST["totalCasas"]);
-        $proyecto->setTotalEtapas($_POST["totalEtapas"]);
-        $proyecto->setPrototipos($_POST["prototipos"]);
         
         try {
             echo 'Try';
@@ -34,6 +37,7 @@ if (isset($_POST['accion'])) {
                 $proyecto->getTotalCasas(),
                 $proyecto->getTotalEtapas(),
                 $proyecto->getPrototipos(),
+                $proyecto->getManzanas(),
                 'I'
             );
             
@@ -44,6 +48,7 @@ if (isset($_POST['accion'])) {
                 echo $resultado['idProyecto'];
                 $idProyecto = $resultado['idProyecto'];
                 $prototipoCount = 1;
+                $manzanaCount = 1;
 
                 foreach ($_POST['metros'] as $metros) {
                     $nombre = "Prototipo " . $prototipoCount;
@@ -54,8 +59,14 @@ if (isset($_POST['accion'])) {
                     $prototipoCount++;
                 }
 
-                $procedure = $coneccion->gestionProyectoVivienda($idProyecto, 0, 'D');
-                $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+                foreach ($_POST['numeros'] as $numeros) {
+                    $nombre = "Manzana " . $manzanaCount;
+                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'I');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                    echo '<br> Agregada Manzana ' . ($manzanaCount);
+                    $manzanaCount++;
+                }
 
                 foreach ($_POST['tipoVivienda'] as $vivienda) {
                     $proc = $coneccion->gestionProyectoVivienda($idProyecto, $vivienda, 'I');
@@ -73,58 +84,122 @@ if (isset($_POST['accion'])) {
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            //header('Location: ../Nuevo_Proyecto.php?success=0');
+            header('Location: ../Nuevo_Proyecto.php?success=0');
         } catch (Exception $error) {
             echo $error;
         }
             
     }
 
-    /*if ($_POST['accion'] == 'editar') {
-        $usuario = new Usuario();
-        $coneccion = new DB();
-        $nombreUsu = $_POST['nombreUsu'];
-
-        $usuario->setNombreUsuario($_POST['nombreUsu']);
-        $usuario->setContraseña($_POST['contra']);
-        $usuario->setNombre($_POST['nombre']);
-        $usuario->setApellidos($_POST['apellido']);
-        $usuario->setEmail($_POST['email']);
-        $usuario->setSexo($_POST['sexo']);
-        $usuario->setFechaNacimiento($_POST['fecha']);
-        $usuario->setIdRol($_POST['idRol']);
-        $imagenGuardada = "";
-
-        if ($_POST['imagenN'] == '') {
-            $imagenGuardada = "NULL";
-        } else {
-            $imagenGuardada = "0x".bin2hex(file_get_contents($_FILES["imagen"]["tmp_name"]));
-        }
+    if ($_POST['accion'] == 'editar') {
+        echo 'editar';
+        $proyecto->setIdProyecto($_POST["proyectoID"]);
         
         try {
-
-            $procedure = $coneccion->gestionUsuario(
-                $usuario->getNombreUsuario(),
-                $usuario->getContraseña(),
-                $usuario->getNombre(),
-                $usuario->getApellidos(),
-                $usuario->getFechaNacimiento(),
-                $usuario->getEmail(),
-                $usuario->getSexo(),
-                $imagenGuardada,
-                $usuario->getIdRol(),
+            echo 'Try';
+            $procedure = $coneccion->gestionProyecto(
+                $proyecto->getIdProyecto(),
+                $proyecto->getNombre(),
+                $proyecto->getTotalCasas(),
+                $proyecto->getTotalEtapas(),
+                $proyecto->getPrototipos(),
+                $proyecto->getManzanas(),
                 'U'
             );
-
+            
+            echo 'Lo ejecuto';
             $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
-            header("Location: ../perfil.php?nombreUsuario=$nombreUsu");
+
+            $idProyecto = $proyecto->getIdProyecto();
+            $prototipoCount = 1;
+            $maxPrototipo = 1;
+            $prototipoID = [];
+            $manzanaCount = 1;
+            $maxManzana = 1;
+            $manzanaID = [];
+
+            $proc = $coneccion->gestionPrototipo(0, '', 0, $idProyecto, 'S');
+            while ($row = $proc->fetch(PDO::FETCH_ASSOC)) {
+                $prototipoID[] = $row['idPrototipo'];
+                $maxPrototipo++;
+            }
+
+            foreach ($_POST['metros'] as $metros) {
+                $nombre = "Prototipo " . $prototipoCount;
+                $proc = $coneccion->gestionPrototipo(0, $nombre, $metros, $idProyecto, 'U');
+                $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                if (!$resultado) {
+                    $proc = $coneccion->gestionPrototipo(0, $nombre, $metros, $idProyecto, 'I');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+                }
+                echo '<br> Actualizado Prototipo ' . ($prototipoCount);
+                $prototipoCount++;
+            }
+            #3 >= 3
+            echo "<br>". $maxPrototipo. " - " .$prototipoCount."<br>";
+            if ($maxPrototipo >= $prototipoCount) {
+                $reverseProtoID = array_reverse($prototipoID);
+                for ($i=$prototipoCount; $i < $maxPrototipo; $i++) { 
+                    $id = $i - $prototipoCount;
+                    echo"<br>".  $prototipoID[$id] ."<br>";
+                    $proc = $coneccion->gestionPrototipo($reverseProtoID[$id], '', 0, 0, 'D');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+                }
+            }
+
+            $proc = $coneccion->gestionManzana(0, '', 0, $idProyecto, 'S');
+            while ($row = $proc->fetch(PDO::FETCH_ASSOC)) {
+                $manzanaID[] = $row['idManzana'];
+                $maxManzana++;
+            }
+
+            foreach ($_POST['numeros'] as $numeros) {
+                $nombre = "Manzana " . $manzanaCount;
+                $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'U');
+                $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                if (!$resultado) {
+                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'I');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+                }
+
+                echo '<br> Agregada Manzana ' . ($manzanaCount);
+                $manzanaCount++;
+            }
+
+            echo $maxManzana. " - " .$manzanaCount;
+            echo "<br>". $maxManzana. " - " .$manzanaCount."<br>";
+            if ($maxManzana >= $manzanaCount) {
+                $reverseManzanaID = array_reverse($manzanaID);
+                for ($i=$manzanaCount; $i < $maxManzana; $i++) { 
+                    $id = $i - $manzanaCount;
+                    echo"<br>".  $manzanaID[$id] ."<br>";
+                    $proc = $coneccion->gestionManzana($reverseManzanaID[$id], '', 0, 0, 'D');
+                    $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+                }
+            }
+
+            $procedure = $coneccion->gestionProyectoVivienda($idProyecto, 0, 'D');
+            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+            foreach ($_POST['tipoVivienda'] as $vivienda) {
+                $proc = $coneccion->gestionProyectoVivienda($idProyecto, $vivienda, 'I');
+                $resultado = $proc->fetch(PDO::FETCH_ASSOC);
+
+                echo '<br> Agregada vivienda ID ' . ($vivienda);
+            }
+            
+            header('Location: ../Portafolio.php?id='. $idProyecto . '&success=1');
 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
-            echo $err . ' ' . $errorCode;
+            echo '<br>' . $err;
+            //header('Location: ../Nuevo_Proyecto.php?id='. $idProyecto . '&success=0');
+        } catch (Exception $error) {
+            echo $error;
         }
             
-    }*/
-
+    }
 }
 ?>

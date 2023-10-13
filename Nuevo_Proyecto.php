@@ -22,13 +22,14 @@
 
         $idProyecto = 0;
         $nombreProyecto = '';
+        $viviendas = [];
         $accion = 'registrar';
         $proyecto = new Proyecto(require 'php/config.php');
         $conection = new DB(require 'php/config.php');
 
         if (isset($_GET['id']) && !is_null($_GET['id'])) {
             $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 0, 'S');
             $row = $proc->fetch(PDO::FETCH_ASSOC);
 
             $proyecto->setIdProyecto($idProyecto);
@@ -36,14 +37,19 @@
             $proyecto->setTotalCasas($row['totalCasas']);
             $proyecto->setTotalEtapas($row['totalEtapas']);
             $proyecto->setPrototipos($row['prototipos']);
+            $proyecto->setManzanas($row['manzanas']);
 
+            $proc = $conection->gestionProyectoVivienda($idProyecto, 0, 'S');
+            while ($row = $proc->fetch(PDO::FETCH_ASSOC)) {
+                $viviendas[] = $row['idVivienda'];
+            }
             $accion = 'editar';
         }
 
     ?>
     <div class="register-form">
         <form id="registroProyecto" action="php/Proyecto_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
-            <div class="form-group col-md-8">
+            <div class="form-group">
                 <label for="nombreProyecto">Nombre de Proyecto</label>
                 <input type="text" name="nombreProyecto" class="form-control" id="inputNombreProyecto"
                     pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $proyecto->getNombre();?>" required>
@@ -53,12 +59,16 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputTipoVivienda">Vivienda de interés</label>
-                <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoVivienda" id="inputTipoVivienda" multiple required>
+                <label for="inputTipoVivienda">Tipo de viviendas</label>
+                <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoVivienda[]" id="inputTipoVivienda" multiple required>
                     <?php
                         $procedure = $conection->obtenerTipoVivienda();
                         while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value=".$rows['idVivienda'].">".$rows['nombre']."</option>";
+                            if (in_array($rows['idVivienda'], $viviendas)) {
+                                echo "<option value=".$rows['idVivienda']." selected>".$rows['nombre']."</option>";
+                            } else {
+                                echo "<option value=".$rows['idVivienda'].">".$rows['nombre']."</option>";
+                            }
                         }
                     ?>
                     </select>
@@ -87,6 +97,13 @@
                     Ingrese un número válido.
                 </div>
             </div>
+            <div class="form-group col-md-4">
+                <label for="inputManzana">Manzanas</label>
+                <input type="number" name="manzanas" class="form-control" id="inputManzana" min="1" value="<?php echo $proyecto->getManzanas();?>" required>
+                <div class="invalid-feedback">
+                    Ingrese un número válido.
+                </div>
+            </div>
             <div id="divPrototipos" class="row">
                 <?php
                     $procedure = $conection->gestionPrototipo(0, 0, 0, $idProyecto, 'S');
@@ -107,7 +124,28 @@
                     }
                 ?>
             </div>
+            <div id="divManzanas" class="row">
+                <?php
+                    $procedure = $conection->gestionManzana(0, '', 0, $idProyecto, 'S');
+                    $i = 0;
+                    while ($row = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<div class="form-group col-md-4">';
+                        echo '<label for="inputNumero">' . $row['nombre'] .'</label>';
+                        echo '<div class="input-group has-validation">';
+                        echo '<span class="input-group-text">N°</span>';
+                        echo '<input type="number" name="numeros[]" class="form-control prototiposEnProyecto" id="inputNumero" min="1" value="'. $row['numero'] .'" required>';
+                        echo '<div class="invalid-feedback">';
+                        echo 'Ingrese un número válido.';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+
+                        $i += 1;
+                    }
+                ?>
+            </div>
             <div class="form-group d-grid">
+                <input type="hidden" name="proyectoID" value="<?php echo $idProyecto;?>">
                 <input type="hidden" name="accion" value="<?php echo $accion;?>">
                 <button class="btn btn-block btn-primary" type="submit">Agregar</button>
             </div>

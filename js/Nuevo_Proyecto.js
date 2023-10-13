@@ -44,11 +44,11 @@ $(document).ready(function () {
     console.log("SUCCESS");
     const liveAlert = $("#liveAlert");
     if (getParameterByName("success") == 1) {
-      $(".alert-body").text("Proyecto creado correctamente");
+      $(".alert-body").text("Proyecto guardado correctamente");
       liveAlert.addClass("text-bg-success");
     } else {
       $(".alert-body").text(
-        "No fue posible crear el proyecto, intente nuevamente"
+        "No fue posible crear o modificar el proyecto, intente nuevamente"
       );
       liveAlert.addClass("text-bg-danger");
     }
@@ -61,6 +61,7 @@ $(document).ready(function () {
   }
 
   $("#inputPrototipo").on("change", totalPrototipos);
+  $("#inputManzana").on("change", totalManzanas);
   $("#inputTotalCasas").on("change", function () {
     var etapas = $("#inputTotalEtapas");
     if (this.value < etapas.val()) {
@@ -115,6 +116,29 @@ function totalPrototipos() {
         '<div class="input-group has-validation">' +
         '<input type="number" name="metros[]" class="form-control prototiposEnProyecto" id="inputMetros" min="1" required>' +
         '<span class="input-group-text">metros</span>' +
+        '<div class="invalid-feedback">' +
+        "Ingrese un número válido." +
+        "</div>" +
+        "</div>" +
+        "</div>"
+    );
+  }
+}
+
+function totalManzanas() {
+  var manzanas = $("#inputManzana").val();
+
+  $("#divManzanas").empty();
+
+  for (let i = 0; i < manzanas; i++) {
+    $("#divManzanas").append(
+      '<div class="form-group col-md-4">' +
+        '<label for="inputNumero">Manzana ' +
+        (i + 1) +
+        "</label>" +
+        '<div class="input-group has-validation">' +
+        '<span class="input-group-text">N°</span>' +
+        '<input type="number" name="numeros[]" class="form-control prototiposEnProyecto" id="inputNumero" min="1" required>' +
         '<div class="invalid-feedback">' +
         "Ingrese un número válido." +
         "</div>" +

@@ -29,7 +29,7 @@
 
         if (isset($_GET['id']) && !is_null($_GET['id'])) {
             $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 0, 'S');
             $row = $proc->fetch(PDO::FETCH_ASSOC);
 
             $proyecto->setIdProyecto($idProyecto);
@@ -37,6 +37,7 @@
             $proyecto->setTotalCasas($row['totalCasas']);
             $proyecto->setTotalEtapas($row['totalEtapas']);
             $proyecto->setPrototipos($row['prototipos']);
+            $proyecto->setManzanas($row['manzanas']);
 
             //$proc = $conection->gestionEtapa(0, 0, 0, $idProyecto, 'S');
 

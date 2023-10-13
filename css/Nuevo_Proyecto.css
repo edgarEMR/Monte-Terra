@@ -17,6 +17,10 @@
   margin-top: 2%;
 }
 
+#divManzanas > div {
+  margin-top: 2%;
+}
+
 #liveAlert {
   width: 25%;
 }

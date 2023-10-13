@@ -26,7 +26,7 @@
 
         if (isset($_GET['id'])) {
             $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 0, 'S');
             $rows = $proc->fetch(PDO::FETCH_ASSOC);
 
             $nombreProyecto = $rows['nombre'];
