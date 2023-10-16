@@ -21,6 +21,7 @@ if (isset($_POST['accion'])) {
                 '',
                 0,
                 $_POST['prototipo'],
+                $_POST['manzana'],
                 0,
                 0,
                 0, 
@@ -43,7 +44,7 @@ if (isset($_POST['accion'])) {
         
         try {   
 
-            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0,'',0, 0, 0, 0, 0, "E");
+            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0,'',0, 0, 0, 0, 0, 0, "E");
             
             $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
             echo json_encode($resultado[0]);
@@ -60,10 +61,12 @@ if (isset($_POST['accion'])) {
         
         try {   
 
-            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, $idCalle, 0, 0, "S");
+            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, 0, $idCalle, 0, 0, "S");
             
             while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value=".$rows['idLote'].">".$rows['numeroLote']."</option>";
+                if ($rows['idVendedor'] == null) {
+                    echo "<option value=".$rows['idLote'].">".$rows['numeroLote']."</option>";
+                }
             }
             
         } catch (PDOException $err) {

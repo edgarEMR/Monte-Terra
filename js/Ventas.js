@@ -1,6 +1,8 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Ventas");
 
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
@@ -15,6 +17,8 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#gestionProrrateo").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
 
   $("#logo").attr("href", "Ventas.php");
   $("#atras").on("click", function () {

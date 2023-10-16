@@ -40,6 +40,11 @@ $(document).ready(function () {
     if (getParameterByName("success") == 1) {
       $(".alert-body").text("Cliente creado correctamente");
       liveAlert.addClass("text-bg-success");
+    } else if (getParameterByName("success") == 2) {
+      $(".alert-body").text(
+        "Ya existe un Prospecto con estos datos, verifique la información"
+      );
+      liveAlert.addClass("text-bg-warning");
     } else {
       $(".alert-body").text(
         "No fue posible realizar la acción, intente nuevamente"
@@ -136,11 +141,15 @@ $(document).ready(function () {
       data: { accion: "select", id: idLote },
     }).done(function (result) {
       var jsonResult = JSON.parse(result);
+      console.log(jsonResult);
       let precioLista = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       });
-      $("#inputPrototipo").selectpicker("val", jsonResult["idLote"].toString());
+      $("#inputPrototipo").selectpicker(
+        "val",
+        jsonResult["idPrototipo"].toString()
+      );
       $("#inputExcedente").val(jsonResult["metrosExcedentes"]);
       $("#precioLista").text(precioLista.format(jsonResult["precioLista"]));
       $("#precioLista").attr("value", jsonResult["precioLista"]);
@@ -155,6 +164,12 @@ $(document).ready(function () {
     }).done(function (result) {
       var jsonResult = JSON.parse(result);
       $("#inputPrecioExcedente").val(jsonResult["precioExcedente"]);
+    });
+  });
+
+  $(function () {
+    $('input[type="text"]').keyup(function () {
+      this.value = this.value.toLocaleUpperCase();
     });
   });
 });

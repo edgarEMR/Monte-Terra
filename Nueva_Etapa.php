@@ -136,18 +136,20 @@
                     echo "<th scope='col'>Metros Excedentes</th>";
                     echo "<th scope='col'>Precio Lista</th>";
                     echo "<th scope='col'>Prototipo</th>";
+                    echo "<th scope='col'>Manzana</th>";
                     echo "<th scope='col'>Autorizado</th>";
                     echo "<th></th>";
                     echo "</tr>";
                     echo "</thead>";
                     echo "<tbody>";
-                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, $row2['idCalle'], 0, 0, 'S');
+                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, 0, $row2['idCalle'], 0, 0, 'S');
                         while ($row3 = $proc3->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>";
                             echo "<td>".$row3['numeroLote']."</td>";
                             echo "<td>".$row3['metrosExcedentes']."</td>";
                             echo "<td>$".number_format($row3['precioLista'], 2)."</td>";
                             echo "<td>".$row3['nombrePrototipo']."</td>";
+                            echo "<td>".$row3['manzana']."</td>";
                             echo "<td>".$row3['autorizado']."</td>";
                             echo "<td><button class='btn btn-primary btn-sm showLoteModal' loteID=".$row3['idLote']." type='button' data-bs-toggle='modal' data-bs-target='#modalLote'>Editar</button></td>";
                             echo "</tr>";
@@ -259,6 +261,20 @@
                                 $procProto = $conection->gestionPrototipo(0, '', 0, $idProyecto, 'S');
                                 while ($rowProto = $procProto->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value=".$rowProto['idPrototipo'].">".$rowProto['nombre']." - ".$rowProto['metros']."</option>";
+                                }
+                            ?>
+                        </select>
+                        <div class="invalid-feedback">
+                            Elija una opción.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="InputManzana">Manzana</label>
+                        <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="manzana" id="InputManzana" required>
+                            <?php
+                                $procProto = $conection->gestionManzana(0, '', 0, $idProyecto, 'S');
+                                while ($rowProto = $procProto->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<option value=".$rowProto['idManzana'].">Manzana - ".$rowProto['numero']."</option>";
                                 }
                             ?>
                         </select>

@@ -113,7 +113,7 @@
             </div>
             <div class="form-group col-md-3">
                 <label for="inputPrototipo">Prototipo</label>
-                <select class="form-control selectpicker" data-live-search="true" name="prototipo" id="inputPrototipo" required disabled>
+                <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="prototipo" id="inputPrototipo" required disabled>
                     <?php
                         if ($cliente->getIdPrototipo()) {
                             $procProto = $conection->gestionPrototipo(0, '', 0, $cliente->getIdProyecto(), 'S');
@@ -192,10 +192,19 @@
             <div class="form-group input-group-sm col-md-3">
                 <label for="inputApMaterno">Apellido Materno</label>
                 <input type="text" name="apMaterno" class="form-control" id="inputApMaterno"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $cliente->getApellidoMaterno();?>" required>
+                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php echo $cliente->getApellidoMaterno();?>">
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
                     Ingrese un texto válido.
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputTelefono">Teléfono</label>
+                <input type="tel" name="telefono" class="form-control" id="inputTelefono"
+                    aria-describedby="emailHelp" pattern="[0-9]{10}" value="<?php echo $cliente->getTelefono();?>"
+                    placeholder="8114567123" required>
+                <div class="invalid-feedback">
+                    Ingrese un telefono válido.
                 </div>
             </div>
             <div class="form-group col-md-4">

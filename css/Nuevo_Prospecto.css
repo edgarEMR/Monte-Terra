@@ -20,3 +20,7 @@
 #liveAlert {
   width: 25%;
 }
+
+input[type="text"] {
+  text-transform: uppercase;
+}

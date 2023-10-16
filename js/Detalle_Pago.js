@@ -200,6 +200,7 @@ $(document).ready(function () {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").hide();
+      $("#divNomina").hide();
     });
   });
 
@@ -272,6 +273,7 @@ $(document).ready(function () {
   $("#divEmpleado").hide();
   $("#divInstitucion").hide();
   $("#divProyectos").hide();
+  $("#divNomina").hide();
 
   $(".selectpicker").on("change", function () {
     var selectpicker = $(this);
@@ -344,6 +346,8 @@ $(document).ready(function () {
       invalidSelects.first().focus();
     }
   });
+
+  nominaTotal();
 });
 
 (() => {
@@ -598,6 +602,7 @@ function checkGeneral() {
   $("#inputEmpleado").selectpicker("val", "");
   $("#inputInstitucion").selectpicker("val", "");
   $("#inputProyectoGen").selectpicker("val", "");
+  $("#divNomina").empty();
 
   switch ($("#inputOgGeneral").prop("selectedIndex")) {
     case 1:
@@ -608,6 +613,7 @@ function checkGeneral() {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").hide();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", false);
       $("#inputConceptoGenA").prop("required", true);
@@ -632,6 +638,7 @@ function checkGeneral() {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").hide();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", true);
       $("#inputConceptoGenA").prop("required", false);
@@ -656,6 +663,7 @@ function checkGeneral() {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").hide();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", true);
       $("#inputConceptoGenA").prop("required", false);
@@ -681,6 +689,7 @@ function checkGeneral() {
         $("#divEmpleado").hide();
         $("#divInstitucion").show();
         $("#divProyectos").hide();
+        $("#divNomina").hide();
 
         $("#inputConceptoGen").prop("required", false);
         $("#inputConceptoGenA").prop("required", true);
@@ -704,6 +713,7 @@ function checkGeneral() {
         $("#divEmpleado").hide();
         $("#divInstitucion").show();
         $("#divProyectos").hide();
+        $("#divNomina").hide();
 
         $("#inputConceptoGen").prop("required", true);
         $("#inputConceptoGenA").prop("required", false);
@@ -729,6 +739,7 @@ function checkGeneral() {
       $("#divEmpleado").show();
       $("#divInstitucion").hide();
       $("#divProyectos").hide();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", true);
       $("#inputConceptoGenA").prop("required", false);
@@ -753,6 +764,7 @@ function checkGeneral() {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").show();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", false);
       $("#inputConceptoGenA").prop("required", true);
@@ -777,6 +789,7 @@ function checkGeneral() {
       $("#divEmpleado").hide();
       $("#divInstitucion").hide();
       $("#divProyectos").show();
+      $("#divNomina").hide();
 
       $("#inputConceptoGen").prop("required", true);
       $("#inputConceptoGenA").prop("required", false);
@@ -792,9 +805,128 @@ function checkGeneral() {
       $("#inputInstitucion").addClass("is-valid");
       $("#inputProyectoGen").removeClass("is-valid");
       break;
+
+    case 8:
+      console.log("Nomina selected");
+      $("#divConceptoGen").hide();
+      $("#divConceptoGenA").hide();
+      $("#divConceptoGenB").hide();
+      $("#divEmpleado").hide();
+      $("#divInstitucion").hide();
+      $("#divProyectos").hide();
+      $("#divNomina").show();
+
+      $("#inputConceptoGen").prop("required", false);
+      $("#inputConceptoGenA").prop("required", false);
+      $("#inputConceptoGenB").prop("required", false);
+      $("#inputEmpleado").prop("required", false);
+      $("#inputInstitucion").prop("required", false);
+      $("#inputProyectoGen").prop("required", false);
+
+      $("#inputConceptoGen").addClass("is-valid");
+      $("#inputConceptoGenA").addClass("is-valid");
+      $("#inputConceptoGenB").addClass("is-valid");
+      $("#inputEmpleado").addClass("is-valid");
+      $("#inputInstitucion").addClass("is-valid");
+      $("#inputProyectoGen").addClass("is-valid");
+
+      $.ajax({
+        method: "POST",
+        url: "php/Usuario_Procesos.php",
+        cache: false,
+        data: { accion: "obtener" },
+      }).done(function (result) {
+        $("#divNomina").empty().html(result);
+      });
+      break;
   }
 }
 
+function nominaTotal(input) {
+  console.log("NOMINA TOTAL");
+  console.log(input);
+  const arraySueldo = $('input[name="sueldo[]"]');
+  const arrayExtras = $('input[name="extras[]"]');
+  const arrayCompensacion = $('input[name="compensacion[]"]');
+  const arrayPrestamo = $('input[name="prestamoN[]"]');
+  const arrayDescuento = $('input[name="descuento[]"]');
+  const arrayAbono = $('input[name="abono[]"]');
+  const arrayTotal = $('input[name="total[]"]');
+  console.log(arraySueldo);
+
+  $('input[name="sueldo[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+  $('input[name="extras[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+  $('input[name="compensacion[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+  $('input[name="prestamoN[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+  $('input[name="descuento[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+  $('input[name="abono[]"]').on("change", function () {
+    console.log($(this).index());
+    const suma =
+      arraySueldo[$(this).index()].val() +
+      arrayExtras[$(this).index()].val() +
+      arrayCompensacion[$(this).index()].val() +
+      arrayPrestamo[$(this).index()].val() -
+      arrayDescuento[$(this).index()].val() -
+      arrayAbono[$(this).index()].val();
+
+    arrayTotal[$(this).index()].val(suma);
+  });
+}
 // var today = new Date();
 // var dd = today.getDate();
 // var mm = today.getMonth()+1; //January is 0!

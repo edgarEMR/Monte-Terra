@@ -83,6 +83,26 @@ $(document).ready(function () {
         styleBase: "form-control",
       });
     });
+
+    $.ajax({
+      method: "POST",
+      url: "php/Vivienda_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", id: idProyecto },
+    }).done(function (result) {
+      $("#inputTipoVivienda").empty().html(result);
+      $("#inputTipoVivienda").selectpicker("destroy");
+      $("#inputTipoVivienda").selectpicker({
+        style: "",
+        styleBase: "form-control",
+      });
+    });
+  });
+
+  $(function () {
+    $('input[type="text"]').keyup(function () {
+      this.value = this.value.toLocaleUpperCase();
+    });
   });
 });
 

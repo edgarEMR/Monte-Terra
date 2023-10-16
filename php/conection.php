@@ -143,11 +143,11 @@
         }
 
         function gestionLote($idLote, $numeroLote, $metrosExcedentes, $precioLista, $autorizado, $precioVenta, $formaPago, 
-                            $idTipoPago, $idPrototipo, $idCalle, $idCliente, $idVendedor, $opcion)
+                            $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionLote($idLote, '$numeroLote', $metrosExcedentes, $precioLista, $autorizado, 
-                $precioVenta, '$formaPago', $idTipoPago, $idPrototipo, $idCalle, $idCliente, $idVendedor, '$opcion')");
+                $precioVenta, '$formaPago', $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, '$opcion')");
         }
 
         function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 
@@ -170,6 +170,10 @@
 
         function obtenerProspectos() {
             return $this->connect()->query("CALL spObtenerProspectos()");
+        }
+
+        function existeProspecto($nombre, $apellido, $telefono) {
+            return $this->connect()->query("CALL spExisteProspecto('$nombre', '$apellido', '$telefono')");
         }
 
         function obtenerClientes($idProyecto, $idEtapa) {

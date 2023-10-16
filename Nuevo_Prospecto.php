@@ -58,19 +58,19 @@
                 </div>
             </div>
             <div class="form-group input-group-sm col-md-3">
-                <label for="inputApMaterno">Apellido Materno *</label>
+                <label for="inputApMaterno">Apellido Materno</label>
                 <input type="text" name="apMaterno" class="form-control" id="inputApMaterno"
-                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php ?>" required>
+                    pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php ?>">
                 <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                 <div class="invalid-feedback">
                     Ingrese un texto válido.
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputEmail">Correo electrónico *</label>
+                <label for="inputEmail">Correo electrónico</label>
                 <input type="email" name="email" class="form-control" id="inputEmail"
                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$" aria-describedby="emailHelp"
-                    placeholder="nombre@ejemplo.com" required>
+                    placeholder="nombre@ejemplo.com">
                 <div class="invalid-feedback">
                     Ingrese un correo válido.
                 </div>
@@ -140,13 +140,7 @@
             <div class="form-group col-md-4">
                 <label for="inputTipoVivienda">Vivienda de interés*</label>
                 <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="tipoVivienda" id="inputTipoVivienda" required>
-                    <?php
-                        $procedure = $conection->obtenerTipoVivienda();
-                        while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value=".$rows['nombre'].">".$rows['nombre']."</option>";
-                        }
-                    ?>
-                    </select>
+                </select>
                 <div class="invalid-feedback">
                     Elija una opción.
                 </div>

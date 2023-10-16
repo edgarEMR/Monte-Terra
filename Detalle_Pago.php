@@ -609,6 +609,13 @@
                             Elija una opción.
                         </div>
                     </div>
+                    <div id="divNomina">
+                        <?php 
+                            
+                        ?>
+                        
+                        
+                    </div>
                     <div class="form-group d-grid">
                         <input id="idProyecto" type="hidden" name="proyectoID" value="<?php echo $idProyecto;?>">
                         <input id="idPago" type="hidden" name="pagoID" value="<?php echo $idPago;?>">
