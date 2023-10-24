@@ -28,7 +28,7 @@
             $date = $conection->getCurrent_date();
         }
         
-        //$procedure = $conection->obtenerResumen($date);
+        $procedure = $conection->gestionOperador(0, '', 0, 0, 'S');
         //$rows = $procedure->fetch(PDO::FETCH_ASSOC);
 
     ?>
@@ -38,29 +38,38 @@
         <div id="titulo-maquinaria">
             <h2 class="text-primary">Por Pagar Operadores</h2>
         </div>
-        
-        <table id="tabla-maquinaria" class="table table-hover">
-            <thead>
-                <tr class="table-primary">
-                    <th>MAQUINA</th>
-                    <th>OPERADOR</th>
-                    <th>SUELDO</th>
-                    <th>EXTRAS</th>
-                    <th>DESCUENTO</th>
-                    <th>TOTAL</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        <form id="pagoOperadores" action="php/Operador_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+            <table id="tabla-maquinaria" class="table table-hover">
+                <thead>
+                    <tr class="table-primary">
+                        <th>MAQUINA</th>
+                        <th>OPERADOR</th>
+                        <th>SUELDO</th>
+                        <th>EXTRAS</th>
+                        <th>DESCUENTO</th>
+                        <th>TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        while($rows = $procedure->fetch(PDO::FETCH_ASSOC)){
+                            echo '<tr>';
+                            echo '<td class="p-0"><input type="text" name="nombreMaquina[]" class="form-control" id="inputNMaquina" min="1" value="' . $rows['nombreMaquina'] . '" required readonly></td>';
+                            echo '<td class="p-0"><input type="text" name="nombre[]" class="form-control" id="inputNombre" min="1" value="' . $rows['nombre'] . '" required readonly></td>';
+                            echo '<td class="p-0"><input type="number" name="sueldo[]" class="form-control" id="inputSueldo" min="1" value="' . $rows['sueldo'] . '" oninput="nominaTotal()" required readonly></td>';
+                            echo '<td class="p-0"><input type="number" name="extras[]" class="form-control" id="inputExtras" min="1" value="" oninput="nominaTotal()" required></td>';
+                            echo '<td class="p-0 position-relative"><input type="number" name="descuento[]" class="form-control" id="inputDescuento" min="1" value="" oninput="nominaTotal()" required></td>';
+                            echo '<td class="p-0"><input type="number" name="total[]" class="form-control" id="inputTotal" min="1" value="" oninput="nominaTotal()" required></td>';
+                            echo '</tr>';
+                        }
+                    ?>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td><button id="btnPagarOperadores" class="btn btn-block btn-primary" type="submit">Agregar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 
     <div id="maquinaria" class="table-responsive">
@@ -81,19 +90,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <?php
+                    $procedure = $conection->gestionPagoMaquinaria(0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'E');
+                    $total = 0;
+                    while($rows = $procedure->fetch(PDO::FETCH_ASSOC)){
+                        if(!$rows['esIngreso']){
+                        echo "<tr>";
+                        echo "<td>" . $rows['nombreMaquina'] . "</td>";
+                        echo "<td>" . $rows['concepto'] . "</td>";
+                        echo "<td>" . $rows['nombreProyecto'] . "</td>";
+                        echo "<td>" . $rows['nombreProveedor'] . "</td>";
+                        echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
+                        echo "<td>" . $rows['nombrePago'] . "</td>";
+                        echo "</tr>";
+                        $total -= $rows['importe'];
+                        }
+                    }
+                ?>
             </tbody>
         </table>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/Maquinaria.js"></script>
 </body>
 </html>

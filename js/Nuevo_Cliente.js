@@ -230,9 +230,9 @@ function calcularImporte() {
   var precioExcedente = $("#inputPrecioExcedente").val();
   var precioVenta = $("#inputPrecioVenta").val();
   var precioFinal = $("#inputPrecioFinal");
-  var precioLista = parseInt($("#precioLista").attr("value"));
+  var precioLista = parseFloat($("#precioLista").attr("value"));
 
-  var pFinal = m2Excedente * precioExcedente + parseInt(precioVenta);
+  var pFinal = m2Excedente * precioExcedente + parseFloat(precioVenta);
   console.log(pFinal, precioLista);
   if (pFinal >= precioLista) {
     liveAlert.alert("close");

@@ -106,38 +106,40 @@ if (isset($_POST['accion'])) {
 
                         $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
                 }
-            }if (isset([$_POST['sueldo']])) {
+            } else if (isset($_POST['sueldo'])) {
                 echo 'Es Nómina' . '</br>';
-                $importeProrrateo = number_format($_POST['importe'] / count($_POST['proyectoGen']), 2);
-                
-                foreach ($_POST['proyectoGen'] as $proyecto) {
-                    $pago->setImporte($importeProrrateo);
-                        $pago->setIdProyecto($proyecto);
-                        $procedure = $coneccion->gestionPago(
-                            0,
-                            $pago->getConcepto(),
-                            $pago->getImporte(),
-                            $pago->getEsIngreso(),
-                            $pago->getIdTipoPago(),
-                            $pago->getIdArea(),
-                            $pago->getIdUsuario(),
-                            $pago->getEsGeneral(),
-                            $pago->getIdProyecto(),
-                            $pago->getIdEtapa(),
-                            $pago->getIdFamilia(),
-                            $pago->getIdConcepto(),
-                            $pago->getIdConceptoB(),
-                            $pago->getComentario(),
-                            $pago->getIdCliente(),
-                            $pago->getIdAportador(),
-                            $pago->getIdBanco(),
-                            $pago->getIdProveedor(),
-                            $pago->getIdEmpleado(),
-                            'I'
-                        );
+                $numEmpleados = count($_POST['sueldo']);
 
-                        $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+                for ($i=0; $i < $numEmpleados; $i++) { 
+                    $pago->setConcepto("Nómina " . $_POST['nombreEmpleado'][$i]);
+                    $pago->setImporte($_POST['total'][$i]);
+                    echo $pago->getConcepto() . '= ' . $pago->getImporte() . '</br>';
+                    $procedure = $coneccion->gestionPago(
+                        0,
+                        $pago->getConcepto(),
+                        $pago->getImporte(),
+                        $pago->getEsIngreso(),
+                        $pago->getIdTipoPago(),
+                        $pago->getIdArea(),
+                        $pago->getIdUsuario(),
+                        $pago->getEsGeneral(),
+                        $pago->getIdProyecto(),
+                        $pago->getIdEtapa(),
+                        $pago->getIdFamilia(),
+                        $pago->getIdConcepto(),
+                        $pago->getIdConceptoB(),
+                        $pago->getComentario(),
+                        $pago->getIdCliente(),
+                        $pago->getIdAportador(),
+                        $pago->getIdBanco(),
+                        $pago->getIdProveedor(),
+                        $pago->getIdEmpleado(),
+                        'I'
+                    );
+
+                    $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
                 }
+                
             } else {
                 $procedure = $coneccion->gestionPago(
                     0,
@@ -167,7 +169,7 @@ if (isset($_POST['accion'])) {
             
             echo 'Lo ejecuto';
 
-            header('Location: ../Detalle_Pago.php?success=1');
+           header('Location: ../Detalle_Pago.php?success=1');
 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();

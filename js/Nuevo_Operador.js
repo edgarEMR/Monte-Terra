@@ -3,6 +3,9 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#navMenu").removeClass();
   $("#navMenu").hide();
+  $("#navConst").removeClass();
+  $("#navConst").hide();
+
   $("#crearProyecto").toggle();
   $("#crearPresupuesto").toggle();
   $("#agregarPago").toggle();

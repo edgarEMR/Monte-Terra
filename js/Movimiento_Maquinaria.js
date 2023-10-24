@@ -3,6 +3,8 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#navMenu").removeClass();
   $("#navMenu").hide();
+  $("#navConst").removeClass();
+  $("#navConst").hide();
 
   $("#agregarMovimiento").toggle();
   $("#agregarMaquina").toggle();
@@ -117,19 +119,17 @@ $(document).ready(function () {
 
   //Obtener Concepto B dependiendo del Concepto A seleccionado en Egreso
   $("#inputMaquina").change(function () {
-    var idConcepto = $("#inputConceptoA").val();
+    var idMaquina = $("#inputMaquina").val();
     $.ajax({
       method: "POST",
-      url: "php/Concepto_Procesos.php",
+      url: "php/Maquinaria_Procesos.php",
       cache: false,
-      data: { accion: "obtenerB", tipo: "egreso", id: idConcepto },
+      data: { accion: "obtener", id: idMaquina },
     }).done(function (result) {
-      $("#inputConceptoB").empty().html(result);
-      $("#inputConceptoB").selectpicker("destroy");
-      $("#inputConceptoB").selectpicker({
-        style: "",
-        styleBase: "form-control",
-      });
+      var jsonResult = JSON.parse(result);
+      $("#inputConcepto").val(jsonResult["nombre_recurrencia"]);
+      $("#inputPrecioUn").val(jsonResult["costo"]);
+      calcularImporte();
     });
   });
 
@@ -274,4 +274,15 @@ function getParameterByName(name, url = window.location.search) {
   if (!results) return null;
   if (!results[2]) return "";
   return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function calcularImporte() {
+  var cantidad = $("#inputCantidad").val();
+  var precioUnitario = $("#inputPrecioUn").val();
+  var modificacion = parseFloat($("#inputModificacion").val()) || 0;
+  var precioFinal = $("#inputImporte");
+
+  var pFinal = cantidad * precioUnitario + modificacion;
+  console.log(pFinal);
+  precioFinal.val(pFinal);
 }

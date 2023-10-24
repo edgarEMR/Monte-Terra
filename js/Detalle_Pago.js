@@ -346,8 +346,6 @@ $(document).ready(function () {
       invalidSelects.first().focus();
     }
   });
-
-  nominaTotal();
 });
 
 (() => {
@@ -842,90 +840,58 @@ function checkGeneral() {
   }
 }
 
-function nominaTotal(input) {
+function nominaTotal() {
   console.log("NOMINA TOTAL");
-  console.log(input);
   const arraySueldo = $('input[name="sueldo[]"]');
   const arrayExtras = $('input[name="extras[]"]');
   const arrayCompensacion = $('input[name="compensacion[]"]');
-  const arrayPrestamo = $('input[name="prestamoN[]"]');
+  const arrayDescuento = $('input[name="descuento[]"]');
+  const arrayAbono = $('input[name="abono[]"]');
+
+  arraySueldo.on("change", function () {
+    calcularNominaTotal(arraySueldo.index(this));
+  });
+  arrayExtras.on("change", function () {
+    calcularNominaTotal(arrayExtras.index(this));
+  });
+  arrayCompensacion.on("change", function () {
+    calcularNominaTotal(arrayCompensacion.index(this));
+  });
+  arrayDescuento.on("change", function () {
+    calcularNominaTotal(arrayDescuento.index(this));
+  });
+  arrayAbono.on("change", function () {
+    calcularNominaTotal(arrayAbono.index(this));
+  });
+}
+
+function calcularNominaTotal(index) {
+  console.log("CALCULAR NOMINA");
+  const arraySueldo = $('input[name="sueldo[]"]');
+  const arrayExtras = $('input[name="extras[]"]');
+  const arrayCompensacion = $('input[name="compensacion[]"]');
   const arrayDescuento = $('input[name="descuento[]"]');
   const arrayAbono = $('input[name="abono[]"]');
   const arrayTotal = $('input[name="total[]"]');
-  console.log(arraySueldo);
+  const inputImporte = $("#inputImporteGen");
 
-  $('input[name="sueldo[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
+  const sueldo = parseFloat($(arraySueldo[index]).val()) || 0;
+  const extras = parseFloat($(arrayExtras[index]).val()) || 0;
+  const compensacion = parseFloat($(arrayCompensacion[index]).val()) || 0;
+  const descuento = parseFloat($(arrayDescuento[index]).val()) || 0;
+  const abono = parseFloat($(arrayAbono[index]).val()) || 0;
 
-    arrayTotal[$(this).index()].val(suma);
+  const suma = sueldo + extras * 100 + compensacion - descuento - abono;
+  var sumaImporte = 0;
+
+  $(arrayTotal[index]).val(suma);
+
+  arrayTotal.each(function (index, value) {
+    console.log(index, $(value).val());
+    sumaImporte += parseFloat($(value).val() || 0);
   });
-  $('input[name="extras[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
 
-    arrayTotal[$(this).index()].val(suma);
-  });
-  $('input[name="compensacion[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
-
-    arrayTotal[$(this).index()].val(suma);
-  });
-  $('input[name="prestamoN[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
-
-    arrayTotal[$(this).index()].val(suma);
-  });
-  $('input[name="descuento[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
-
-    arrayTotal[$(this).index()].val(suma);
-  });
-  $('input[name="abono[]"]').on("change", function () {
-    console.log($(this).index());
-    const suma =
-      arraySueldo[$(this).index()].val() +
-      arrayExtras[$(this).index()].val() +
-      arrayCompensacion[$(this).index()].val() +
-      arrayPrestamo[$(this).index()].val() -
-      arrayDescuento[$(this).index()].val() -
-      arrayAbono[$(this).index()].val();
-
-    arrayTotal[$(this).index()].val(suma);
-  });
+  inputImporte.val(sumaImporte);
 }
 // var today = new Date();
 // var dd = today.getDate();

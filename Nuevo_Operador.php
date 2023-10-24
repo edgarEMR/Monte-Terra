@@ -21,7 +21,7 @@
         include_once('modelos/Pago.php');
         include_once('php/conection.php');
 
-        $accion = 'operador';
+        $accion = 'registrar';
         $conection = new DB(require 'php/config.php');
         $idUsuario = 0;
 
@@ -32,7 +32,7 @@
     <div id="maquinaria" class="table-responsive">
         
         <div class="register-form">
-            <form id="registroOperador" action="php/Aportador_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+            <form id="registroOperador" action="php/Operador_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                 <div class="form-group input-group-sm col-md-12">
                     <label for="inputNombre">Operador</label>
                     <input type="text" name="nombre" class="form-control" id="inputNombre"
@@ -46,7 +46,7 @@
                     <label for="inputMaquina">Maquina</label>
                     <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="maquina" id="inputMaquina" onchange="" required>
                         <?php
-                            $procedure = $conection->gestionMaquinaria(0, "", 0, 0, 'S');
+                            $procedure = $conection->gestionMaquinaria(0, "", 0, 0, 'E');
                             while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                 echo "<option value=".$rows['idMaquinaria'].">".$rows['nombre']."</option>";
                             }

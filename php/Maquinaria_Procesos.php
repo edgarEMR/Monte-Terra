@@ -37,44 +37,18 @@ if (isset($_POST['accion'])) {
         
     }
 
-    if ($_POST['accion'] == 'operador') {
-        try {
-
-            $procedure = $coneccion->gestionOperador(
-                0,
-                $_POST['nombre'],
-                $_POST['sueldo'],
-                $_POST['maquina'],
-                'I'
-            );
-
-            $result = $procedure->fetch(PDO::FETCH_ASSOC);
-
-            if($resultado){
-                header('Location: ../Nuevo_Operador.php?success=1');
-            } else {
-                header("Location: ../Nuevo_Operador.php?success=0");
-            }
-        } catch (PDOException $err) {
-            $errorCode = $err->getCode();
-            echo '<br>' . $err;
-            header("Location: ../Nuevo_Operador.php?success=0");
-        }
-        
-    }
-
     if ($_POST['accion'] == 'pago') {
         try {
 
             $procedure = $coneccion->gestionPagoMaquinaria(
                 0,
                 $_POST['concepto'] ?: 'NULL',
-                $_POST['conceptoB'] ?: 'NULL',
+                $_POST['conceptoB'],
                 $_POST['cantidad'] ?: 'NULL',
                 $_POST['precioUnitario'] ?: 'NULL',
                 $_POST['modificacion'] ?: 'NULL',
-                $_POST['importe'] ?: 'NULL',
-                $_POST['esIngreso'] ?: 'NULL',
+                $_POST['importe'],
+                $_POST['esIngreso'],
                 $_POST['tipoPago'] ?: 'NULL',
                 $_POST['maquina'] ?: 'NULL',
                 $_POST['proyecto'] ?: 'NULL',
@@ -85,15 +59,27 @@ if (isset($_POST['accion'])) {
 
             $result = $procedure->fetch(PDO::FETCH_ASSOC);
 
-            if($resultado){
-                header('Location: ../Movimiento_Maquinaria.php?success=1');
-            } else {
-                header("Location: ../Movimiento_Maquinaria.php?success=0");
-            }
+            header('Location: ../Movimiento_Maquinaria.php?success=1');
+                
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
             header("Location: ../Movimiento_Maquinaria.php?success=0");
+        }
+        
+    }
+
+    if ($_POST['accion'] == 'obtener') {
+        try {
+            $maquina->setIdMaquinaria($_POST['id'] ?: 'NULL');
+
+            $procedure = $coneccion->gestionMaquinaria($_POST['id'], '', 0, 0, 'S');
+
+            $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
+            echo json_encode($resultado[0]);
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo '<br>' . $err;
         }
         
     }

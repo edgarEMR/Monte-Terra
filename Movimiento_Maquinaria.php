@@ -43,7 +43,7 @@
             <label id="idEsIngreso" hidden><?php ?></label>
             <!--INGRESO-->
             <div class="tab-pane fade" id="ingreso-tab-pane" role="tabpanel" aria-labelledby="ingreso-tab" tabindex="0">
-                <form id="nuevoPagoIng" action="php/Pago_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+                <form id="nuevoPagoIng" action="php/Maquinaria_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-group" hidden>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="esIngreso" id="esIngreso" value="1" checked>
@@ -53,7 +53,7 @@
                         <label for="inputMaquina">Maquinaria</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="maquina" id="inputMaquina" onchange="" required>
                             <?php
-                                $procedure = $conection->gestionMaquinaria(0, '', 0, 0, 'S');
+                                $procedure = $conection->gestionMaquinaria(0, '', 0, 0, 'E');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value=".$rows['idMaquinaria'].">".$rows['nombre']."</option>";
                                 }
@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputCantidad">Cantidad</label>
-                        <input type="number" name="cantidad" class="form-control" id="inputCantidad" min="1" value="<?php ?>" required>
+                        <input type="number" name="cantidad" class="form-control" id="inputCantidad" min="1" value="<?php ?>" oninput="calcularImporte()" required>
                         <div class="invalid-feedback">
                             Ingrese un número válido.
                         </div>
@@ -103,7 +103,7 @@
                         <label for="inputPrecioUn">Precio Unitario</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
-                            <input type="number" name="precioUnitario" class="form-control" id="inputPrecioUn" min="0" step="0.01" required value="<?php ?>">
+                            <input type="number" name="precioUnitario" class="form-control" id="inputPrecioUn" min="0" step="0.01" value="<?php ?>" oninput="calcularImporte()" required>
                             <div class="invalid-feedback">
                                 Ingrese un número válido.
                             </div>
@@ -113,7 +113,7 @@
                         <label for="inputModificacion">Modificación</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
-                            <input type="number" name="modificacion" class="form-control" id="inputModificacion" min="0" step="0.01" required value="<?php ?>">
+                            <input type="number" name="modificacion" class="form-control" id="inputModificacion" min="0" step="0.01" value="<?php ?>" oninput="calcularImporte()" required>
                             <div class="invalid-feedback">
                                 Ingrese un número válido.
                             </div>
@@ -153,7 +153,7 @@
             </div>
             <!-- EGRESO -->
             <div class="tab-pane fade" id="egreso-tab-pane" role="tabpanel" aria-labelledby="egreso-tab" tabindex="0">
-                <form id="nuevoPagoEgr" action="php/Pago_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+                <form id="nuevoPagoEgr" action="php/Maquinaria_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
                     <div class="form-group" hidden>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="esIngreso" id="esEgreso" value="0" checked >
@@ -164,7 +164,7 @@
                         <label for="inputMaquinaEg">Maquinaria</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="maquina" id="inputMaquinaEg" onchange="" required>
                             <?php
-                                $procedure = $conection->gestionMaquinaria(0, '', 0, 0, 'S');
+                                $procedure = $conection->gestionMaquinaria(0, '', 0, 0, 'E');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value=".$rows['idMaquinaria'].">".$rows['nombre']."</option>";
                                 }
@@ -191,11 +191,7 @@
                     <div class="form-group col-md-4" id="divConceptoB">
                         <label for="inputConceptoB">Concepto - B</label>
                         <input type="text" name="conceptoB" class="form-control" id="inputConceptoB"
-                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php ?>">
-                        <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
-                        <div class="invalid-feedback">
-                            Ingrese un nombre válido.
-                        </div>
+                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" value="<?php ?>">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputImporte">Importe</label>

@@ -37,14 +37,21 @@ if (isset($_POST['accion'])) {
     } else {
         try{
             echo $idConcepto;
+            $mostrarConceptos = false;
             if ($idConcepto == 9 || $idConcepto == 14) {
+                echo "9 Y 14";
+                $mostrarConceptos = true;
                 $procedure = $coneccion->obtenerConceptos(102, $_POST['tipo'], "A");
             } else if($idConcepto == 19){
+                echo "19";
+                $mostrarConceptos = true;
                 $procedure = $coneccion->obtenerConceptos(101, $_POST['tipo'], "A");
             }
 
-            while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value=".$rows['idConcepto'].">".$rows['nombre']."</option>";
+            if ($mostrarConceptos) {
+                while($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value=".$rows['idConcepto'].">".$rows['nombre']."</option>";
+                }
             }
         } catch (PDOException $err) {
             $errorCode = $err->getCode();

@@ -110,7 +110,7 @@
                     <div class="form-group col-md-6">
                         <label for="inputConcepto">Concepto</label>
                         <input type="text" name="concepto" class="form-control" id="inputConcepto"
-                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>" disabled>
+                            pattern="[A-Za-z0-9À-ÿ\u00f1\u00d1 ]{3,}" required value="<?php echo $pago->getConcepto();?>" readonly>
                         <small id="nombreUHelp" class="form-text text-muted">Mínimo 3 caracteres.</small>
                         <div class="invalid-feedback">
                             Ingrese un nombre válido.
@@ -520,10 +520,10 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputImporte">Importe</label>
+                        <label for="inputImporteGen">Importe</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
-                            <input type="number" name="importe" class="form-control" id="inputImporte" min="0" step="0.01" required value="<?php echo $pago->getImporte();?>">
+                            <input type="number" name="importe" class="form-control" id="inputImporteGen" min="0" step="0.01" required value="<?php echo $pago->getImporte();?>">
                             <div class="invalid-feedback">
                                 Ingrese un número válido.
                             </div>
@@ -610,11 +610,6 @@
                         </div>
                     </div>
                     <div id="divNomina">
-                        <?php 
-                            
-                        ?>
-                        
-                        
                     </div>
                     <div class="form-group d-grid">
                         <input id="idProyecto" type="hidden" name="proyectoID" value="<?php echo $idProyecto;?>">
