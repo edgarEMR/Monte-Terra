@@ -13,6 +13,7 @@ class Proyecto extends DB
     private $totalEtapas;
     private $prototipos;
     private $manzanas;
+    private $metrosBase;
     private $activo;
 
     /**
@@ -151,6 +152,26 @@ class Proyecto extends DB
     public function setActivo($activo)
     {
         $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of metrosBase
+     */ 
+    public function getMetrosBase()
+    {
+        return $this->metrosBase;
+    }
+
+    /**
+     * Set the value of metrosBase
+     *
+     * @return  self
+     */ 
+    public function setMetrosBase($metrosBase)
+    {
+        $this->metrosBase = $metrosBase;
 
         return $this;
     }

@@ -19,6 +19,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarCredito").toggle();
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
+  $("#agregarUsuario").toggle();
   $("#gestionProrrateo").toggle();
   $("#desglosePEG").toggle();
   $("#desgloseGeneral").toggle();

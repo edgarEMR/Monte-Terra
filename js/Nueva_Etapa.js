@@ -19,6 +19,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarCredito").toggle();
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
+  $("#agregarUsuario").toggle();
   $("#gestionProrrateo").toggle();
   $("#desglosePEG").toggle();
   $("#desgloseGeneral").toggle();
@@ -32,6 +33,8 @@ $("#navigation").load("Navbar.php", function () {
     }
   });
 });
+
+var precioFinalTemp = 0;
 
 $(".selectpicker").selectpicker({
   style: "",
@@ -170,18 +173,50 @@ $(document).ready(function () {
       var jsonResult = JSON.parse(result);
       console.log(jsonResult["cantidadCasas"]);
       $("#modalLoteTitle").text("Modificar Lote " + jsonResult["numeroLote"]);
-      $("#inputMetrosExcedentes").val(jsonResult["metrosExcedentes"]);
-      $("#inputPrecioLote").val(jsonResult["precioLista"]);
+      $("#inputSubtotal").val(jsonResult["subtotal"]);
+      $("#inputPrecioFinal").val(jsonResult["precioFinal"]);
+      precioFinalTemp = parseFloat(jsonResult["precioFinal"]);
       $("#inputPrototipoLote").selectpicker(
         "val",
         jsonResult["idPrototipo"].toString()
+      );
+      $("#inputManzana").selectpicker(
+        "val",
+        jsonResult["idManzana"].toString()
       );
       $("#inputAutorizado").prop(
         "checked",
         jsonResult["autorizado"] == 1 ? true : false
       );
-      $("#inputTotalLotes").attr("max", jsonResult["cantidadCasas"]);
+      $("#inputParque").prop(
+        "checked",
+        jsonResult["esParque"] == 1 ? true : false
+      );
+      $("#inputEsquina").prop(
+        "checked",
+        jsonResult["esEsquina"] == 1 ? true : false
+      );
     });
+  });
+
+  $("#inputParque").on("change", function () {
+    console.log("Cambio Parque");
+    const subtotal = parseFloat($("#inputSubtotal").val());
+    const pFinal = parseFloat($("#inputPrecioFinal").val());
+    const porcentaje = subtotal * 0.05;
+    this.checked
+      ? $("#inputPrecioFinal").val(pFinal + porcentaje)
+      : $("#inputPrecioFinal").val(pFinal - porcentaje);
+  });
+
+  $("#inputEsquina").on("change", function () {
+    console.log("Cambio Esquina");
+    const subtotal = parseFloat($("#inputSubtotal").val());
+    const pFinal = parseFloat($("#inputPrecioFinal").val());
+    const porcentaje = subtotal * 0.1;
+    this.checked
+      ? $("#inputPrecioFinal").val(pFinal + porcentaje)
+      : $("#inputPrecioFinal").val(pFinal - porcentaje);
   });
 });
 

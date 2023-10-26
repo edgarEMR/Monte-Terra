@@ -15,6 +15,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#crearProspecto").toggle();
   $("#gestionProrrateo").toggle();
   $("#agregarAbono").toggle();
+  $("#agregarUsuario").toggle();
   $("#desglosePEG").toggle();
   $("#desgloseGeneral").toggle();
   $("#dividerTop").toggle();

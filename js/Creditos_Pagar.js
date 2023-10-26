@@ -24,6 +24,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#gestionProrrateo").toggle();
+  $("#agregarUsuario").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {

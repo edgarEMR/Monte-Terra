@@ -148,7 +148,6 @@
                     <div class="form-group col-md-3">
                         <label for="inputProyecto">Proyecto</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyecto" id="inputProyecto" required>
-                            <option value="-1">General</option>
                             <?php
                                 $procedure = $conection->obtenerProyectos();
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
@@ -318,7 +317,6 @@
                     <div class="form-group col-md-4">
                         <label for="inputProyectoEg">Proyecto</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..." name="proyecto" id="inputProyectoEg" required>
-                            <option value="-1">General</option>
                             <?php
                                 $procedure = $conection->obtenerProyectos();
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {

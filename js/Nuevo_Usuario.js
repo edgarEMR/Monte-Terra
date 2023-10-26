@@ -1,5 +1,5 @@
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("Prestamo");
+  $("#titulo").text("Nuevo Empleado");
 
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
@@ -8,26 +8,28 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#crearProyecto").toggle();
   $("#crearEtapa").toggle();
-  $("#crearProspecto").toggle();
   $("#agregarPago").toggle();
   $("#crearPresupuesto").toggle();
   $("#crearCotizacion").toggle();
   $("#crearCliente").toggle();
-  $("#gestionProrrateo").toggle();
+  $("#crearProspecto").toggle();
   $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
+
   $("#agregarAportador").toggle();
   $("#agregarCredito").toggle();
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
   $("#agregarUsuario").toggle();
+  $("#gestionProrrateo").toggle();
   $("#desglosePEG").toggle();
   $("#desgloseGeneral").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
-    location.href = "Detalle_Pago.php";
+    location.href = "Proyectos.php";
   });
+
+  $("#logo").attr("href", "Proyectos.php");
 });
 
 $(".selectpicker").selectpicker({
@@ -35,36 +37,26 @@ $(".selectpicker").selectpicker({
   styleBase: "form-control",
 });
 
-(() => {
-  "use strict";
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll(".needs-validation");
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach((form) => {
-    form.addEventListener(
-      "submit",
-      (event) => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      },
-      false
-    );
-  });
-})();
-
 $(document).ready(function () {
-  if (getParameterByName("error") == 1) {
-    $("#modalMensaje").find(".modal-title").text("Atención");
-    $("#modalMensaje")
-      .find(".modal-body")
-      .text("Error al agregar Aportador, intente de nuevo");
-    $("#modalMensaje").modal("show");
+  //Detectar mensaje de error
+  if (getParameterByName("success")) {
+    console.log("SUCCESS");
+    const liveAlert = $("#liveAlert");
+    if (getParameterByName("success") == 1) {
+      $(".alert-body").text("Operador agregado correctamente");
+      liveAlert.addClass("text-bg-success");
+    } else {
+      $(".alert-body").text(
+        "No fue posible realizar la acción, intente nuevamente"
+      );
+      liveAlert.addClass("text-bg-danger");
+    }
+
+    liveAlert.alert();
+
+    setTimeout(() => {
+      liveAlert.alert("close");
+    }, 5000);
   }
 
   $(".selectpicker").on("change", function () {
@@ -80,25 +72,24 @@ $(document).ready(function () {
       selectpicker.parent().next().hide();
     }
   });
-
-  $("#registroAportador").on("submit", function (event) {
-    var selectpicker = $("#registroAportador").find(".selectpicker");
-    if (!selectpicker.val()) {
-      selectpicker.addClass("is-invalid");
-      selectpicker.parent().next().show();
-    } else {
-      selectpicker.addClass("is-valid");
-      selectpicker.parent().next().hide();
-    }
-
-    var invalidSelects = $("#registroAportador").find(
-      ".selectpicker.is-invalid"
-    );
-    if (invalidSelects.length > 0) {
-      invalidSelects.first().focus();
-    }
-  });
 });
+
+function sendVariables(pagina, id, name) {
+  var body = document.getElementsByTagName("body")[0];
+  var sendID = id;
+  //var sessionImagen = document.getElementById('sessionImagen').value;
+  var form = document.createElement("form"); //CREATE FORM
+  form.setAttribute("method", "get"); //SET FORM ATTRIBUTES
+  form.setAttribute("style", "display:none");
+  form.setAttribute("action", pagina);
+  body.appendChild(form); //APPEND FORM TO BODY
+  var proyectoID = document.createElement("input"); //CREATE INPUT
+  proyectoID.setAttribute("type", "hidden"); //SET INPUT ATTRIBUTES
+  proyectoID.setAttribute("name", name);
+  proyectoID.setAttribute("value", sendID);
+  form.appendChild(proyectoID); //APPEND INPUT TO FORM
+  form.submit(); //SUBMIT FORM
+}
 
 function getParameterByName(name, url = window.location.search) {
   name = name.replace(/[\[\]]/g, "\\$&");

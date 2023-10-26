@@ -17,6 +17,32 @@ if (isset($_POST['accion'])) {
         $usuario->setIdDepa($_POST['depaID']);
     }
 
+    if ($_POST['accion'] == 'registrar') {
+        
+        $usuario->setNombre($_POST['nombre']);
+        $usuario->setCorreo($_POST['correo']);
+        $usuario->setContraseña("monteterra");
+        $usuario->setIdDepa($_POST['depaID']);
+
+        try {
+            $procedure = $coneccion->gestionUsuario(
+                0,
+                $usuario->getNombre(),
+                $usuario->getCorreo(),
+                $usuario->getContraseña(),
+                $usuario->getIdDepa(),
+                'I'
+            );
+
+            $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+            header('Location: ../Nuevo_Usuario.php?success=1');
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo '<br>' . $err;
+            header('Location: ../Nuevo_Usuario.php?success=0');
+        }
+    }
 
     if ($_POST['accion'] == 'actualizar') {
         try {

@@ -25,6 +25,7 @@ if (isset($_POST['accion'])) {
     $proyecto->setTotalEtapas($_POST["totalEtapas"]);
     $proyecto->setPrototipos($_POST["prototipos"]);
     $proyecto->setManzanas($_POST["manzanas"]);
+    $proyecto->setMetrosBase($_POST["m2Base"]);
 
     if ($_POST['accion'] == 'registrar') {
         echo 'registrar';
@@ -38,6 +39,7 @@ if (isset($_POST['accion'])) {
                 $proyecto->getTotalEtapas(),
                 $proyecto->getPrototipos(),
                 $proyecto->getManzanas(),
+                $proyecto->getMetrosBase(),
                 'I'
             );
             
@@ -104,6 +106,7 @@ if (isset($_POST['accion'])) {
                 $proyecto->getTotalEtapas(),
                 $proyecto->getPrototipos(),
                 $proyecto->getManzanas(),
+                $proyecto->getMetrosBase(),
                 'U'
             );
             
@@ -136,7 +139,7 @@ if (isset($_POST['accion'])) {
                 echo '<br> Actualizado Prototipo ' . ($prototipoCount);
                 $prototipoCount++;
             }
-            #3 >= 3
+            
             echo "<br>". $maxPrototipo. " - " .$prototipoCount."<br>";
             if ($maxPrototipo >= $prototipoCount) {
                 $reverseProtoID = array_reverse($prototipoID);

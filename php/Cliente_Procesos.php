@@ -128,7 +128,7 @@ if (isset($_POST['accion'])) {
                 if($resultado) {
                     $idCliente = $resultado['idCliente'];
     
-                    $proc = $coneccion->gestionLote($_POST['lote'], '', 0, 0, 0, $_POST['precioFinal'], $_POST['tipoCredito'], 
+                    $proc = $coneccion->gestionLote($_POST['lote'], '', 0, 0, 0, 0, 0, 0, $_POST['precioFinal'], $_POST['tipoCredito'], 
                         'NULL', 0, 0, 0, $idCliente, $_SESSION['idUsuario'], 'V');
                     $result = $proc->fetch(PDO::FETCH_ASSOC);
     

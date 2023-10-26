@@ -9,9 +9,6 @@ $("#navigation").load("Navbar.php", function () {
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-  $("#crearProyecto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Proyectos.php";

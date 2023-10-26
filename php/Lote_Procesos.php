@@ -14,9 +14,12 @@ if (isset($_POST['accion'])) {
             $procedure = $coneccion->gestionLote(
                 $_POST['loteID'],
                 '',
-                $_POST['metrosExcedentes'],
-                $_POST['precioLote'],
+                0,
+                0,
                 $_POST['autorizado'] ?: 0,
+                $_POST['parque'] ?: 0,
+                $_POST['esquina'] ?: 0,
+                $_POST['precioFinal'],
                 0,
                 '',
                 0,
@@ -44,7 +47,7 @@ if (isset($_POST['accion'])) {
         
         try {   
 
-            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0,'',0, 0, 0, 0, 0, 0, "E");
+            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0, 0, 0, 0,'',0, 0, 0, 0, 0, 0, "E");
             
             $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
             echo json_encode($resultado[0]);
@@ -61,7 +64,7 @@ if (isset($_POST['accion'])) {
         
         try {   
 
-            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, '', 0, 0, 0, $idCalle, 0, 0, "S");
+            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, $idCalle, 0, 0, "S");
             
             while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                 if ($rows['idVendedor'] == null) {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
+
 <body>
     <div id="navigation" class="top">
 
@@ -30,7 +32,7 @@
 
         if (isset($_GET['id'])) {
             $idProyecto = $_GET['id'];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 0, 0, 'S');
             $rows = $proc->fetch(PDO::FETCH_ASSOC);
 
             $nombreProyecto = $rows['nombre'];
@@ -56,11 +58,13 @@
         }
         
     ?>
-    
-    <h2 class="text-primary">Presupuesto <?php echo strtoupper($nombreProyecto);?> - $<?php echo number_format($presupuestoProyecto, 2);?></h2>
-    
+
+    <h2 class="text-primary">Presupuesto <?php echo strtoupper($nombreProyecto);?> -
+        $<?php echo number_format($presupuestoProyecto, 2);?></h2>
+
     <div class="presupuesto-form">
-        <form id="nuevoPresupuesto" action="php/Presupuesto_Procesos.php" class="row needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+        <form id="nuevoPresupuesto" action="php/Presupuesto_Procesos.php" class="row needs-validation" method="POST"
+            enctype="multipart/form-data" novalidate>
             <!-- <div class="form-group col-md-4">
                 <label for="inputConcepto">Concepto</label>
                 <input type="text" name="concepto" class="form-control" id="inputConcepto"
@@ -74,7 +78,8 @@
                 <label for="inputImporte">Importe</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" name="importe" class="form-control" id="inputImporte" min="0" required value="<?php echo $presupuesto->getImporte();?>">
+                    <input type="number" name="importe" class="form-control" id="inputImporte" min="0" required
+                        value="<?php echo $presupuesto->getImporte();?>">
                     <div class="invalid-feedback">
                         Ingrese un número válido.
                     </div>
@@ -90,7 +95,7 @@
                             echo "<option value=".$rows['idFamilia'].">".$rows['nombre']."</option>";
                         }
                     ?>
-                    </select>
+                </select>
                 <div class="invalid-feedback">
                     Elija una opción.
                 </div>
@@ -104,8 +109,8 @@
         </form>
     </div>
 
-    <div id="tabla-desglose-presupuesto" class="table-responsive">    
-        
+    <div id="tabla-desglose-presupuesto" class="table-responsive">
+
         <table id="tabla-presupuesto" class="table table-hover table-bordered">
             <thead>
                 <tr class="table-primary">
@@ -143,4 +148,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Presupuesto.js"></script>
 </body>
+
 </html>

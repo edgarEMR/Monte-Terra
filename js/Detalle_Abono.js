@@ -20,6 +20,7 @@ $("#navigation").load("Navbar.php", function () {
   $("#agregarCredito").toggle();
   $("#agregarProveedor").toggle();
   $("#agregarPrestamo").toggle();
+  $("#agregarUsuario").toggle();
   $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {

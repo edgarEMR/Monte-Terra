@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
+
 <body>
     <div id="navigation" class="top">
 
@@ -27,7 +29,7 @@
         if(isset($_GET["id"]))
         {
             $idProyecto = $_GET["id"];
-            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 'S');
+            $proc = $conection->gestionProyecto($idProyecto, '', 0, 0, 0, 0, 0, 'S');
             $rows = $proc->fetch(PDO::FETCH_ASSOC);
 
             $nombreProyecto = $rows['nombre'];
@@ -35,67 +37,80 @@
     ?>
 
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <!--TOTAL DE CLIENTES POR PROYECTO-->
             <h2 class="text-primary"><?php echo $nombreProyecto;?></h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
-                    <th col-index = 1>ETAPA 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 2>AUTORIZADO 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 3>CALLE 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 4>LOTE 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 5>NOMBRE 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 6>PRECIO LISTA 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 7>PRECIO VENTA 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 8>PROTOTIPO 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 9>M2 EXCEDENTES 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 10>M2 EXCEDENTE 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 11>TOTAL 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 12>COBRADO 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
-                    <th col-index = 13>PENDIENTE 
-                    <select class="table-filter" onchange="filter_rows()">
-                        <option value="all">Todos</option>
-                    </select></th>
+                    <th col-index=1>ETAPA
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=2>AUTORIZADO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=3>CALLE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=4>LOTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=5>NOMBRE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=6>PRECIO LISTA
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=7>PRECIO VENTA
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=8>PROTOTIPO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=9>M2 EXCEDENTES
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=10>M2 EXCEDENTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=11>TOTAL
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=12>COBRADO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=13>PENDIENTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -135,4 +150,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Ventas_Detalle.js"></script>
 </body>
+
 </html>
