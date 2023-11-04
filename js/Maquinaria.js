@@ -3,23 +3,18 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#navMenu").removeClass();
   $("#navMenu").hide();
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCotizacion").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#atras").toggle();
+  $("#agregarMovimiento").toggle();
+  $("#agregarMaquina").toggle();
+  $("#agregarOperador").toggle();
 
   $("#logo").attr("href", "Maquinaria.php");
   $("#atrasMaquinaria").on("click", function () {
-    history.back();
+    location.href = "Maquinaria.php";
   });
 });
 

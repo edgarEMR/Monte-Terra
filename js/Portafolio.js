@@ -1,27 +1,15 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Portafolio");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
+  $("#crearEtapa").toggle();
+  $("#agregarPresupuesto").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Proyectos.php";

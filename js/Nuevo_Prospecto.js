@@ -1,28 +1,12 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Prospectos");
 
+  $("#navMenu").removeClass();
+  $("#navMenu").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Ventas.php";

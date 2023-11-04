@@ -128,7 +128,11 @@
                         echo "<td>" . $rows['numeroLote'] . "</td>";
                         echo "<td>" . $rows['nombreCliente'] . "</td>";
                         echo "<td>$" . number_format($rows['precioLista'], 2) . "</td>";
-                        echo "<td>$" . number_format($rows['precioVenta'], 2) . "</td>";
+                        if (is_null($rows['precioVenta'])) {
+                            echo "<td> - </td>";
+                        } else {
+                            echo "<td>$" . number_format($rows['precioVenta'], 2) . "</td>";
+                        }
                         echo "<td>" . $rows['prototipo'] . "</td>";
                         echo "<td>" . $rows['metrosExcedentes'] . "</td>";
                         echo "<td>$" . number_format($rows['m2Excedente'], 2) . "</td>";

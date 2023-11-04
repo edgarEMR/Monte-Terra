@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
+
 <body>
     <div id="navigation" class="top">
 
@@ -37,7 +39,7 @@
         $rows = $procedure->fetch(PDO::FETCH_ASSOC);
 
     ?>
-    
+
 
     <div id="resumen" class="table-responsive">
         <!--diferencia hoy vs pasado-->
@@ -47,15 +49,17 @@
             <div id="selector-semana" class="mb-3">
                 <div class="mx-1">
                     <label for="inputFechaIni">Desde</label>
-                    <input type="date" name="fechaIni" class="form-control" id="inputDateIni" value="<?php echo $fechaIni;?>" onchange="setDateRange();">
+                    <input type="date" name="fechaIni" class="form-control" id="inputDateIni"
+                        value="<?php echo $fechaIni;?>" onchange="setDateRange();">
                 </div>
                 <div class="mx-1">
                     <label for="inputFechaFin">Hasta</label>
-                    <input type="date" name="fechaFin" class="form-control" id="inputDateFin" value="<?php echo $fechaFin;?>" onchange="setDateRange();">
+                    <input type="date" name="fechaFin" class="form-control" id="inputDateFin"
+                        value="<?php echo $fechaFin;?>" onchange="setDateRange();">
                 </div>
             </div>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -107,7 +111,7 @@
         <div id="titulo">
             <h2 class="text-primary">Bancos</h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -157,11 +161,11 @@
     </div>
     <!--UNIR LAS SIGUIENTES DOS-->
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <h2 class="text-primary">Aportaciones Por Pagar</h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -204,11 +208,11 @@
     </div>
 
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <h2 class="text-primary">Créditos Por Pagar</h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -219,7 +223,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php 
+                <?php 
                     $pendiente = 0;
                     $sumaMonto = 0;
                     $sumaPagado = 0;
@@ -252,20 +256,22 @@
 
     <!-- POR COBRAR -->
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <h2 class="text-primary">Por Cobrar</h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
                     <th>CONCEPTO</th>
                     <th>MONTO</th>
+                    <th>PAGADO</th>
+                    <th>PENDIENTE</th>
                 </tr>
             </thead>
             <tbody>
-            <?php 
+                <?php 
                     $pendiente = 0;
                     $sumaMonto = 0;
                     $sumaPagado = 0;
@@ -273,18 +279,26 @@
 
                     $procedure = $conection->porCobrar();
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
-                        // echo "<td><a onclick=\"sendVariables('Ventas_Proyecto.php', " . $rows['idPago'] . ", 'id');\">" . $rows['concepto'] . "</a></td>";
-                        echo "<td>" . $rows['concepto'] . "</td>";
-                        echo "<td>$" . number_format($rows['importe'], 2) . "</td>";
-                        echo "</tr>";
+                        if($rows['concepto'] !== null){
+                            echo "<tr>";
+                            echo "<td>" . $rows['concepto'] . "</td>";
+                            echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
+                            echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
+                            $pendiente = $rows['monto'] - number_format($rows['pagado']);
+                            echo "<td>$" . number_format($pendiente, 2) . "</td>";
+                            echo "</tr>";
 
-                        $sumaMonto += $rows['importe'];
+                            $sumaMonto += $rows['monto'];
+                            $sumaPagado += $rows['pagado'];
+                            $sumaPendiente += $pendiente;
+                        }
                     }
                 ?>
                 <tr class="table-success">
                     <td>TOTAL</td>
                     <td><?php echo "$" . number_format($sumaMonto, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPagado, 2);?></td>
+                    <td><?php echo "$" . number_format($sumaPendiente, 2);?></td>
                 </tr>
             </tbody>
         </table>
@@ -292,11 +306,11 @@
 
     <!-- COTIZACIONES -->
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <h2 class="text-primary">Cotizaciones</h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
@@ -305,7 +319,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php 
+                <?php 
                     $pendiente = 0;
                     $sumaMonto = 0;
                     $sumaPagado = 0;
@@ -335,4 +349,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Proyectos.js"></script>
 </body>
+
 </html>

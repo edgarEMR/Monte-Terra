@@ -3,13 +3,10 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#navMenu").removeClass();
   $("#navMenu").hide();
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#agregarMovimiento").toggle();
-  $("#agregarMaquina").toggle();
-  $("#agregarOperador").toggle();
-  $("#dividerTop").toggle();
 
   $("#logo").attr("href", "Maquinaria.php");
   $("#atrasMaquinaria").on("click", function () {

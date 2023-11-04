@@ -1,32 +1,15 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Desglose PEG");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
-
   $("#atras").on("click", function () {
-    location.href = "Proyectos.php";
+    history.back();
   });
 
   $("#inputProyectoID").val(getParameterByName("id"));

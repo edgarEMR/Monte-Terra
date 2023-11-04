@@ -124,9 +124,9 @@
             return $this->connect()->query("CALL spGestionPrototipo($idPrototipo, '$nombre', $metros, $idProyecto, '$opcion')");
         }
 
-        function gestionManzana($idManzana, $nombre, $numero, $idProyecto, $opcion)
+        function gestionManzana($idManzana, $nombre, $numero, $idProyecto, $idCalle, $opcion)
         {
-            return $this->connect()->query("CALL spGestionManzana($idManzana, '$nombre', $numero, $idProyecto, '$opcion')");
+            return $this->connect()->query("CALL spGestionManzana($idManzana, '$nombre', $numero, $idProyecto, $idCalle, '$opcion')");
         }
 
         function gestionEtapa($idEtapa, $numeroEtapa, $cantidadCasas, $precioExcedente, $totalMinimo, $idProyecto, $opcion)
@@ -143,20 +143,20 @@
         }
 
         function gestionLote($idLote, $numeroLote, $metrosExcedentes, $precioLista, $autorizado, $esParque, $esEsquina, $precioFinal,
-                    $precioVenta, $formaPago, $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, $opcion)
+                    $precioVenta, $montoSeparacion, $formaPago, $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionLote($idLote, '$numeroLote', $metrosExcedentes, $precioLista, $autorizado, $esParque, $esEsquina,
-            $precioFinal, $precioVenta, '$formaPago', $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, '$opcion')");
+            $precioFinal, $precioVenta, $montoSeparacion, '$formaPago', $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, '$opcion')");
         }
 
         function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 
-                            $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $idConceptoC,
+                            $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $comentario,
                             $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, $opcion)
         {
             
             return $this->connect()->query("CALL spGestionPago($idPago, '$concepto', $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario,
-                                                                $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $idConceptoC, 
+                                                                $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $comentario,
                                                                 $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, '$opcion')");
         }
 

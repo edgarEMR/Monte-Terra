@@ -1,28 +1,12 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Agregar Cotización");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Proyectos.php";

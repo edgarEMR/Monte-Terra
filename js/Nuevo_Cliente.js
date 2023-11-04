@@ -1,28 +1,12 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Clientes");
 
+  $("#navMenu").removeClass();
+  $("#navMenu").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Ventas.php";
@@ -122,9 +106,24 @@ $(document).ready(function () {
     var idCalle = $("#inputCalle").val();
     $.ajax({
       method: "POST",
-      url: "php/Lote_Procesos.php",
+      url: "php/Manzana_Procesos.php",
       cache: false,
       data: { accion: "obtener", id: idCalle },
+    }).done(function (result) {
+      $("#inputManzana").empty().html(result);
+      $("#inputManzana").selectpicker("destroy");
+      $("#inputManzana").selectpicker({ style: "", styleBase: "form-control" });
+    });
+  });
+
+  $("#inputManzana").change(function () {
+    var idCalle = $("#inputCalle").val();
+    var idManzana = $("#inputManzana").val();
+    $.ajax({
+      method: "POST",
+      url: "php/Lote_Procesos.php",
+      cache: false,
+      data: { accion: "obtener", calle: idCalle, manzana: idManzana },
     }).done(function (result) {
       $("#inputLote").empty().html(result);
       $("#inputLote").selectpicker("destroy");

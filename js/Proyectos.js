@@ -1,25 +1,21 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Proyectos");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearEtapa").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#agregarPago").on("click", function () {
-    location.href = "Detalle_Pago.php";
-  });
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#dividerBottom").toggle();
+  $("#crearProyecto").toggle();
+  $("#agregarPago").toggle();
+  $("#programarPago").toggle();
+  $("#agregarCotizacion").toggle();
+  $("#agregarUsuario").toggle();
+  $("#gestionProrrateo").toggle();
+  $("#desglosePEG").toggle();
+  $("#desgloseGeneral").toggle();
 });
 
 $(document).ready(function () {

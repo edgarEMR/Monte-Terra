@@ -1,29 +1,12 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Proveedores");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
     location.href = "Detalle_Pago.php";

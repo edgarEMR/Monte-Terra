@@ -88,59 +88,64 @@ if (isset($_POST['accion'])) {
         echo 'registrar';
         $cliente->setEsProspecto(0);
         echo $cliente->getNombre();
+        echo $cliente->getIdCliente();
         try {
             if ($cliente->getIdCliente() == 'NULL') {
                 echo 'ID cliente es NULL';
                 $proc = $coneccion->existeProspecto($cliente->getNombre(), $cliente->getApellidoPaterno(), $cliente->getTelefono());
                 $existe = $proc->fetch(PDO::FETCH_ASSOC);
+                echo $existe['cantidad'];
 
-                if ($existe) {
+                if ($existe['cantidad'] > 0) {
                     echo 'Cliente ya existe como prospecto';
                     header('Location: ../Nuevo_Cliente.php?success=2');
-                }
-            } else {
-                echo 'No esta como prospecto';
-                echo 'Try';
-                $procedure = $coneccion->gestionCliente(
-                    $cliente->getIdCliente(),
-                    $cliente->getNombre(),
-                    $cliente->getSegundoNombre(),
-                    $cliente->getApellidoPaterno(),
-                    $cliente->getApellidoMaterno(),
-                    $cliente->getEmail(),
-                    $cliente->getTelefono(),
-                    $cliente->getTipoVivienda(),
-                    $cliente->getTipoCredito(),
-                    $cliente->getCredito(),
-                    $cliente->getMedio(),
-                    $cliente->getEsProspecto(),
-                    $cliente->getIdProyecto(),
-                    $cliente->getIdEtapa(),
-                    $cliente->getIdPrototipo(),
-                    $cliente->getIdVendedor(),
-                    'V'
-                );
-                
-                echo 'Lo ejecuto';
-                
-                $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
-    
-                if($resultado) {
-                    $idCliente = $resultado['idCliente'];
-    
-                    $proc = $coneccion->gestionLote($_POST['lote'], '', 0, 0, 0, 0, 0, 0, $_POST['precioFinal'], $_POST['tipoCredito'], 
-                        'NULL', 0, 0, 0, $idCliente, $_SESSION['idUsuario'], 'V');
-                    $result = $proc->fetch(PDO::FETCH_ASSOC);
-    
-                    header('Location: ../Nuevo_Cliente.php?success=1');
                 } else {
-                    //header('Location: ../Nuevo_Cliente.php?success=0');
+                    echo 'No esta como prospecto';
+                    echo 'Try';
+                    $procedure = $coneccion->gestionCliente(
+                        $cliente->getIdCliente(),
+                        $cliente->getNombre(),
+                        $cliente->getSegundoNombre(),
+                        $cliente->getApellidoPaterno(),
+                        $cliente->getApellidoMaterno(),
+                        $cliente->getEmail(),
+                        $cliente->getTelefono(),
+                        $cliente->getTipoVivienda(),
+                        $cliente->getTipoCredito(),
+                        $cliente->getCredito(),
+                        $cliente->getMedio(),
+                        $cliente->getEsProspecto(),
+                        $cliente->getIdProyecto(),
+                        $cliente->getIdEtapa(),
+                        $cliente->getIdPrototipo(),
+                        $cliente->getIdVendedor(),
+                        'V'
+                    );
+                    
+                    echo 'Lo ejecuto';
+                    
+                    $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+
+                    echo $resultado;
+        
+                    if($resultado) {
+                        $idCliente = $resultado['idCliente'];
+        
+                        $proc = $coneccion->gestionLote($_POST['lote'], '', 0, 0, 0, 0, 0, 0, $_POST['precioFinal'], $_POST['separacion'], $_POST['tipoCredito'], 
+                            'NULL', 0, 0, 0, $idCliente, $_SESSION['idUsuario'], 'V');
+                            
+                        $result = $proc->fetch(PDO::FETCH_ASSOC);
+        
+                        header('Location: ../Nuevo_Cliente.php?success=1');
+                    } else {
+                        //header('Location: ../Nuevo_Cliente.php?success=0');
+                    }
                 }
-            }
+            } 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            //header('Location: ../Nuevo_Cliente.php?success=0');
+            header('Location: ../Nuevo_Cliente.php?success=0');
         } catch (Exception $error) {
             echo $error;
         }

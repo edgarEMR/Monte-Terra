@@ -1,37 +1,22 @@
-$(document).ready(function () {
-  getUniqueValuesFromColumn();
-});
-
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Créditos Por Pagar");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#dividerBottom").toggle();
 
   $("#atras").on("click", function () {
     history.back();
   });
 
   $("#inputProyectoID").val(getParameterByName("id"));
+});
+
+$(document).ready(function () {
+  getUniqueValuesFromColumn();
 });
 
 function sendVariables(pagina, id, name) {

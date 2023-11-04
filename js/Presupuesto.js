@@ -1,31 +1,26 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Presupuesto");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCliente").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#desglosePEG").toggle();
-  $("#desgloseGeneral").toggle();
-  $("#dividerBottom").toggle();
-
   $("#atras").on("click", function () {
-    history.back();
+    location.href = "Portafolio.php?id=" + getParameterByName("id");
   });
 });
 
-//$('select').selectpicker();
+$(".selectpicker").selectpicker({
+  style: "",
+  styleBase: "form-control",
+});
+
+$(document).ready(function () {
+  $("#presupuesto").text($("#totalPresupuesto").val());
+});
 
 (() => {
   "use strict";

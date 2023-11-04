@@ -1,29 +1,16 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Perfil");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#crearProspecto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#gestionProrrateo").toggle();
-  $("#agregarAbono").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarUsuario").toggle();
-  $("#dividerBottom").toggle();
-
   var depaID = $("#depaID").val();
   var href = "";
-  console.log(depaID);
+
   switch (depaID) {
     case "1":
       href = "Menu.php";

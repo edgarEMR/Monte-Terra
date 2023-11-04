@@ -46,26 +46,26 @@ if (isset($_POST['accion'])) {
     $pago->setIdProveedor($_POST['proveedor'] ?: 'NULL');
     $pago->setIdEmpleado($_POST['empleado'] ?: 'NULL');
 
-    echo $pago->getIdPago() . '<br>';
-    echo $pago->getConcepto() . '<br>';
-    echo $pago->getImporte() . '<br>';
-    echo $pago->getFechaPago() . '<br>';
-    echo $pago->getEsIngreso() . '<br>';
-    echo $pago->getIdTipoPago() . '<br>';
-    echo $pago->getIdArea() . '<br>';
-    echo $pago->getIdUsuario() . '<br>';
-    echo $pago->getEsGeneral() . '<br>';
-    echo $pago->getIdProyecto() . '<br>';
-    echo $pago->getIdEtapa() . '<br>';
-    echo $pago->getIdFamilia() . '<br>';
-    echo $pago->getIdConcepto() . '<br>';
-    echo $pago->getIdConceptoB() . '<br>';
-    echo $pago->getComentario() . '<br>';
-    echo $pago->getIdCliente() . '<br>';
-    echo $pago->getIdAportador() . '<br>';
-    echo $pago->getIdBanco() . '<br>';
-    echo $pago->getIdProveedor() . '<br>';
-    echo $pago->getIdEmpleado() . '<br>';
+    echo 'ID: ' . $pago->getIdPago() . '<br>';
+    echo 'Concepto: ' . $pago->getConcepto() . '<br>';
+    echo 'Importe: ' . $pago->getImporte() . '<br>';
+    echo 'Fecha: ' . $pago->getFechaPago() . '<br>';
+    echo 'Es ingreso: ' . $pago->getEsIngreso() . '<br>';
+    echo 'ID pago: ' . $pago->getIdTipoPago() . '<br>';
+    echo 'ID area: ' . $pago->getIdArea() . '<br>';
+    echo 'ID usuario: ' . $pago->getIdUsuario() . '<br>';
+    echo 'Es general: ' . $pago->getEsGeneral() . '<br>';
+    echo 'ID proyecto: ' . $pago->getIdProyecto() . '<br>';
+    echo 'ID etaoa: ' . $pago->getIdEtapa() . '<br>';
+    echo 'ID familia: ' . $pago->getIdFamilia() . '<br>';
+    echo 'ID concepto: ' . $pago->getIdConcepto() . '<br>';
+    echo 'ID concepto b: ' . $pago->getIdConceptoB() . '<br>';
+    echo 'Comentario: ' . $pago->getComentario() . '<br>';
+    echo 'ID cliente: ' . $pago->getIdCliente() . '<br>';
+    echo 'ID aportador: ' . $pago->getIdAportador() . '<br>';
+    echo 'ID banco: ' . $pago->getIdBanco() . '<br>';
+    echo 'ID proveedor: ' . $pago->getIdProveedor() . '<br>';
+    echo 'ID empleado: ' . $pago->getIdEmpleado() . '<br>';
 
     if ($_POST['accion'] == 'registrar') {
 
@@ -191,7 +191,7 @@ if (isset($_POST['accion'])) {
 
             echo 'Try';
             $procedure = $coneccion->gestionPago(
-                0,
+                $pago->getIdPago(),
                 $pago->getConcepto(),
                 $pago->getImporte(),
                 $pago->getEsIngreso(),

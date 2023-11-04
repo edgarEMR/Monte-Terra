@@ -1,26 +1,16 @@
 $("#navigation").load("Navbar.php", function () {
   $("#titulo").text("Ventas");
 
+  $("#navMenu").removeClass();
+  $("#navMenu").hide();
+  $("#navMaqu").removeClass();
+  $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#crearProyecto").toggle();
-  $("#crearEtapa").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCotizacion").toggle();
-  $("#crearCliente").toggle();
-  $("#crearProspecto").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#gestionProrrateo").toggle();
-
   $("#logo").attr("href", "Ventas.php");
   $("#atras").on("click", function () {
-    location.href = "Ventas.php";
+    history.back();
   });
 });
 

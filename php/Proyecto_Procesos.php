@@ -63,7 +63,7 @@ if (isset($_POST['accion'])) {
 
                 foreach ($_POST['numeros'] as $numeros) {
                     $nombre = "Manzana " . $manzanaCount;
-                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'I');
+                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 0, 'I');
                     $resultado = $proc->fetch(PDO::FETCH_ASSOC);
 
                     echo '<br> Agregada Manzana ' . ($manzanaCount);
@@ -151,7 +151,7 @@ if (isset($_POST['accion'])) {
                 }
             }
 
-            $proc = $coneccion->gestionManzana(0, '', 0, $idProyecto, 'S');
+            $proc = $coneccion->gestionManzana(0, '', 0, $idProyecto, 0, 'S');
             while ($row = $proc->fetch(PDO::FETCH_ASSOC)) {
                 $manzanaID[] = $row['idManzana'];
                 $maxManzana++;
@@ -159,11 +159,11 @@ if (isset($_POST['accion'])) {
 
             foreach ($_POST['numeros'] as $numeros) {
                 $nombre = "Manzana " . $manzanaCount;
-                $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'U');
+                $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 0, 'U');
                 $resultado = $proc->fetch(PDO::FETCH_ASSOC);
 
                 if (!$resultado) {
-                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 'I');
+                    $proc = $coneccion->gestionManzana(0, $nombre, $numeros, $idProyecto, 0, 'I');
                     $resultado = $proc->fetch(PDO::FETCH_ASSOC);
                 }
 
@@ -178,7 +178,7 @@ if (isset($_POST['accion'])) {
                 for ($i=$manzanaCount; $i < $maxManzana; $i++) { 
                     $id = $i - $manzanaCount;
                     echo"<br>".  $manzanaID[$id] ."<br>";
-                    $proc = $coneccion->gestionManzana($reverseManzanaID[$id], '', 0, 0, 'D');
+                    $proc = $coneccion->gestionManzana($reverseManzanaID[$id], '', 0, 0, 0, 'D');
                     $resultado = $proc->fetch(PDO::FETCH_ASSOC);
                 }
             }

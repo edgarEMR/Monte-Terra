@@ -5,7 +5,26 @@ include_once('../modelos/Etapa.php');
 
 if (isset($_POST['accion'])) {
 
-    if ($_POST['accion'] == 'editar') {
+    if ($_POST['accion'] == 'obtener') {
+        $idCalle = $_POST['id'];
+        $coneccion = new DB(require 'php/config.php');
+        
+        try {   
+
+            $procedure = $coneccion->gestionManzana(0, '', 0, 0, $idCalle, "L");
+            
+            while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
+                echo "<option value=".$rows['idManzana'].">".$rows['manzana']."</option>";
+            }
+            
+        } catch (PDOException $err) {
+            $errorCode = $err->getCode();
+            echo $err . ' ' . $errorCode;
+        }
+            
+    }    
+    
+    /*if ($_POST['accion'] == 'editar') {
         $idProyecto = $_POST['proyectoID'];
         $coneccion = new DB(require 'php/config.php');
         
@@ -20,7 +39,6 @@ if (isset($_POST['accion'])) {
                 $_POST['parque'] ?: 0,
                 $_POST['esquina'] ?: 0,
                 $_POST['precioFinal'],
-                0,
                 0,
                 '',
                 0,
@@ -48,7 +66,7 @@ if (isset($_POST['accion'])) {
         
         try {   
 
-            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0, 0, 0, 0, 0,'',0, 0, 0, 0, 0, 0, "E");
+            $procedure = $coneccion->gestionLote($idLote, '', 0, 0, 0, 0, 0, 0, 0,'',0, 0, 0, 0, 0, 0, "E");
             
             $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
             echo json_encode($resultado[0]);
@@ -57,28 +75,6 @@ if (isset($_POST['accion'])) {
             echo $err . ' ' . $errorCode;
         }
             
-    }
-
-    if ($_POST['accion'] == 'obtener') {
-        $idCalle = $_POST['calle'];
-        $idManzana = $_POST['manzana'];
-        $coneccion = new DB(require 'php/config.php');
-        
-        try {   
-
-            $procedure = $coneccion->gestionLote(0, '', 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, $idCalle, 0, 0, "S");
-            
-            while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
-                if ($rows['idVendedor'] == null && $rows['idManzana'] == $idManzana) {
-                    echo "<option value=".$rows['idLote'].">".$rows['numeroLote']."</option>";
-                }
-            }
-            
-        } catch (PDOException $err) {
-            $errorCode = $err->getCode();
-            echo $err . ' ' . $errorCode;
-        }
-            
-    }
+    }*/
 }
 ?>

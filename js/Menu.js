@@ -1,18 +1,16 @@
 $(document).ready(function () {});
 
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("");
+  $("#titulo").text("Menu principal");
 
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navMenu").removeClass();
   $("#navMenu").hide();
   $("#navMaqu").removeClass();
   $("#navMaqu").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#atras").on("click", function () {
-    location.href = "Proyectos.php";
-  });
 
   $("#inputProyectoID").val(getParameterByName("id"));
 });

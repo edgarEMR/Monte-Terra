@@ -147,7 +147,7 @@
             </div>
             <div id="divManzanas" class="row">
                 <?php
-                    $procedure = $conection->gestionManzana(0, '', 0, $idProyecto, 'S');
+                    $procedure = $conection->gestionManzana(0, '', 0, $idProyecto, 0, 'S');
                     $i = 0;
                     while ($row = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo '<div class="form-group col-md-4">';

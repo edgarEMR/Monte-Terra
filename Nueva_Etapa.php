@@ -156,7 +156,7 @@
                     echo "</tr>";
                     echo "</thead>";
                     echo "<tbody>";
-                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, $row2['idCalle'], 0, 0, 'S');
+                        $proc3 = $conection->gestionLote(0, '', 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, $row2['idCalle'], 0, 0, 'S');
                         while ($row3 = $proc3->fetch(PDO::FETCH_ASSOC)) {
                             echo "<tr>";
                             echo "<td>".$row3['numeroLote']."</td>";
@@ -303,7 +303,7 @@
                             <select class="form-control selectpicker" data-live-search="true" title="Elige..."
                                 name="manzana" id="inputManzana" required>
                                 <?php
-                                $procProto = $conection->gestionManzana(0, '', 0, $idProyecto, 'S');
+                                $procProto = $conection->gestionManzana(0, '', 0, $idProyecto, 0, 'S');
                                 while ($rowProto = $procProto->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value=".$rowProto['idManzana'].">Manzana - ".$rowProto['numero']."</option>";
                                 }

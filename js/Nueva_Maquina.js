@@ -3,22 +3,10 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#navMenu").removeClass();
   $("#navMenu").hide();
+  $("#navVentas").removeClass();
+  $("#navVentas").hide();
   $("#navConst").removeClass();
   $("#navConst").hide();
-
-  $("#crearProyecto").toggle();
-  $("#crearPresupuesto").toggle();
-  $("#agregarPago").toggle();
-  $("#crearCotizacion").toggle();
-  $("#dividerTop").toggle();
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
-  $("#agregarMovimiento").toggle();
-  $("#agregarMaquina").toggle();
-  $("#agregarOperador").toggle();
-  $("#atras").toggle();
 
   $("#logo").attr("href", "Maquinaria.php");
   $("#atrasMaquinaria").on("click", function () {

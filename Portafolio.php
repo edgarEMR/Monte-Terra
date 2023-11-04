@@ -48,7 +48,7 @@
 
     <div id="tabla-desglose-portafolio" class="table-responsive">
 
-        <table id="tabla-portafolio" class="table table-hover table-bordered">
+        <table id="tabla-portafolio" class="table table-hover table-bordered align-middle">
             <?php
                 if($idProyecto != 13) {
             ?>
