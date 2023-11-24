@@ -66,3 +66,7 @@ thead {
   padding: 2%;
   border-radius: 3%;
 }
+
+#liveAlert {
+  width: 25%;
+}

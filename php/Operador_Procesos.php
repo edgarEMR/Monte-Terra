@@ -5,9 +5,6 @@ include_once('../modelos/Operador.php');
 
 if (isset($_POST['accion'])) {
 
-    ECHO $_POST["nombre"] . '<br>';
-    ECHO $_POST["RFCAportador"] . '<br>';
-
     $operador = new Operador(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
 
@@ -78,7 +75,7 @@ if (isset($_POST['accion'])) {
 
     if ($_POST['accion'] == 'nomina') {
 
-        echo 'nomina';
+        echo 'nomina' . '</br>';
 
         try {
 
@@ -86,42 +83,45 @@ if (isset($_POST['accion'])) {
             $numOperadores = count($_POST['sueldo']);
 
             for ($i=0; $i < $numOperadores; $i++) { 
-                // $pago->setConcepto();
-                // $pago->setImporte($_POST['total'][$i]);
-                echo "Nómina " . $_POST['nombre'][$i] . '= ' . $_POST['total'][$i] . '</br>';
-                // $procedure = $coneccion->gestionPago(
-                //     0,
-                //     $pago->getConcepto(),
-                //     $pago->getImporte(),
-                //     $pago->getEsIngreso(),
-                //     $pago->getIdTipoPago(),
-                //     $pago->getIdArea(),
-                //     $pago->getIdUsuario(),
-                //     $pago->getEsGeneral(),
-                //     $pago->getIdProyecto(),
-                //     $pago->getIdEtapa(),
-                //     $pago->getIdFamilia(),
-                //     $pago->getIdConcepto(),
-                //     $pago->getIdConceptoB(),
-                //     $pago->getComentario(),
-                //     $pago->getIdCliente(),
-                //     $pago->getIdAportador(),
-                //     $pago->getIdBanco(),
-                //     $pago->getIdProveedor(),
-                //     $pago->getIdEmpleado(),
-                //     'I'
-                // );
+                //echo "Nómina " . $_POST['nombre'][$i] . '= ' . $_POST['total'][$i] . '</br>';
+                $concepto = "Nómina - " . $_POST['nombre'][$i] . ' - ' . $_POST['nombreMaquina'][$i];
+                $importe = $_POST['total'][$i];
+                echo $concepto . '</br>';
+                echo $importe . '</br>';
+                $procedure = $coneccion->gestionPagoProgramacion(
+                    0,
+                    $concepto,
+                    $importe,
+                    0,
+                    3,
+                    21,
+                    $_SESSION['idUsuario'] ?: 'NULL',
+                    1,
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'NULL',
+                    'I'
+                );
 
-                // $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
+                $resultado = $procedure->fetch(PDO::FETCH_ASSOC);
             }
             
-            //header('Location: ../Maquinaria.php');
+            header('Location: ../Maquinaria.php?success=1');
 
 
         } catch (PDOException $err) {
             $errorCode = $err->getCode();
             echo '<br>' . $err;
-            header("Location: ../Nuevo_Aportador.php?error=1");
+            //header("Location: ../Nuevo_Aportador.php?error=1");
         } catch (Exception $error) {
             echo $error;
         }

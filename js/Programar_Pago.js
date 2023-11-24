@@ -1,5 +1,5 @@
 $("#navigation").load("Navbar.php", function () {
-  $("#titulo").text("Movimientos");
+  $("#titulo").text("Programación de Pagos");
 
   $("#navVentas").removeClass();
   $("#navVentas").hide();
@@ -8,13 +8,13 @@ $("#navigation").load("Navbar.php", function () {
   $("#navConst").removeClass();
   $("#navConst").hide();
 
-  $("#agregarAportador").toggle();
-  $("#agregarCredito").toggle();
-  $("#agregarProveedor").toggle();
-  $("#agregarPrestamo").toggle();
+  // $("#agregarAportador").toggle();
+  // $("#agregarCredito").toggle();
+  // $("#agregarProveedor").toggle();
+  // $("#agregarPrestamo").toggle();
 
   $("#atras").on("click", function () {
-    location.href = "Proyectos.php";
+    location.href = "Programacion_Pago.php";
   });
 });
 
@@ -48,35 +48,23 @@ $(document).ready(function () {
   //Cambio de panel al seleccionar una pestaña
   switch ($("#idTipoArea").text()) {
     case "0":
-      $("#ingreso-tab").addClass("active");
-      $("#ingreso-tab-pane").addClass("show active");
+      $("#egreso-tab").addClass("active");
+      $("#egreso-tab-pane").addClass("show active");
       break;
 
     case "1":
-      if ($("#idEsIngreso").text() === "1") {
-        $("#ingreso-tab").addClass("active");
-        $("#ingreso-tab-pane").addClass("show active");
+      $("#egreso-tab").addClass("active");
+      $("#egreso-tab-pane").addClass("show active");
 
-        $("#egreso-tab").prop("disabled", true);
-        $("#general-tab").prop("disabled", true);
+      $("#general-tab").prop("disabled", true);
 
-        $("#inputOgIngreso").trigger("change");
-      } else {
-        $("#egreso-tab").addClass("active");
-        $("#egreso-tab-pane").addClass("show active");
-
-        $("#ingreso-tab").prop("disabled", true);
-        $("#general-tab").prop("disabled", true);
-
-        $("#inputOgEgreso").trigger("change");
-      }
+      $("#inputOgEgreso").trigger("change");
       break;
 
     case "2":
       $("#general-tab").addClass("active");
       $("#general-tab-pane").addClass("show active");
 
-      $("#ingreso-tab").prop("disabled", true);
       $("#egreso-tab").prop("disabled", true);
 
       $("#inputOgEgreso").trigger("change");
@@ -85,6 +73,21 @@ $(document).ready(function () {
     default:
       break;
   }
+
+  var esIngreso = 0;
+  $.ajax({
+    method: "POST",
+    url: "php/Area_Procesos.php",
+    cache: false,
+    data: { accion: "obtener", tipo: esIngreso },
+  }).done(function (result) {
+    $("#inputOgGeneral").empty().html(result);
+    $("#inputOgGeneral").selectpicker("destroy");
+    $("#inputOgGeneral").selectpicker({
+      style: "",
+      styleBase: "form-control",
+    });
+  });
 
   $("#inputOgIngreso").change(function () {
     var concepto = $("#inputOgIngreso").find("option:selected").text();
@@ -187,32 +190,6 @@ $(document).ready(function () {
         style: "",
         styleBase: "form-control",
       });
-    });
-  });
-
-  //Obtener areas en General dependiendo si es Ingreso o Egreso
-  $('input[type=radio][name="esIngreso"]').on("change", function () {
-    var esIngreso = $(this).val();
-    $.ajax({
-      method: "POST",
-      url: "php/Area_Procesos.php",
-      cache: false,
-      data: { accion: "obtener", tipo: esIngreso },
-    }).done(function (result) {
-      $("#inputOgGeneral").empty().html(result);
-      $("#inputOgGeneral").selectpicker("destroy");
-      $("#inputOgGeneral").selectpicker({
-        style: "",
-        styleBase: "form-control",
-      });
-
-      $("#divConceptoGen").hide();
-      $("#divConceptoGenA").hide();
-      $("#divConceptoGenB").hide();
-      $("#divEmpleado").hide();
-      $("#divInstitucion").hide();
-      $("#divProyectos").hide();
-      $("#divNomina").hide();
     });
   });
 
@@ -564,7 +541,7 @@ function checkGeneral() {
   $("#inputProyectoGen").addClass("is-valid");
 
   switch ($("#inputOgGeneral").prop("selectedIndex")) {
-    case 1:
+    case 2:
       console.log("PEG selected");
       $("#divConceptoGenA").show();
       $("#divConceptoGenB").show();
@@ -576,7 +553,7 @@ function checkGeneral() {
       $("#inputConceptoGenB").removeClass("is-valid");
       break;
 
-    case 2:
+    case 3:
       console.log("PES selected");
       $("#divConceptoGen").show();
 
@@ -585,7 +562,7 @@ function checkGeneral() {
       $("#inputConceptoGen").removeClass("is-valid");
       break;
 
-    case 3:
+    case 4:
       console.log("EES selected");
       $("#divConceptoGen").show();
 
@@ -594,35 +571,20 @@ function checkGeneral() {
       $("#inputConceptoGen").removeClass("is-valid");
       break;
 
-    case 4:
+    case 5:
       console.log("Credito selected");
-      if ($("#esIngresoGen").is(":checked")) {
-        $("#divConceptoGenA").show();
-        $("#divConceptoGenB").show();
-        $("#divInstitucion").show();
 
-        $("#inputConceptoGenA").prop("required", true);
-        $("#inputConceptoGenB").prop("required", true);
-        $("#inputInstitucion").prop("required", true);
+      $("#divConceptoGen").show();
+      $("#divInstitucion").show();
 
-        $("#inputConceptoGenA").removeClass("is-valid");
-        $("#inputConceptoGenB").removeClass("is-valid");
-        $("#inputInstitucion").removeClass("is-valid");
-      }
+      $("#inputConceptoGen").prop("required", true);
+      $("#inputInstitucion").prop("required", true);
 
-      if ($("#esEgresoGen").is(":checked")) {
-        $("#divConceptoGen").show();
-        $("#divInstitucion").show();
-
-        $("#inputConceptoGen").prop("required", true);
-        $("#inputInstitucion").prop("required", true);
-
-        $("#inputConceptoGen").removeClass("is-valid");
-        $("#inputInstitucion").removeClass("is-valid");
-      }
+      $("#inputConceptoGen").removeClass("is-valid");
+      $("#inputInstitucion").removeClass("is-valid");
       break;
 
-    case 5:
+    case 6:
       console.log("Prestamo selected");
       $("#divConceptoGen").show();
       $("#divEmpleado").show();
@@ -634,7 +596,7 @@ function checkGeneral() {
       $("#inputEmpleado").removeClass("is-valid");
       break;
 
-    case 6:
+    case 7:
       console.log("Prorrateo Admin selected");
       $("#divConceptoGenA").show();
       $("#divConceptoGenB").show();
@@ -649,7 +611,7 @@ function checkGeneral() {
       $("#inputProyectoGen").removeClass("is-valid");
       break;
 
-    case 7:
+    case 8:
       console.log("Prorrateo Int selected");
       $("#divConceptoGen").show();
       $("#divProyectos").show();
@@ -661,7 +623,7 @@ function checkGeneral() {
       $("#inputProyectoGen").removeClass("is-valid");
       break;
 
-    case 8:
+    case 9:
       console.log("Nomina selected");
       $("#divNomina").show();
 

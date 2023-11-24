@@ -25,7 +25,7 @@ $(document).ready(function () {
     console.log("SUCCESS");
     const liveAlert = $("#liveAlert");
     if (getParameterByName("success") == 1) {
-      $(".alert-body").text("Pago agregada correctamente");
+      $(".alert-body").text("Movimiento agregado correctamente");
       liveAlert.addClass("text-bg-success");
     } else {
       $(".alert-body").text(

@@ -188,7 +188,7 @@
                         echo "<td><a onclick=\"sendVariables('Aportaciones_Pagar.php', " . $rows['idProyecto'] . ", 'id');\">" . $rows['nombre'] . "</a></td>";
                         echo "<td>$" . number_format($rows['monto'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['pagado'], 2) . "</td>";
-                        $pendiente = $rows['monto'] - number_format($rows['pagado']);
+                        $pendiente = $rows['monto'] - $rows['pagado'];
                         echo "<td>$" . number_format($pendiente, 2) . "</td>";
                         echo "</tr>";
 

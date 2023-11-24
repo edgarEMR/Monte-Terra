@@ -18,7 +18,28 @@ $("#navigation").load("Navbar.php", function () {
   });
 });
 
-$(document).ready(function () {});
+$(document).ready(function () {
+  //Detectar mensaje de error
+  if (getParameterByName("success")) {
+    console.log("SUCCESS");
+    const liveAlert = $("#liveAlert");
+    if (getParameterByName("success") == 1) {
+      $(".alert-body").text("Movimiento agregado correctamente");
+      liveAlert.addClass("text-bg-success");
+    } else {
+      $(".alert-body").text(
+        "No fue posible agregar el movimiento, intente nuevamente"
+      );
+      liveAlert.addClass("text-bg-danger");
+    }
+
+    liveAlert.alert();
+
+    setTimeout(() => {
+      liveAlert.alert("close");
+    }, 5000);
+  }
+});
 
 (() => {
   "use strict";
@@ -94,4 +115,24 @@ function calcularNominaTotal(index) {
   const suma = sueldo + extras - descuento;
 
   $(arrayTotal[index]).val(suma);
+}
+
+function getParameterByName(name, url = window.location.search) {
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function calcularImporte() {
+  var cantidad = $("#inputCantidad").val();
+  var precioUnitario = $("#inputPrecioUn").val();
+  var modificacion = parseFloat($("#inputModificacion").val()) || 0;
+  var precioFinal = $("#inputImporte");
+
+  var pFinal = cantidad * precioUnitario + modificacion;
+  console.log(pFinal);
+  precioFinal.val(pFinal);
 }

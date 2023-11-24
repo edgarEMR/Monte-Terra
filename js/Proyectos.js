@@ -10,7 +10,7 @@ $("#navigation").load("Navbar.php", function () {
 
   $("#crearProyecto").toggle();
   $("#agregarPago").toggle();
-  $("#programarPago").toggle();
+  $("#programacionPago").toggle();
   $("#agregarCotizacion").toggle();
   $("#agregarUsuario").toggle();
   $("#gestionProrrateo").toggle();

@@ -160,6 +160,25 @@
                                                                 $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, '$opcion')");
         }
 
+        function gestionPagoProgramacion($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 
+                            $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $comentario,
+                            $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, $idPagoMaquinaria, $opcion)
+        {
+            
+            return $this->connect()->query("CALL spGestionPagoProgramacion($idPago, '$concepto', $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario,
+                                                                $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $comentario,
+                                                                $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, $idPagoMaquinaria, '$opcion')");
+        }
+
+        function obtenerPagosProgramados() {
+            return $this->connect()->query("CALL spObtenerPagosProgramados()");
+        }
+        
+        function guardarPago($idPago)
+        {
+            return $this->connect()->query("CALL spGuardarPago($idPago)");
+        }   
+
         function gestionCliente($idCliente, $nombre, $segundoNombre, $apellidoPaterno, $apellidoMaterno, $email, $telefono, $tipoVivienda, 
                                 $tipoCredito, $credito, $medio, $esProspecto, $idProyecto, $idEtapa, $idPrototipo, $idVendedor, $opcion)
         {

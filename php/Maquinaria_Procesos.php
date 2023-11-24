@@ -43,7 +43,7 @@ if (isset($_POST['accion'])) {
             $procedure = $coneccion->gestionPagoMaquinaria(
                 0,
                 $_POST['concepto'] ?: 'NULL',
-                $_POST['conceptoB'],
+                $_POST['conceptoB'] ?: 'NULL',
                 $_POST['cantidad'] ?: 'NULL',
                 $_POST['precioUnitario'] ?: 'NULL',
                 $_POST['modificacion'] ?: 'NULL',

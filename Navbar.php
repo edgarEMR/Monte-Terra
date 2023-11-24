@@ -64,8 +64,10 @@
             style="text-decoration: none; display: none">Agregar Etapa</button>
         <button id="agregarPago" type="button" class="btn btn-link" onclick="location.href='Detalle_Pago.php'"
             style="text-decoration: none; display: none">Agregar Movimiento</button>
-        <button id="programarPago" type="button" class="btn btn-link" onclick="location.href='Programacion_Pago.php'"
+        <button id="programacionPago" type="button" class="btn btn-link" onclick="location.href='Programacion_Pago.php'"
             style="text-decoration: none; display: none">Programación Pagos</button>
+        <button id="programarPago" type="button" class="btn btn-link" onclick="location.href='Programar_Pago.php'"
+            style="text-decoration: none; display: none">Programar Pagos</button>
         <button id="agregarPresupuesto" type="button" class="btn btn-link"
             onclick="sendVariables('Presupuestos.php', $('#inputProyectoID').val(), 'id')"
             style="text-decoration: none; display: none">Agregar Presupuesto</button>
