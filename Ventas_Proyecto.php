@@ -51,62 +51,27 @@
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=2>AUTORIZADO
+                    <th col-index=2>LOTES / CASAS
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=3>CALLE
+                    <th col-index=3>MT2 EXCEDENTE
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=4>LOTE
+                    <th col-index=4>VENTA
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=5>NOMBRE
+                    <th col-index=5>COBRADO
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=6>PRECIO LISTA
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=7>PRECIO VENTA
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=8>PROTOTIPO
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=9>M2 EXCEDENTES
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=10>M2 EXCEDENTE
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=11>TOTAL
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=12>COBRADO
-                        <select class="table-filter" onchange="filter_rows()">
-                            <option value="all">Todos</option>
-                        </select>
-                    </th>
-                    <th col-index=13>PENDIENTE
+                    <th col-index=6>POR COBRAR
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
@@ -118,27 +83,12 @@
                     $procedure = $conection->resumenVentasProyecto($idProyecto);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td>Etapa " . $rows['numeroEtapa'] . "</td>";
-                        if ($rows['autorizado']) {
-                            echo "<td>Autorizado</td>";
-                        } else {
-                            echo "<td>No autorizado</td>";
-                        }
-                        echo "<td>" . $rows['calle'] . "</td>";
-                        echo "<td>" . $rows['numeroLote'] . "</td>";
-                        echo "<td>" . $rows['nombreCliente'] . "</td>";
-                        echo "<td>$" . number_format($rows['precioLista'], 2) . "</td>";
-                        if (is_null($rows['precioVenta'])) {
-                            echo "<td> - </td>";
-                        } else {
-                            echo "<td>$" . number_format($rows['precioVenta'], 2) . "</td>";
-                        }
-                        echo "<td>" . $rows['prototipo'] . "</td>";
-                        echo "<td>" . $rows['metrosExcedentes'] . "</td>";
-                        echo "<td>$" . number_format($rows['m2Excedente'], 2) . "</td>";
-                        echo "<td>$" . number_format($rows['total'], 2) . "</td>";
+                        echo "<td><a onclick=\"sendVariables('Ventas_Etapa.php', " . $rows['idEtapa'] . ", 'id');\">Etapa " . $rows['numeroEtapa'] . "</a></td>";
+                        echo "<td>" . $rows['cantidadCasas'] . "</td>";
+                        echo "<td>" . $rows['precioExcedente'] . "</td>";
+                        echo "<td>$" . number_format($rows['venta'], 2) . "</td>";
                         echo "<td>$" . number_format($rows['cobrado'], 2) . "</td>";
-                        echo "<td>$" . number_format($rows['pendiente'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['porCobrar'], 2) . "</td>";
                         echo "</tr>";
                     }
                 ?>

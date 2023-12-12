@@ -136,9 +136,9 @@ if (isset($_POST['accion'])) {
                             
                         $result = $proc->fetch(PDO::FETCH_ASSOC);
         
-                        header('Location: ../Nuevo_Cliente.php?success=1');
+                        header('Location: ../Confirmacion_Compra.php?id=' . $result['idLote'] . '&new=1');
                     } else {
-                        //header('Location: ../Nuevo_Cliente.php?success=0');
+                        header('Location: ../Nuevo_Cliente.php?success=0');
                     }
                 }
             } 

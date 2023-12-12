@@ -54,29 +54,30 @@
             ?>
             <thead>
                 <tr class="table-primary">
-                    <th col-index=1>FECHA
+                    <th col-index=1>FOLIO</th>
+                    <th col-index=2>FECHA
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=2>INGRESO</th>
-                    <th col-index=3>EGRESO</th>
-                    <th col-index=4>CONCEPTO
+                    <th col-index=3>INGRESO</th>
+                    <th col-index=4>EGRESO</th>
+                    <th col-index=5>CONCEPTO
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=5>PROVEEDOR
+                    <th col-index=6>PROVEEDOR
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=6>TIPO DE PAGO
+                    <th col-index=7>TIPO DE PAGO
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
                     </th>
-                    <th col-index=7>ÁREA
+                    <th col-index=8>ÁREA
                         <select class="table-filter" onchange="filter_rows()">
                             <option value="all">Todos</option>
                         </select>
@@ -90,6 +91,7 @@
                     $total = 0;
                     while($rows = $procedure->fetch(PDO::FETCH_ASSOC)){
                         echo "<tr>";
+                        echo "<td>" . $rows['folioPago'] . "</td>";
                         echo "<td>" . $rows['fechaPago'] . "</td>";
                         if($rows['esIngreso']){
                             echo "<td>$" . number_format($rows['importe'], 2) . "</td>";

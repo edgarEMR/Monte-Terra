@@ -1,0 +1,24 @@
+h1 {
+  padding-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+h2 {
+  padding-top: 4%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: center;
+}
+
+#tabla-resumen {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#botones {
+  margin-left: auto;
+  margin-right: auto;
+}

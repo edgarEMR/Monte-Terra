@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventas</title>
-    <link rel="stylesheet" href="css/Ventas.css">
+    <link rel="stylesheet" href="css/Ventas_Etapa.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
+
 <body>
     <div id="navigation" class="top">
 
@@ -28,7 +30,7 @@
         if(isset($_GET["id"]))
         {
             $idEtapa = $_GET["id"];
-            $proc = $conection->gestionEtapa($idEtapa, '', 0, 0, 0, 0, 'E');
+            $proc = $conection->gestionEtapa($idEtapa, 0, 0, 0, 0, 0, 'E');
             $rows = $proc->fetch(PDO::FETCH_ASSOC);
 
             $numeroEtapa = $rows['numeroEtapa'];
@@ -37,21 +39,77 @@
     ?>
 
     <div id="resumen" class="table-responsive">
-        
+
         <div id="titulo">
             <!--TOTAL DE CLIENTES POR PROYECTO-->
-            <h2 class="text-primary"><?php echo $nombreProyecto . " | Etapa " . $numeroEtapa;?></h2>
+            <h2 class="text-primary">Etapa <?php echo $numeroEtapa;?></h2>
         </div>
-        
+
         <table id="tabla-resumen" class="table table-hover">
             <thead>
                 <tr class="table-primary">
-                    <th>NOMBRE</th>
-                    <th>LOTE</th>
-                    <th>MANZANA</th>
-                    <th>PRECIO VENTA</th>
-                    <th>PAGADO</th>
-                    <th>PENDIENTE</th>
+                    <th col-index=1>FOLIO <br>VENTA<br>
+                    </th>
+                    <th col-index=2>AUTORIZADO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=3>CALLE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=4>LOTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=5>NOMBRE <br>
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=6>PRECIO LISTA
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=7>PRECIO VENTA
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=8>PROTOTIPO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=9>M2 EXCEDENTES
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=10>M2 EXCEDENTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=11>TOTAL <br>
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=12>COBRADO
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
+                    <th col-index=13>PENDIENTE
+                        <select class="table-filter" onchange="filter_rows()">
+                            <option value="all">Todos</option>
+                        </select>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -59,20 +117,39 @@
                     $procedure = $conection->resumenVentasEtapa($idEtapa);
                     while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
-                        echo "<td>" . $rows['nombre'] . "</td>";
-                        echo "<td>" . $rows['lote'] . "</td>";
-                        echo "<td>" . $rows['manzana'] . "</td>";
-                        echo "<td>" . $rows['precio'] . "</td>";
-                        echo "<td>" . $rows['pagado'] . "</td>";
-                        echo "<td>" . $rows['pendiente'] . "</td>";
+                        if ($rows['folioVenta'] === "-") {
+                            echo "<td>" . $rows['folioVenta'] . "</td>";
+                        } else {
+                            echo "<td><a onclick=\"sendVariables('Confirmacion_Compra.php', " . $rows['idLote'] . ", 'id');\">" . $rows['folioVenta'] . "</a></td>";
+                        }
+                        if ($rows['autorizado']) {
+                            echo "<td>Autorizado</td>";
+                        } else {
+                            echo "<td>No autorizado</td>";
+                        }
+                        echo "<td>" . $rows['calle'] . "</td>";
+                        echo "<td>" . $rows['numeroLote'] . "</td>";
+                        echo "<td>" . $rows['nombreCliente'] . "</td>";
+                        echo "<td>$" . number_format($rows['precioLista'], 2) . "</td>";
+                        if (is_null($rows['precioVenta'])) {
+                            echo "<td> - </td>";
+                        } else {
+                            echo "<td>$" . number_format($rows['precioVenta'], 2) . "</td>";
+                        }
+                        echo "<td>" . $rows['prototipo'] . "</td>";
+                        echo "<td>" . $rows['metrosExcedentes'] . "</td>";
+                        echo "<td>$" . number_format($rows['m2Excedente'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['total'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['cobrado'], 2) . "</td>";
+                        echo "<td>$" . number_format($rows['pendiente'], 2) . "</td>";
                         echo "</tr>";
                     }
                 ?>
-                <tr class="table-success">
+                <!-- <tr class="table-success">
                     <td>TOTAL</td>
-                    <td colspan="4"></td>
+                    <td colspan="2"></td>
                     <td>TOTAL PENDIENTE</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
@@ -80,4 +157,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/Ventas_Detalle.js"></script>
 </body>
+
 </html>

@@ -150,6 +150,11 @@
             $precioFinal, $precioVenta, $montoSeparacion, '$formaPago', $idTipoPago, $idPrototipo, $idManzana, $idCalle, $idCliente, $idVendedor, '$opcion')");
         }
 
+        function informacionComprobante($idLote)
+        {
+            return $this->connect()->query("CALL spInformacionComprobante($idLote)");
+        }
+
         function gestionPago($idPago, $concepto, $importe, $esIngreso, $idTipoPago, $idArea, $idUsuario, 
                             $esGeneral, $idProyecto, $idEtapa, $idFamilia, $idConcepto, $idConceptoB, $comentario,
                             $idCliente, $idAportador, $idBanco, $idProveedor, $idEmpleado, $opcion)
