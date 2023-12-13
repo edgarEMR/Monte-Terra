@@ -20,7 +20,6 @@
     </div>
     <?php
     ob_start();
-    session_start();
     include_once('modelos/Proyecto.php');
     include_once('php/conection.php');
 

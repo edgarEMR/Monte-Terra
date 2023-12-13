@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +24,6 @@
 
     <?php
         ob_start();
-        session_start();
         include_once('modelos/Pago.php');
         include_once('php/conection.php');
 

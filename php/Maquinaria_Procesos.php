@@ -75,7 +75,7 @@ if (isset($_POST['accion'])) {
 
             $procedure = $coneccion->gestionMaquinaria($_POST['id'], '', 0, 0, 'S');
 
-            $resultado = $procedure->fetchAll(PDO::FETCH_DEFAULT);
+            $resultado = $procedure->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($resultado[0]);
         } catch (PDOException $err) {
             $errorCode = $err->getCode();

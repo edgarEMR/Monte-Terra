@@ -19,7 +19,6 @@
 
     <?php
         ob_start();
-        session_start();
         include_once('php/conection.php');
 
         $idProyecto = 0;
