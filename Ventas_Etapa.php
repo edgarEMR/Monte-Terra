@@ -129,7 +129,7 @@
                         }
                         echo "<td>" . $rows['calle'] . "</td>";
                         echo "<td>" . $rows['numeroLote'] . "</td>";
-                        echo "<td>" . $rows['nombreCliente'] . "</td>";
+                        echo "<td><a onclick=\"sendVariables('Expediente.php', " . $rows['idCliente'] . ", 'id');\">" . $rows['nombreCliente'] . "</a></td>";
                         echo "<td>$" . number_format($rows['precioLista'], 2) . "</td>";
                         if (is_null($rows['precioVenta'])) {
                             echo "<td> - </td>";
@@ -145,11 +145,6 @@
                         echo "</tr>";
                     }
                 ?>
-                <!-- <tr class="table-success">
-                    <td>TOTAL</td>
-                    <td colspan="2"></td>
-                    <td>TOTAL PENDIENTE</td>
-                </tr> -->
             </tbody>
         </table>
     </div>

@@ -49,6 +49,10 @@
                     <li><button id="perfil" type="button" class="btn btn-link"
                             onclick="location.href='Perfil.php?id=<?php echo $idUsuario;?>'"
                             style="text-decoration: none;"><i class="bi bi-person-circle"></i> Perfil</button></li>
+                    <li><a id="manualUsuario" type="button" class="btn btn-link" href="docs/Manual de Usuario.pdf"
+                            target="_blank" style="text-decoration: none;"><i class="bi bi-journal-text"></i></i> Manual
+                            de Usuario</a>
+                    </li>
                     <li><button id="cerrarSesion" type="button" class="btn btn-link" onclick="location.href='index.php'"
                             style="text-decoration: none;"><i class="bi bi-power"></i> Cerrar sesión</button></li>
                 </ul>
