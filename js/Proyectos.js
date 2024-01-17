@@ -20,6 +20,8 @@ $("#navigation").load("Navbar.php", function () {
 
 $(document).ready(function () {
   $("#crecimento").text("Crecimiento: " + $("#crecimientoHidden").text());
+
+  loadDateRange();
 });
 
 function sendVariables(pagina, id, name) {
@@ -112,16 +114,39 @@ function sendDate(pagina, dateIni, dateEnd) {
 function setDateRange() {
   var dateIni = $("#inputDateIni").val();
   var dateFin = $("#inputDateFin").val();
-  console.log(dateIni);
-  console.log(dateFin);
 
-  console.log(Date.parse(dateIni));
-  console.log(Date.parse(dateFin));
+  if (Date.parse(dateIni) < Date.parse(dateFin)) {
+    sessionStorage.setItem("dateIni", dateIni);
+    sessionStorage.setItem("dateFin", dateFin);
+    sendDate("Proyectos.php", dateIni, dateFin);
+  } else {
+    const liveAlert = $("#liveAlert");
+    $(".alert-body").text("La fecha final debe ser mayor a la inicial");
+    liveAlert.addClass("text-bg-warning");
+
+    liveAlert.show();
+
+    setTimeout(() => {
+      liveAlert.hide();
+    }, 5000);
+  }
+}
+
+function loadDateRange() {
+  var dateIni = sessionStorage.getItem("dateIni");
+  var dateFin = sessionStorage.getItem("dateFin");
+
+  if (
+    dateIni === $("#inputDateIni").val() &&
+    dateFin === $("#inputDateFin").val()
+  )
+    return;
+
+  if (dateIni === null) return;
 
   if (Date.parse(dateIni) < Date.parse(dateFin)) {
     sendDate("Proyectos.php", dateIni, dateFin);
   } else {
-    console.log("ERROR");
     const liveAlert = $("#liveAlert");
     $(".alert-body").text("La fecha final debe ser mayor a la inicial");
     liveAlert.addClass("text-bg-warning");

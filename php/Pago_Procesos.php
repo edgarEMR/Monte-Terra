@@ -16,7 +16,9 @@ if (isset($_POST['accion'])) {
         echo "</td>";
         echo "<td>";
         echo $checked;
-        //echo $value;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
         echo "</td>";
         echo "</tr>";
     }
@@ -24,6 +26,9 @@ if (isset($_POST['accion'])) {
 
     $pago = new Pago(require 'php/config.php');
     $coneccion = new DB(require 'php/config.php');
+    //Revisar si es aportador o prestamista
+    $aportador = empty($_POST['aportador']) ? (empty($_POST['prestamo']) ? 'NULL': $_POST['prestamo']) : $_POST['aportador'];
+    echo "Aportador " . $aportador . '<br>';
 
     $pago->setIdPago($_POST['pagoID'] ?: 'NULL');
     $pago->setConcepto($_POST['concepto'] ?: 'NULL');
@@ -41,7 +46,7 @@ if (isset($_POST['accion'])) {
     $pago->setIdConceptoB($_POST['conceptoB'] ?: 'NULL');
     $pago->setComentario($_POST['comentario'] ?: 'NULL');
     $pago->setIdCliente($_POST['cliente'] ?: 'NULL');
-    $pago->setIdAportador($_POST['aportador'] ?: 'NULL');
+    $pago->setIdAportador($aportador);
     $pago->setIdBanco($_POST['banco'] ?: 'NULL');
     $pago->setIdProveedor($_POST['proveedor'] ?: 'NULL');
     $pago->setIdEmpleado($_POST['empleado'] ?: 'NULL');

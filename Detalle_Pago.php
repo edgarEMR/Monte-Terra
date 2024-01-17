@@ -223,7 +223,7 @@
                     <div class="form-group" id="divPrestamo">
                         <label for="inputPrestamo">Préstamo</label>
                         <select class="form-control selectpicker" data-live-search="true" title="Elige..."
-                            name="aportador" id="inputPrestamo">
+                            name="prestamo" id="inputPrestamo">
                             <?php
                                 $procedure = $conection->gestionAportador(0, '', '', 1, 0, 'S');
                                 while ($rows = $procedure->fetch(PDO::FETCH_ASSOC)) {
